@@ -41,6 +41,8 @@ If you have questions concerning this license or the applicable additional terms
 #undef StrCmpN
 #undef StrCmpNI
 #undef StrCmpI
+
+#define _USING_V110_SDK71_
 #include <atlbase.h>
 
 #include <comdef.h>

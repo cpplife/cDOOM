@@ -183,8 +183,9 @@ bulk of the codebase, so it is the best place for analyze pragmas.
 
 
 // checking format strings catches a LOT of errors
-#include <CodeAnalysis\SourceAnnotations.h>
-#define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
+//        #include <CodeAnalysis\SourceAnnotations.h>
+//        #define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
+#define VERIFY_FORMAT_STRING
 
 
 // We need to inform the compiler that Error() and FatalError() will
