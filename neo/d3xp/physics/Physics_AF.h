@@ -379,7 +379,7 @@ public:
 	void					Setup( idAFConstraint_Hinge *cc );
 	void					SetSteerAngle( const float degrees ) { steerAngle = degrees; }
 	void					SetSteerSpeed( const float speed ) { steerSpeed = speed; }
-	void					SetEpsilon( const float e ) { epsilon = e; }
+	void					SetEpsilon( const float _e ) { epsilon = _e; }
 	bool					Add( idPhysics_AF *phys, float invTimeStep );
 	virtual void			Translate( const idVec3 &translation );
 	virtual void			Rotate( const idRotation &rotation );
@@ -543,7 +543,7 @@ public:
 									const float coneAngle, const idVec3 &body1Axis );
 	void					SetAnchor( const idVec3 &coneAnchor );
 	void					SetBody1Axis( const idVec3 &body1Axis );
-	void					SetEpsilon( const float e ) { epsilon = e; }
+	void					SetEpsilon( const float _e ) { epsilon = _e; }
 	bool					Add( idPhysics_AF *phys, float invTimeStep );
 	virtual void			DebugDraw();
 	virtual void			Translate( const idVec3 &translation );
@@ -575,7 +575,7 @@ public:
 									const float pyramidAngle1, const float pyramidAngle2, const idVec3 &body1Axis );
 	void					SetAnchor( const idVec3 &pyramidAxis );
 	void					SetBody1Axis( const idVec3 &body1Axis );
-	void					SetEpsilon( const float e ) { epsilon = e; }
+	void					SetEpsilon( const float _e ) { epsilon = _e; }
 	bool					Add( idPhysics_AF *phys, float invTimeStep );
 	virtual void			DebugDraw();
 	virtual void			Translate( const idVec3 &translation );
@@ -610,7 +610,7 @@ public:
 	void					EnableMotor( const bool enable ) { motorEnabled = enable; }
 	void					SetMotorForce( const float force ) { motorForce = force; }
 	void					SetMotorVelocity( const float vel ) { motorVelocity = vel; }
-	void					SetEpsilon( const float e ) { epsilon = e; }
+	void					SetEpsilon( const float _e ) { epsilon = _e; }
 	const idVec3			GetWheelOrigin() const;
 
 	virtual void			DebugDraw();

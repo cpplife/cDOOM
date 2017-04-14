@@ -828,9 +828,9 @@ void gameError( const char *fmt, ... ) {
 idGameLocal::SetServerGameTimeMs
 ========================
 */
-void idGameLocal::SetServerGameTimeMs( const int time ) {
+void idGameLocal::SetServerGameTimeMs( const int _time ) {
 	previousServerTime = this->serverTime;
-	this->serverTime = time;
+	this->serverTime = _time;
 }
 
 /*
@@ -1284,7 +1284,7 @@ bool idGameLocal::InitFromSaveGame( const char *mapName, idRenderWorld *renderWo
 	int numLobbyUsers = lobby.GetNumLobbyUsers();
 	int lobbyUserNum = 0;
 	assert( numLobbyUsers == 1 );
-	for ( int i = 0; i < MAX_PLAYERS && lobbyUserNum < numLobbyUsers; i++ ) {
+	for ( i = 0; i < MAX_PLAYERS && lobbyUserNum < numLobbyUsers; i++ ) {
 		if ( entities[i] == NULL ) {
 			continue;
 		}
@@ -3385,25 +3385,25 @@ const idDict *idGameLocal::FindEntityDefDict( const char *name, bool makeDefault
 idGameLocal::InhibitEntitySpawn
 ================
 */
-bool idGameLocal::InhibitEntitySpawn( idDict &spawnArgs ) {
+bool idGameLocal::InhibitEntitySpawn( idDict &_spawnArgs ) {
 	
 	bool result = false;
 
 	if ( common->IsMultiplayer() ) {
-		spawnArgs.GetBool( "not_multiplayer", "0", result );
+		_spawnArgs.GetBool( "not_multiplayer", "0", result );
 	} else if ( g_skill.GetInteger() == 0 ) {
-		spawnArgs.GetBool( "not_easy", "0", result );
+		_spawnArgs.GetBool( "not_easy", "0", result );
 	} else if ( g_skill.GetInteger() == 1 ) {
-		spawnArgs.GetBool( "not_medium", "0", result );
+		_spawnArgs.GetBool( "not_medium", "0", result );
 	} else {
-		spawnArgs.GetBool( "not_hard", "0", result );
+		_spawnArgs.GetBool( "not_hard", "0", result );
 		if ( !result && g_skill.GetInteger() == 3 ) {
-			spawnArgs.GetBool( "not_nightmare", "0", result );
+			_spawnArgs.GetBool( "not_nightmare", "0", result );
 	}
 	}
 
 	if ( g_skill.GetInteger() == 3 ) { 
-		const char * name = spawnArgs.GetString( "classname" );
+		const char * name = _spawnArgs.GetString( "classname" );
 		// _D3XP :: remove moveable medkit packs also
 		if ( idStr::Icmp( name, "item_medkit" ) == 0 || idStr::Icmp( name, "item_medkit_small" ) == 0 ||
 			 idStr::Icmp( name, "moveable_item_medkit" ) == 0 || idStr::Icmp( name, "moveable_item_medkit_small" ) == 0 ) {
@@ -3816,7 +3816,7 @@ void idGameLocal::RadiusDamage( const idVec3 &origin, idEntity *inflictor, idEnt
 	int			numListedEntities;
 	idBounds	bounds;
 	idVec3 		v, damagePoint, dir;
-	int			i, e, damage, radius, push;
+	int			i, e, damage, radius, _push;
 
 	const idDict *damageDef = FindEntityDefDict( damageDefName, false );
 	if ( !damageDef ) {
@@ -3826,7 +3826,7 @@ void idGameLocal::RadiusDamage( const idVec3 &origin, idEntity *inflictor, idEnt
 
 	damageDef->GetInt( "damage", "20", damage );
 	damageDef->GetInt( "radius", "50", radius );
-	damageDef->GetInt( "push", va( "%d", damage * 100 ), push );
+	damageDef->GetInt( "push", va( "%d", damage * 100 ), _push);
 	damageDef->GetFloat( "attackerDamageScale", "0.5", attackerDamageScale );
 	damageDef->GetFloat( "attackerPushScale", "0", attackerPushScale );
 
@@ -3935,8 +3935,8 @@ void idGameLocal::RadiusDamage( const idVec3 &origin, idEntity *inflictor, idEnt
 	}
 
 	// push physics objects
-	if ( push ) {
-		RadiusPush( origin, radius, push * dmgPower, attacker, ignorePush, attackerPushScale, false );
+	if (_push) {
+		RadiusPush( origin, radius, _push * dmgPower, attacker, ignorePush, attackerPushScale, false );
 	}
 }
 
@@ -3945,7 +3945,7 @@ void idGameLocal::RadiusDamage( const idVec3 &origin, idEntity *inflictor, idEnt
 idGameLocal::RadiusPush
 ==============
 */
-void idGameLocal::RadiusPush( const idVec3 &origin, const float radius, const float push, const idEntity *inflictor, const idEntity *ignore, float inflictorScale, const bool quake ) {
+void idGameLocal::RadiusPush( const idVec3 &origin, const float radius, const float _push, const idEntity *inflictor, const idEntity *ignore, float inflictorScale, const bool quake ) {
 	int i, numListedClipModels;
 	idClipModel *clipModel;
 	idClipModel *clipModelList[ MAX_GENTITIES ];
@@ -4008,9 +4008,9 @@ void idGameLocal::RadiusPush( const idVec3 &origin, const float radius, const fl
 		}
 
 		if ( quake ) {
-			clipModel->GetEntity()->ApplyImpulse( world, clipModel->GetId(), clipModel->GetOrigin(), scale * push * dir );
+			clipModel->GetEntity()->ApplyImpulse( world, clipModel->GetId(), clipModel->GetOrigin(), scale * _push * dir );
 		} else {
-			RadiusPushClipModel( origin, scale * push, clipModel );
+			RadiusPushClipModel( origin, scale * _push, clipModel );
 		}
 	}
 }
@@ -4020,7 +4020,7 @@ void idGameLocal::RadiusPush( const idVec3 &origin, const float radius, const fl
 idGameLocal::RadiusPushClipModel
 ==============
 */
-void idGameLocal::RadiusPushClipModel( const idVec3 &origin, const float push, const idClipModel *clipModel ) {
+void idGameLocal::RadiusPushClipModel( const idVec3 &origin, const float _push, const idClipModel *clipModel ) {
 	int i, j;
 	float dot, dist, area;
 	const idTraceModel *trm;
@@ -4033,7 +4033,7 @@ void idGameLocal::RadiusPushClipModel( const idVec3 &origin, const float push, c
 		impulse = clipModel->GetAbsBounds().GetCenter() - origin;
 		impulse.Normalize();
 		impulse.z += 1.0f;
-		clipModel->GetEntity()->ApplyImpulse( world, clipModel->GetId(), clipModel->GetOrigin(), push * impulse );
+		clipModel->GetEntity()->ApplyImpulse( world, clipModel->GetId(), clipModel->GetOrigin(), _push * impulse );
 		return;
 	}
 
@@ -4062,7 +4062,7 @@ void idGameLocal::RadiusPushClipModel( const idVec3 &origin, const float push, c
 		// always push up for nicer effect
 		impulse.z -= 1.0f;
 		// scale impulse based on visible surface area and polygon angle
-		impulse *= push * ( dot * area * ( 1.0f / ( 4.0f * idMath::PI ) ) );
+		impulse *= _push * ( dot * area * ( 1.0f / ( 4.0f * idMath::PI ) ) );
 		// scale away distance for nicer effect
 		impulse *= ( dist * 2.0f );
 		// impulse is applied to the center of the polygon
@@ -4217,8 +4217,8 @@ void idGameLocal::SetCamera( idCamera *cam ) {
 		// show all the player models
 		for( i = 0; i < numClients; i++ ) {
 			if ( entities[ i ] ) {
-				idPlayer *client = static_cast< idPlayer* >( entities[ i ] );
-				client->ExitCinematic();
+				idPlayer *_client = static_cast< idPlayer* >( entities[ i ] );
+				_client->ExitCinematic();
 			}
 		}
 	}

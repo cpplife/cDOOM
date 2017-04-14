@@ -1508,14 +1508,14 @@ int idEntity::GetModelDefHandle() {
 idEntity::UpdateRenderEntity
 ================
 */
-bool idEntity::UpdateRenderEntity( renderEntity_s * renderEntity, const renderView_t * renderView ) {
+bool idEntity::UpdateRenderEntity( renderEntity_s * _renderEntity, const renderView_t * _renderView ) {
 
 	idAnimator * animator = GetAnimator();
 	if ( animator != NULL ) {
 		SetTimeState ts( timeGroup );
 		int currentTime = gameLocal.time;
-		if ( renderEntity != NULL ) {
-			currentTime = gameLocal.GetTimeGroupTime( renderEntity->timeGroup );
+		if (_renderEntity != NULL ) {
+			currentTime = gameLocal.GetTimeGroupTime(_renderEntity->timeGroup );
 		}
 		return animator->CreateFrame( currentTime, false );
 	}
@@ -1530,16 +1530,16 @@ idEntity::ModelCallback
 	NOTE: may not change the game state whatsoever!
 ================
 */
-bool idEntity::ModelCallback( renderEntity_s *renderEntity, const renderView_t *renderView ) {
+bool idEntity::ModelCallback( renderEntity_s *_renderEntity, const renderView_t *_renderView ) {
 	idEntity *ent;
 
-	ent = gameLocal.entities[ renderEntity->entityNum ];
+	ent = gameLocal.entities[_renderEntity->entityNum ];
 	if ( ent == NULL ) {
 		gameLocal.Error( "idEntity::ModelCallback: callback with NULL game entity" );
 		return false;
 	}
 
-	return ent->UpdateRenderEntity( renderEntity, renderView );
+	return ent->UpdateRenderEntity(_renderEntity, _renderView );
 }
 
 /*
@@ -2725,8 +2725,8 @@ bool idEntity::RunPhysics() {
 				renderEntity.skipMotionBlur = true;
 			}
 			if ( useAbnormalVelocityHack ) {
-				idPhysics_Player * physics = static_cast< idPhysics_Player * >( ent->physics );
-				physics->SetPushedWithAbnormalVelocityHack( GetPhysicsTimeStep() );
+				idPhysics_Player * _physics = static_cast< idPhysics_Player * >( ent->physics );
+				_physics->SetPushedWithAbnormalVelocityHack( GetPhysicsTimeStep() );
 			} else {
 				ent->physics->SetPushed( endTime - startTime );
 			}
@@ -3142,7 +3142,7 @@ explosions and melee attacks.
 */
 bool idEntity::CanDamage( const idVec3 &origin, idVec3 &damagePoint ) const {
 	idVec3 	dest;
-	trace_t	tr;
+	trace_t	_tr;
 	idVec3 	midpoint;
 
 	// use the midpoint of the bounds instead of the origin, because
@@ -3150,9 +3150,9 @@ bool idEntity::CanDamage( const idVec3 &origin, idVec3 &damagePoint ) const {
 	midpoint = ( GetPhysics()->GetAbsBounds()[0] + GetPhysics()->GetAbsBounds()[1] ) * 0.5;
 
 	dest = midpoint;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
@@ -3160,52 +3160,52 @@ bool idEntity::CanDamage( const idVec3 &origin, idVec3 &damagePoint ) const {
 	dest = midpoint;
 	dest[0] += 15.0;
 	dest[1] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
 	dest = midpoint;
 	dest[0] += 15.0;
 	dest[1] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
 	dest = midpoint;
 	dest[0] -= 15.0;
 	dest[1] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
 	dest = midpoint;
 	dest[0] -= 15.0;
 	dest[1] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
 	dest = midpoint;
 	dest[2] += 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
 	dest = midpoint;
 	dest[2] -= 15.0;
-	gameLocal.clip.TracePoint( tr, origin, dest, MASK_SOLID, NULL );
-	if ( tr.fraction == 1.0 || ( gameLocal.GetTraceEntity( tr ) == this ) ) {
-		damagePoint = tr.endpos;
+	gameLocal.clip.TracePoint(_tr, origin, dest, MASK_SOLID, NULL );
+	if (_tr.fraction == 1.0 || ( gameLocal.GetTraceEntity(_tr) == this ) ) {
+		damagePoint = _tr.endpos;
 		return true;
 	}
 
@@ -3626,16 +3626,16 @@ bool idEntity::HandleGuiCommands( idEntity *entityGui, const char *cmds ) {
 			}
 
 			if ( token.Icmp( "activate" ) == 0 ) {
-				bool targets = true;
+				bool _targets = true;
 				if ( src.ReadToken( &token2 ) ) {
 					if ( token2 == ";" ) {
 						src.UnreadToken( &token2 );
 					} else {
-						targets = false;
+						_targets = false;
 					}
 				}
 
-				if ( targets ) {
+				if (_targets) {
 					entityGui->ActivateTargets( this );
 				} else {
 					idEntity *ent = gameLocal.FindEntity( token2 );
@@ -3653,11 +3653,11 @@ bool idEntity::HandleGuiCommands( idEntity *entityGui, const char *cmds ) {
 			if ( token.Icmp( "runScript" ) == 0 ) {
 				if ( src.ReadToken( &token2 ) ) {
 					while( src.CheckTokenString( "::" ) ) {
-						idToken token3;
-						if ( !src.ReadToken( &token3 ) ) {
+						idToken _token3;
+						if ( !src.ReadToken( &_token3) ) {
 							gameLocal.Error( "Expecting function name following '::' in gui for entity '%s'", entityGui->name.c_str() );
 						}
-						token2 += "::" + token3;
+						token2 += "::" + _token3;
 					}
 					const function_t *func = gameLocal.program.FindFunction( token2 );
 					if ( !func ) {
@@ -4143,7 +4143,7 @@ idEntity::Event_SpawnBind
 void idEntity::Event_SpawnBind() {
 	idEntity		*parent;
 	const char		*bind, *joint, *bindanim;
-	jointHandle_t	bindJoint;
+	jointHandle_t	_bindJoint;
 	bool			bindOrientated;
 	int				id;
 	const idAnim	*anim;
@@ -4166,8 +4166,8 @@ void idEntity::Event_SpawnBind() {
 					gameLocal.Error( "Cannot bind to joint '%s' on '%s'.  Entity does not support skeletal models.", joint, name.c_str() );
 					return;
 				}
-				bindJoint = parentAnimator->GetJointHandle( joint );
-				if ( bindJoint == INVALID_JOINT ) {
+				_bindJoint = parentAnimator->GetJointHandle( joint );
+				if (_bindJoint == INVALID_JOINT ) {
 					gameLocal.Error( "Joint '%s' not found for bind on '%s'", joint, name.c_str() );
 				}
 
@@ -4802,10 +4802,10 @@ void idEntity::Event_Wait( float time ) {
 idEntity::Event_HasFunction
 =====================
 */
-void idEntity::Event_HasFunction( const char *name ) {
+void idEntity::Event_HasFunction( const char *_name ) {
 	const function_t *func;
 
-	func = scriptObject.GetFunction( name );
+	func = scriptObject.GetFunction(_name);
 	if ( func ) {
 		idThread::ReturnInt( true );
 	} else {

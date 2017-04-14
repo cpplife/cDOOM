@@ -23,6 +23,7 @@ CMakeFiles/
 *.vcxproj.filters
 *.VC.opendb
 *.VC.db
+*.sdf
 
 
 build/

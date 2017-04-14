@@ -1039,27 +1039,27 @@ ID_INLINE bool idStr::Filter( const char *filter, bool casesensitive ) const {
 	return idStr::Filter( filter, data, casesensitive );
 }
 
-ID_INLINE const char *idStr::Left( int len, idStr &result ) const {
-	return Mid( 0, len, result );
+ID_INLINE const char *idStr::Left( int _len, idStr &result ) const {
+	return Mid( 0, _len, result );
 }
 
-ID_INLINE const char *idStr::Right( int len, idStr &result ) const {
-	if ( len >= Length() ) {
+ID_INLINE const char *idStr::Right( int _len, idStr &result ) const {
+	if (_len >= Length() ) {
 		result = *this;
 		return result;
 	}
 	return Mid( Length() - len, len, result );
 }
 
-ID_INLINE idStr idStr::Left( int len ) const {
-	return Mid( 0, len );
+ID_INLINE idStr idStr::Left( int _len) const {
+	return Mid( 0, _len);
 }
 
-ID_INLINE idStr idStr::Right( int len ) const {
-	if ( len >= Length() ) {
+ID_INLINE idStr idStr::Right( int _len) const {
+	if (_len >= Length() ) {
 		return *this;
 	}
-	return Mid( Length() - len, len );
+	return Mid( Length() - _len, _len);
 }
 
 ID_INLINE void idStr::Strip( const char c ) {

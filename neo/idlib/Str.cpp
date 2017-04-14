@@ -558,11 +558,11 @@ void idStr::Format( const char *fmt, ... ) {
 	char text[MAX_PRINT_MSG];
 
 	va_start( argptr, fmt );
-	int len = idStr::vsnPrintf( text, sizeof( text ) - 1, fmt, argptr );
+	int _len = idStr::vsnPrintf( text, sizeof( text ) - 1, fmt, argptr );
 	va_end( argptr );
 	text[ sizeof( text ) - 1 ] = '\0';
 
-	if ( (size_t)len >= sizeof( text ) - 1 ) {
+	if ( (size_t)_len >= sizeof( text ) - 1 ) {
 		idLib::common->FatalError( "Tried to set a large buffer using %s", fmt );
 	}
 	*this = text;
@@ -749,21 +749,21 @@ bool idStr::Replace( const char *old, const char *nw ) {
 idStr::Mid
 ============
 */
-const char *idStr::Mid( int start, int len, idStr &result ) const {
+const char *idStr::Mid( int start, int _len, idStr &result ) const {
 	int i;
 
 	result.Empty();
 
 	i = Length();
-	if ( i == 0 || len <= 0 || start >= i ) {
+	if ( i == 0 || _len <= 0 || start >= i ) {
 		return NULL;
 	}
 
-	if ( start + len >= i ) {
-		len = i - start;
+	if ( start + _len >= i ) {
+		_len = i - start;
 	}
 
-	result.Append( &data[ start ], len );
+	result.Append( &data[ start ], _len);
 	return result;
 }
 
@@ -772,20 +772,20 @@ const char *idStr::Mid( int start, int len, idStr &result ) const {
 idStr::Mid
 ============
 */
-idStr idStr::Mid( int start, int len ) const {
+idStr idStr::Mid( int start, int _len) const {
 	int i;
 	idStr result;
 
 	i = Length();
-	if ( i == 0 || len <= 0 || start >= i ) {
+	if ( i == 0 || _len <= 0 || start >= i ) {
 		return result;
 	}
 
-	if ( start + len >= i ) {
-		len = i - start;
+	if ( start + _len >= i ) {
+		_len = i - start;
 	}
 
-	result.Append( &data[ start ], len );
+	result.Append( &data[ start ], _len);
 	return result;
 }
 

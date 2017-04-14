@@ -117,10 +117,10 @@ ID_INLINE idAngles::idAngles( const idVec3 &v ) {
 	this->roll	= v[2];
 }
 
-ID_INLINE void idAngles::Set( float pitch, float yaw, float roll ) {
-	this->pitch = pitch;
-	this->yaw	= yaw;
-	this->roll	= roll;
+ID_INLINE void idAngles::Set( float _pitch, float _yaw, float _roll ) {
+	this->pitch = _pitch;
+	this->yaw	= _yaw;
+	this->roll	= _roll;
 }
 
 ID_INLINE idAngles &idAngles::Zero() {

@@ -624,12 +624,12 @@ void idActor::Spawn() {
 	blink_max = SEC2MS( spawnArgs.GetFloat( "blink_max", "8" ) );
 
 	// set up the head anim if necessary
-	int headAnim = headAnimator->GetAnim( "def_head" );
-	if ( headAnim ) {
+	int _headAnim = headAnimator->GetAnim( "def_head" );
+	if ( _headAnim ) {
 		if ( headEnt ) {
-            headAnimator->CycleAnim( ANIMCHANNEL_ALL, headAnim, gameLocal.time, 0 );
+            headAnimator->CycleAnim( ANIMCHANNEL_ALL, _headAnim, gameLocal.time, 0 );
 		} else {
-			headAnimator->CycleAnim( ANIMCHANNEL_HEAD, headAnim, gameLocal.time, 0 );
+			headAnimator->CycleAnim( ANIMCHANNEL_HEAD, _headAnim, gameLocal.time, 0 );
 		}
 	}
 
@@ -1489,7 +1489,7 @@ idActor::CanSee
 =====================
 */
 bool idActor::CanSee( idEntity *ent, bool useFov ) const {
-	trace_t		tr;
+	trace_t		_tr;
 	idVec3		eye;
 	idVec3		toPos;
 
@@ -1509,8 +1509,8 @@ bool idActor::CanSee( idEntity *ent, bool useFov ) const {
 
 	eye = GetEyePosition();
 
-	gameLocal.clip.TracePoint( tr, eye, toPos, MASK_OPAQUE, this );
-	if ( tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr ) == ent ) ) {
+	gameLocal.clip.TracePoint( _tr, eye, toPos, MASK_OPAQUE, this );
+	if ( _tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( _tr ) == ent ) ) {
 		return true;
 	}
 
@@ -2193,7 +2193,7 @@ calls Damage()
 */
 idCVar actor_noDamage(		"actor_noDamage",			"0",		CVAR_BOOL, "actors don't take damage -- for testing" );
 void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, 
-					  const char *damageDefName, const float damageScale, const int location ) {
+					  const char *damageDefName, const float _damageScale, const int location ) {
 	if ( !fl.takedamage || actor_noDamage.GetBool() ) {
 		return;
 	}
@@ -2233,7 +2233,7 @@ void idActor::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir
 		return;
 	}
 
-	int	damage = damageDef->GetInt( "damage" ) * damageScale;
+	int	damage = damageDef->GetInt( "damage" ) * _damageScale;
 	damage = GetDamageForLocation( damage, location );
 
 	// inform the attacker that they hit someone
@@ -3146,10 +3146,10 @@ idActor::Event_GetAnimState
 ===============
 */
 void idActor::Event_GetAnimState( int channel ) {
-	const char *state;
+	const char *_state;
 
-	state = GetAnimState( channel );
-	idThread::ReturnString( state );
+	_state = GetAnimState( channel );
+	idThread::ReturnString(_state);
 }
 
 /*
@@ -3377,8 +3377,8 @@ void idActor::Event_StopSound( int channel, int netSync ) {
 idActor::Event_SetNextState
 =====================
 */
-void idActor::Event_SetNextState( const char *name ) {
-	idealState = GetScriptFunction( name );
+void idActor::Event_SetNextState( const char *_name ) {
+	idealState = GetScriptFunction( _name );
 	if ( idealState == state ) {
 		state = NULL;
 	}
@@ -3389,8 +3389,8 @@ void idActor::Event_SetNextState( const char *name ) {
 idActor::Event_SetState
 =====================
 */
-void idActor::Event_SetState( const char *name ) {
-	idealState = GetScriptFunction( name );
+void idActor::Event_SetState( const char *_name ) {
+	idealState = GetScriptFunction( _name );
 	if ( idealState == state ) {
 		state = NULL;
 	}
@@ -3461,8 +3461,8 @@ void idActor::Event_SetDamageCap( float _damageCap ) {
 	damageCap = _damageCap;
 }
 
-void idActor::Event_SetWaitState( const char* waitState) {
-	SetWaitState(waitState);
+void idActor::Event_SetWaitState( const char* _waitState) {
+	SetWaitState(_waitState);
 }
 
 void idActor::Event_GetWaitState() {

@@ -164,12 +164,12 @@ ID_INLINE int PC_NameHash( const char *name ) {
 idParser::AddDefineToHash
 ================
 */
-void idParser::AddDefineToHash( define_t *define, define_t **definehash ) {
+void idParser::AddDefineToHash( define_t *_define, define_t **_definehash ) {
 	int hash;
 
-	hash = PC_NameHash(define->name);
-	define->hashnext = definehash[hash];
-	definehash[hash] = define;
+	hash = PC_NameHash(_define->name);
+	_define->hashnext = _definehash[hash];
+	_definehash[hash] = _define;
 }
 
 /*
@@ -177,12 +177,12 @@ void idParser::AddDefineToHash( define_t *define, define_t **definehash ) {
 FindHashedDefine
 ================
 */
-define_t *idParser::FindHashedDefine( define_t **definehash, const char *name ) {
+define_t *idParser::FindHashedDefine( define_t **_definehash, const char *name ) {
 	define_t *d;
 	int hash;
 
 	hash = PC_NameHash(name);
-	for ( d = definehash[hash]; d; d = d->hashnext ) {
+	for ( d = _definehash[hash]; d; d = d->hashnext ) {
 		if ( !strcmp(d->name, name) ) {
 			return d;
 		}
@@ -349,13 +349,13 @@ void idParser::Warning( const char *str, ... ) const {
 idParser::PushIndent
 ================
 */
-void idParser::PushIndent( int type, int skip ) {
+void idParser::PushIndent( int type, int _skip ) {
 	indent_t *indent;
 
 	indent = (indent_t *) Mem_Alloc(sizeof(indent_t), TAG_IDLIB_PARSER);
 	indent->type = type;
 	indent->script = idParser::scriptstack;
-	indent->skip = (skip != 0);
+	indent->skip = (_skip != 0);
 	idParser::skip += indent->skip;
 	indent->next = idParser::indentstack;
 	idParser::indentstack = indent;
@@ -366,11 +366,11 @@ void idParser::PushIndent( int type, int skip ) {
 idParser::PopIndent
 ================
 */
-void idParser::PopIndent( int *type, int *skip ) {
+void idParser::PopIndent( int *type, int *_skip ) {
 	indent_t *indent;
 
 	*type = 0;
-	*skip = 0;
+	*_skip = 0;
 
 	indent = idParser::indentstack;
 	if (!indent) return;
@@ -381,7 +381,7 @@ void idParser::PopIndent( int *type, int *skip ) {
 	}
 
 	*type = indent->type;
-	*skip = indent->skip;
+	*_skip = indent->skip;
 	idParser::indentstack = idParser::indentstack->next;
 	idParser::skip -= indent->skip;
 	Mem_Free( indent );
@@ -414,7 +414,7 @@ idParser::ReadSourceToken
 int idParser::ReadSourceToken( idToken *token ) {
 	idToken *t;
 	idLexer *script;
-	int type, skip, changedScript;
+	int type, _skip, changedScript;
 
 	if ( !idParser::scriptstack ) {
 		idLib::common->FatalError( "idParser::ReadSourceToken: not loaded" );
@@ -438,7 +438,7 @@ int idParser::ReadSourceToken( idToken *token ) {
 			// remove all indents of the script
 			while( idParser::indentstack && idParser::indentstack->script == idParser::scriptstack ) {
 				idParser::Warning( "missing #endif" );
-				idParser::PopIndent( &type, &skip );
+				idParser::PopIndent( &type, &_skip);
 			}
 			changedScript = 1;
 		}
@@ -576,14 +576,14 @@ int idParser::ReadDefineParms( define_t *define, idToken **parms, int maxparms )
 idParser::StringizeTokens
 ================
 */
-int idParser::StringizeTokens( idToken *tokens, idToken *token ) {
+int idParser::StringizeTokens( idToken *_tokens, idToken *token ) {
 	idToken *t;
 
 	token->type = TT_STRING;
 	token->whiteSpaceStart_p = NULL;
 	token->whiteSpaceEnd_p = NULL;
 	(*token) = "";
-	for ( t = tokens; t; t = t->next ) {
+	for ( t = _tokens; t; t = t->next ) {
 		token->Append( t->c_str() );
 	}
 	return true;
@@ -1231,7 +1231,7 @@ idParser::Directive_if_def
 int idParser::Directive_if_def( int type ) {
 	idToken token;
 	define_t *d;
-	int skip;
+	int _skip;
 
 	if ( !idParser::ReadLine( &token ) ) {
 		idParser::Error( "#ifdef without name" );
@@ -1243,8 +1243,8 @@ int idParser::Directive_if_def( int type ) {
 		return false;
 	}
 	d = FindHashedDefine(idParser::definehash, token.c_str());
-	skip = (type == INDENT_IFDEF) == (d == NULL);
-	idParser::PushIndent( type, skip );
+	_skip = (type == INDENT_IFDEF) == (d == NULL);
+	idParser::PushIndent( type, _skip);
 	return true;
 }
 
@@ -1272,9 +1272,9 @@ idParser::Directive_else
 ================
 */
 int idParser::Directive_else() {
-	int type, skip;
+	int type, _skip;
 
-	idParser::PopIndent( &type, &skip );
+	idParser::PopIndent( &type, &_skip);
 	if (!type) {
 		idParser::Error( "misplaced #else" );
 		return false;
@@ -1283,7 +1283,7 @@ int idParser::Directive_else() {
 		idParser::Error( "#else after #else" );
 		return false;
 	}
-	idParser::PushIndent( INDENT_ELSE, !skip );
+	idParser::PushIndent( INDENT_ELSE, !_skip);
 	return true;
 }
 
@@ -1293,9 +1293,9 @@ idParser::Directive_endif
 ================
 */
 int idParser::Directive_endif() {
-	int type, skip;
+	int type, _skip;
 
-	idParser::PopIndent( &type, &skip );
+	idParser::PopIndent( &type, &_skip);
 	if (!type) {
 		idParser::Error( "misplaced #endif" );
 		return false;
@@ -1389,7 +1389,7 @@ int PC_OperatorPriority(int op) {
 
 #define FreeOperator(op)
 
-int idParser::EvaluateTokens( idToken *tokens, signed long int *intvalue, double *floatvalue, int integer ) {
+int idParser::EvaluateTokens( idToken *_tokens, signed long int *intvalue, double *floatvalue, int integer ) {
 	operator_t *o, *firstoperator, *lastoperator;
 	value_t *v, *firstvalue, *lastvalue, *v1, *v2;
 	idToken *t;
@@ -1412,7 +1412,7 @@ int idParser::EvaluateTokens( idToken *tokens, signed long int *intvalue, double
 	firstvalue = lastvalue = NULL;
 	if (intvalue) *intvalue = 0;
 	if (floatvalue) *floatvalue = 0;
-	for ( t = tokens; t; t = t->next ) {
+	for ( t = _tokens; t; t = t->next ) {
 		switch( t->type ) {
 			case TT_NAME:
 			{
@@ -2008,9 +2008,9 @@ idParser::Directive_elif
 */
 int idParser::Directive_elif() {
 	signed long int value;
-	int type, skip;
+	int type, _skip;
 
-	idParser::PopIndent( &type, &skip );
+	idParser::PopIndent( &type, &_skip);
 	if (!type || type == INDENT_ELSE) {
 		idParser::Error( "misplaced #elif" );
 		return false;
@@ -2018,8 +2018,8 @@ int idParser::Directive_elif() {
 	if ( !idParser::Evaluate( &value, NULL, true ) ) {
 		return false;
 	}
-	skip = (value == 0);
-	idParser::PushIndent( INDENT_ELIF, skip );
+	_skip = (value == 0);
+	idParser::PushIndent( INDENT_ELIF, _skip);
 	return true;
 }
 
@@ -2030,13 +2030,13 @@ idParser::Directive_if
 */
 int idParser::Directive_if() {
 	signed long int value;
-	int skip;
+	int _skip;
 
 	if ( !idParser::Evaluate( &value, NULL, true ) ) {
 		return false;
 	}
-	skip = (value == 0);
-	idParser::PushIndent( INDENT_IF, skip );
+	_skip = (value == 0);
+	idParser::PushIndent( INDENT_IF, _skip);
 	return true;
 }
 
@@ -3011,12 +3011,12 @@ void idParser::SetPunctuations( const punctuation_t *p ) {
 idParser::SetFlags
 ================
 */
-void idParser::SetFlags( int flags ) {
+void idParser::SetFlags( int _flags ) {
 	idLexer *s;
 
-	idParser::flags = flags;
+	idParser::flags = _flags;
 	for ( s = idParser::scriptstack; s; s = s->next ) {
-		s->SetFlags( flags );
+		s->SetFlags(_flags);
 	}
 }
 
@@ -3034,14 +3034,14 @@ int idParser::GetFlags() const {
 idParser::LoadFile
 ================
 */
-int idParser::LoadFile( const char *filename, bool OSPath ) {
+int idParser::LoadFile( const char *_filename, bool _OSPath ) {
 	idLexer *script;
 
 	if ( idParser::loaded ) {
 		idLib::common->FatalError("idParser::loadFile: another source already loaded");
 		return false;
 	}
-	script = new (TAG_IDLIB_PARSER) idLexer( filename, 0, OSPath );
+	script = new (TAG_IDLIB_PARSER) idLexer(_filename, 0, _OSPath);
 	if ( !script->IsLoaded() ) {
 		delete script;
 		return false;
@@ -3049,8 +3049,8 @@ int idParser::LoadFile( const char *filename, bool OSPath ) {
 	script->SetFlags( idParser::flags );
 	script->SetPunctuations( idParser::punctuations );
 	script->next = NULL;
-	idParser::OSPath = OSPath;
-	idParser::filename = filename;
+	idParser::OSPath = _OSPath;
+	idParser::filename = _filename;
 	idParser::scriptstack = script;
 	idParser::tokens = NULL;
 	idParser::indentstack = NULL;
