@@ -294,29 +294,29 @@ bool idSmokeParticles::EmitSmoke( const idDeclParticle *smoke, const int systemS
 idSmokeParticles::UpdateRenderEntity
 ================
 */
-bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity, const renderView_t *renderView ) {
+bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity_, const renderView_t *renderView ) {
 
 	// this may be triggered by a model trace or other non-view related source,
 	// to which we should look like an empty model
 	if ( !renderView ) {
 		// FIXME: re-use model surfaces
-		renderEntity->hModel->InitEmpty( smokeParticle_SnapshotName );
+		renderEntity_->hModel->InitEmpty( smokeParticle_SnapshotName );
 		return false;
 	}
 
 	// don't regenerate it if it is current
-	if ( renderView->time[renderEntity->timeGroup] == currentParticleTime && !renderView->forceUpdate ) {
+	if ( renderView->time[renderEntity_->timeGroup] == currentParticleTime && !renderView->forceUpdate ) {
 		return false;
 	}
 
 	// FIXME: re-use model surfaces
-	renderEntity->hModel->InitEmpty( smokeParticle_SnapshotName );
+	renderEntity_->hModel->InitEmpty( smokeParticle_SnapshotName );
 
-	currentParticleTime = renderView->time[renderEntity->timeGroup];
+	currentParticleTime = renderView->time[renderEntity_->timeGroup];
 
 	particleGen_t g;
 
-	g.renderEnt = renderEntity;
+	g.renderEnt = renderEntity_;
 	g.renderView = renderView;
 
 	for ( int activeStageNum = 0; activeStageNum < activeStages.Num(); activeStageNum++ ) {
@@ -335,7 +335,7 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity, const r
 			count++;
 		}
 		int	quads = count * stage->NumQuadsPerParticle();
-		srfTriangles_t *tri = renderEntity->hModel->AllocSurfaceTriangles( quads * 4, quads * 6 );
+		srfTriangles_t *tri = renderEntity_->hModel->AllocSurfaceTriangles( quads * 4, quads * 6 );
 		tri->numIndexes = quads * 6;
 		tri->numVerts = quads * 4;
 
@@ -391,7 +391,7 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity, const r
 		if ( tri->numVerts == 0 ) {
 
 			// they were all removed
-			renderEntity->hModel->FreeSurfaceTriangles( tri );
+			renderEntity_->hModel->FreeSurfaceTriangles( tri );
 
 			if ( !active->smokes ) {
 				// remove this from the activeStages list
@@ -417,7 +417,7 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity, const r
 			surf.shader = stage->material;
 			surf.id = 0;
 
-			renderEntity->hModel->AddSurface( surf );
+			renderEntity_->hModel->AddSurface( surf );
 		}
 	}
 	return true;
@@ -428,10 +428,10 @@ bool idSmokeParticles::UpdateRenderEntity( renderEntity_s *renderEntity, const r
 idSmokeParticles::ModelCallback
 ================
 */
-bool idSmokeParticles::ModelCallback( renderEntity_s *renderEntity, const renderView_t *renderView ) {
+bool idSmokeParticles::ModelCallback( renderEntity_s *renderEntity_, const renderView_t *renderView ) {
 	// update the particles
 	if ( gameLocal.smokeParticles ) {
-		return gameLocal.smokeParticles->UpdateRenderEntity( renderEntity, renderView );
+		return gameLocal.smokeParticles->UpdateRenderEntity( renderEntity_, renderView );
 	}
 
 	return true;

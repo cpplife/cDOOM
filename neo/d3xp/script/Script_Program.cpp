@@ -94,8 +94,8 @@ size_t function_t::Allocated() const {
 function_t::SetName
 ================
 */
-void function_t::SetName( const char *name ) {
-	this->name = name;
+void function_t::SetName( const char *name_ ) {
+	this->name = name_;
 }
 
 /*
@@ -291,14 +291,14 @@ idTypeDef::AddFunctionParm
 Adds a new parameter for a function type.
 ================
 */
-void idTypeDef::AddFunctionParm( idTypeDef *parmtype, const char *name ) {
+void idTypeDef::AddFunctionParm( idTypeDef *parmtype, const char *name_ ) {
 	if ( type != ev_function ) {
 		throw idCompileError( "idTypeDef::AddFunctionParm : tried to add parameter on non-function type" );
 	}
 
 	parmTypes.Append( parmtype );
 	idStr &parmName = parmNames.Alloc();
-	parmName = name;
+	parmName = name_;
 }
 
 /*
@@ -308,14 +308,14 @@ idTypeDef::AddField
 Adds a new field to an object type.
 ================
 */
-void idTypeDef::AddField( idTypeDef *fieldtype, const char *name ) {
+void idTypeDef::AddField( idTypeDef *fieldtype, const char *name_ ) {
 	if ( type != ev_object ) {
 		throw idCompileError( "idTypeDef::AddField : tried to add field to non-object type" );
 	}
 
 	parmTypes.Append( fieldtype );
 	idStr &parmName = parmNames.Alloc();
-	parmName = name;
+	parmName = name_;
 
 	if ( fieldtype->FieldType()->Inherits( &type_object ) ) {
 		size += type_object.Size();
@@ -1249,7 +1249,7 @@ idVarDef *idProgram::AllocDef( idTypeDef *type, const char *name, idVarDef *scop
 			scope->value.functionPtr->locals += type->Size();
 		} else if ( scope->TypeDef()->Inherits( &type_object ) ) {
 			idTypeDef	newtype( ev_field, NULL, "float field", 0, &type_float );
-			idTypeDef	*type = GetType( newtype, true );
+			idTypeDef	*type_ = GetType( newtype, true );
 
 			// set the value to the variable's position in the object
 			def->value.ptrOffset = scope->TypeDef()->Size();
@@ -1257,14 +1257,14 @@ idVarDef *idProgram::AllocDef( idTypeDef *type, const char *name, idVarDef *scop
 			// make automatic defs for the vectors elements
 			// origin can be accessed as origin_x, origin_y, and origin_z
 			sprintf( element, "%s_x", def->Name() );
-			def_x = AllocDef( type, element, scope, constant );
+			def_x = AllocDef( type_, element, scope, constant );
 
 			sprintf( element, "%s_y", def->Name() );
-			def_y = AllocDef( type, element, scope, constant );
+			def_y = AllocDef( type_, element, scope, constant );
 			def_y->value.ptrOffset = def_x->value.ptrOffset + type_float.Size();
 
 			sprintf( element, "%s_z", def->Name() );
-			def_z = AllocDef( type, element, scope, constant );
+			def_z = AllocDef( type_, element, scope, constant );
 			def_z->value.ptrOffset = def_y->value.ptrOffset + type_float.Size();
 		} else {
 			// make automatic defs for the vectors elements
@@ -1759,7 +1759,7 @@ void idProgram::CompileStats() {
 idProgram::CompileText
 ================
 */
-bool idProgram::CompileText( const char *source, const char *text, bool console ) {
+bool idProgram::CompileText( const char *source, const char *text, bool console_ ) {
 	idCompiler	compiler;
 	int			i;
 	idVarDef	*def;
@@ -1770,7 +1770,7 @@ bool idProgram::CompileText( const char *source, const char *text, bool console 
 	filenum = GetFilenum( ospath );
 
 	try {
-		compiler.CompileFile( text, filename, console );
+		compiler.CompileFile( text, filename, console_ );
 
 		// check to make sure all functions prototyped have code
 		for( i = 0; i < varDefs.Num(); i++ ) {
@@ -1784,7 +1784,7 @@ bool idProgram::CompileText( const char *source, const char *text, bool console 
 	}
 	
 	catch( idCompileError &err ) {
-		if ( console ) {
+		if ( console_ ) {
 			gameLocal.Printf( "%s\n", err.GetError() );
 			return false;
 		} else {
@@ -1792,7 +1792,7 @@ bool idProgram::CompileText( const char *source, const char *text, bool console 
 		}
 	};
 
-	if ( !console ) {
+	if ( !console_ ) {
 		CompileStats();
 	}
 
@@ -1825,15 +1825,15 @@ const function_t *idProgram::CompileFunction( const char *functionName, const ch
 idProgram::CompileFile
 ================
 */
-void idProgram::CompileFile( const char *filename ) {
+void idProgram::CompileFile( const char *filename_ ) {
 	char *src;
 	bool result;
 
-	if ( fileSystem->ReadFile( filename, ( void ** )&src, NULL ) < 0 ) {
-		gameLocal.Error( "Couldn't load %s\n", filename );
+	if ( fileSystem->ReadFile( filename_, ( void ** )&src, NULL ) < 0 ) {
+		gameLocal.Error( "Couldn't load %s\n", filename_ );
 	}
 
-	result = CompileText( filename, src, false );
+	result = CompileText( filename_, src, false );
 
 	fileSystem->FreeFile( src );
 
@@ -1842,7 +1842,7 @@ void idProgram::CompileFile( const char *filename ) {
 	}
 
 	if ( !result ) {
-		gameLocal.Error( "Compile failed in file %s.", filename );
+		gameLocal.Error( "Compile failed in file %s.", filename_ );
 	}
 }
 

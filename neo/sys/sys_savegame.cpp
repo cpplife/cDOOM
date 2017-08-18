@@ -449,20 +449,20 @@ idSaveGameManager::~idSaveGameManager() {
 idSaveGameManager::ExecuteProcessor
 ========================
 */
-saveGameHandle_t idSaveGameManager::ExecuteProcessor( idSaveGameProcessor * processor ) {
-	idLib::PrintfIf( saveGame_verbose.GetBool(), "[%s] : %s\n", __FUNCTION__, processor->Name() );
+saveGameHandle_t idSaveGameManager::ExecuteProcessor( idSaveGameProcessor * processor_ ) {
+	idLib::PrintfIf( saveGame_verbose.GetBool(), "[%s] : %s\n", __FUNCTION__, processor_->Name() );
 
 	// may not be running yet, but if we've init'd successfuly, the IsWorking() call should return true if this 
 	// method has been called.  You have problems when callees are asking if the processor is done working by using IsWorking()
 	// the next frame after they've executed the processor.
-	processor->working = true;
+	processor_->working = true;
 
 	if ( this->processor != NULL ) {
-		if ( !verify( this->processor != processor ) ) {
+		if ( !verify( this->processor != processor_ ) ) {
 			idLib::Warning( "[idSaveGameManager::ExecuteProcessor]:1 Someone is trying to execute this processor twice, this is really bad, learn patience padawan!" );
-			return processor->GetHandle();
+			return processor_->GetHandle();
 		} else {
-			idSaveGameProcessor ** localProcessor = processorQueue.Find( processor );
+			idSaveGameProcessor ** localProcessor = processorQueue.Find( processor_ );
 			if ( !verify( localProcessor == NULL ) ) {
 				idLib::Warning( "[idSaveGameManager::ExecuteProcessor]:2 Someone is trying to execute this processor twice, this is really bad, learn patience padawan!" );
 				return (*localProcessor)->GetHandle();
@@ -470,14 +470,14 @@ saveGameHandle_t idSaveGameManager::ExecuteProcessor( idSaveGameProcessor * proc
 		}
 	}
 
-	processorQueue.Append( processor );
+	processorQueue.Append( processor_ );
 	
 	// Don't allow processors to start sub-processors.
 	// They need to manage their own internal state.
 	assert( idLib::IsMainThread() );
 
 	Sys_InterlockedIncrement( submittedProcessorHandle );
-	processor->parms.handle = submittedProcessorHandle;
+	processor_->parms.handle = submittedProcessorHandle;
 
 	return submittedProcessorHandle;
 }
@@ -487,8 +487,8 @@ saveGameHandle_t idSaveGameManager::ExecuteProcessor( idSaveGameProcessor * proc
 idSaveGameManager::ExecuteProcessorAndWait
 ========================
 */
-saveGameHandle_t idSaveGameManager::ExecuteProcessorAndWait( idSaveGameProcessor * processor ) {
-	saveGameHandle_t handle = ExecuteProcessor( processor );
+saveGameHandle_t idSaveGameManager::ExecuteProcessorAndWait( idSaveGameProcessor * processor_ ) {
+	saveGameHandle_t handle = ExecuteProcessor( processor_ );
 	if ( handle == 0 ) {
 		return 0;
 	}

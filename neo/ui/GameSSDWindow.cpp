@@ -625,12 +625,12 @@ void SSDExplosion::ReadFromSaveGame( idFile *savefile,  idGameSSDWindow* _game  
 	savefile->Read(&endTime, sizeof(endTime));
 	savefile->Read(&explosionType, sizeof(explosionType));
 
-	int type, id;
-	savefile->Read(&type, sizeof(type));
-	savefile->Read(&id, sizeof(id));
+	int type_, id_;
+	savefile->Read(&type_, sizeof(type_));
+	savefile->Read(&id_, sizeof(id_));
 
 	//Get a pointer to my buddy
-	buddy = _game->GetSpecificEntity(type, id);
+	buddy = _game->GetSpecificEntity(type_, id_);
 
 	savefile->Read(&killBuddy, sizeof(killBuddy));
 	savefile->Read(&followBuddy, sizeof(followBuddy));
@@ -1392,12 +1392,12 @@ void idGameSSDWindow::Draw(int time, float x, float y) {
 		}
 
 		//The last thing to draw is the crosshair
-		idVec2 cursor;
-		//GetCursor(cursor);
-		cursor.x = gui->CursorX();
-		cursor.y = gui->CursorY();
+		idVec2 cursor_;
+		//GetCursor(cursor_);
+		cursor_.x = gui->CursorX();
+		cursor_.y = gui->CursorY();
 
-		crosshair.Draw(cursor);
+		crosshair.Draw(cursor_);
 	}
 }
 
@@ -1458,9 +1458,9 @@ bool idGameSSDWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 		idStr tempName = _name;
 		int level = atoi(tempName.Right(2))-1;
 
-		idStr levelData;
-		ParseString(src, levelData);
-		ParseLevelData(level, levelData);
+		idStr levelData_;
+		ParseString(src, levelData_);
+		ParseLevelData(level, levelData_);
 		return true;
 	}
 
@@ -1468,9 +1468,9 @@ bool idGameSSDWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 		idStr tempName = _name;
 		int level = atoi(tempName.Right(2))-1;
 
-		idStr asteroidData;
-		ParseString(src, asteroidData);
-		ParseAsteroidData(level, asteroidData);
+		idStr asteroidData_;
+		ParseString(src, asteroidData_);
+		ParseAsteroidData(level, asteroidData_);
 		return true;
 	}
 
@@ -1478,9 +1478,9 @@ bool idGameSSDWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 		idStr tempName = _name;
 		int weapon = atoi(tempName.Right(2))-1;
 
-		idStr weaponData;
-		ParseString(src, weaponData);
-		ParseWeaponData(weapon, weaponData);
+		idStr weaponData_;
+		ParseString(src, weaponData_);
+		ParseWeaponData(weapon, weaponData_);
 		return true;
 	}
 
@@ -1488,9 +1488,9 @@ bool idGameSSDWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 		idStr tempName = _name;
 		int level = atoi(tempName.Right(2))-1;
 
-		idStr astronautData;
-		ParseString(src, astronautData);
-		ParseAstronautData(level, astronautData);
+		idStr astronautData_;
+		ParseString(src, astronautData_);
+		ParseAstronautData(level, astronautData_);
 		return true;
 	}
 
@@ -1498,9 +1498,9 @@ bool idGameSSDWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 		idStr tempName = _name;
 		int level = atoi(tempName.Right(2))-1;
 
-		idStr powerupData;
-		ParseString(src, powerupData);
-		ParsePowerupData(level, powerupData);
+		idStr powerupData_;
+		ParseString(src, powerupData_);
+		ParsePowerupData(level, powerupData_);
 		return true;
 	}
 
@@ -1778,11 +1778,11 @@ void idGameSSDWindow::UpdateGame() {
 		}
 
 		//Find if we are targeting and enemy
-		idVec2 cursor;
-		//GetCursor(cursor);
-		cursor.x = gui->CursorX();
-		cursor.y = gui->CursorY();
-		gameStats.levelStats.targetEnt = EntityHitTest(cursor);
+		idVec2 cursor_;
+		//GetCursor(cursor_);
+		cursor_.x = gui->CursorX();
+		cursor_.y = gui->CursorY();
+		gameStats.levelStats.targetEnt = EntityHitTest(cursor_);
 
 		//Update from back to front
 		for(int i = entities.Num()-1; i >= 0; i--) {
@@ -1885,9 +1885,9 @@ void idGameSSDWindow::SpawnAsteroid() {
 
 	float speed = random.RandomInt(asteroidData[gameStats.currentLevel].speedMax - asteroidData[gameStats.currentLevel].speedMin) + asteroidData[gameStats.currentLevel].speedMin;
 	float size = random.RandomInt(asteroidData[gameStats.currentLevel].sizeMax - asteroidData[gameStats.currentLevel].sizeMin) + asteroidData[gameStats.currentLevel].sizeMin;
-	float rotate = (random.RandomFloat() * (asteroidData[gameStats.currentLevel].rotateMax - asteroidData[gameStats.currentLevel].rotateMin)) + asteroidData[gameStats.currentLevel].rotateMin;
+	float rotate_ = (random.RandomFloat() * (asteroidData[gameStats.currentLevel].rotateMax - asteroidData[gameStats.currentLevel].rotateMin)) + asteroidData[gameStats.currentLevel].rotateMin;
 	
-	SSDAsteroid* asteroid = SSDAsteroid::GetNewAsteroid(this, startPosition, idVec2(size, size), speed, rotate, asteroidData[gameStats.currentLevel].asteroidHealth);
+	SSDAsteroid* asteroid = SSDAsteroid::GetNewAsteroid(this, startPosition, idVec2(size, size), speed, rotate_, asteroidData[gameStats.currentLevel].asteroidHealth);
 	entities.Append(asteroid);
 	
 	gameStats.levelStats.nextAsteroidSpawnTime = currentTime + random.RandomInt(asteroidData[gameStats.currentLevel].spawnMax - asteroidData[gameStats.currentLevel].spawnMin) + asteroidData[gameStats.currentLevel].spawnMin;
@@ -1896,10 +1896,10 @@ void idGameSSDWindow::SpawnAsteroid() {
 void idGameSSDWindow::FireWeapon(int key) {
 
 	idVec2 cursorWorld = GetCursorWorld();
-	idVec2 cursor;
-	//GetCursor(cursor);
-	cursor.x = gui->CursorX();
-	cursor.y = gui->CursorY();
+	idVec2 cursor_;
+	//GetCursor(cursor_);
+	cursor_.x = gui->CursorX();
+	cursor_.y = gui->CursorY();
 
 	if(key == K_MOUSE1) {
 	
@@ -2135,13 +2135,13 @@ void idGameSSDWindow::RefreshGuiData() {
 
 idVec2 idGameSSDWindow::GetCursorWorld() {
 	
-	idVec2 cursor;
-	//GetCursor(cursor);
-	cursor.x = gui->CursorX();
-	cursor.y = gui->CursorY();
-	cursor.x = cursor.x - 0.5f * V_WIDTH;
-	cursor.y = -(cursor.y  - 0.5f * V_HEIGHT);
-	return cursor;
+	idVec2 cursor_;
+	//GetCursor(cursor_);
+	cursor_.x = gui->CursorX();
+	cursor_.y = gui->CursorY();
+	cursor_.x = cursor_.x - 0.5f * V_WIDTH;
+	cursor_.y = -(cursor_.y  - 0.5f * V_HEIGHT);
+	return cursor_;
 }
 
 void idGameSSDWindow::SpawnAstronaut() {
@@ -2161,9 +2161,9 @@ void idGameSSDWindow::SpawnAstronaut() {
 	startPosition.z = ENTITY_START_DIST;
 
 	float speed = random.RandomInt(astronautData[gameStats.currentLevel].speedMax - astronautData[gameStats.currentLevel].speedMin) + astronautData[gameStats.currentLevel].speedMin;
-	float rotate = (random.RandomFloat() * (astronautData[gameStats.currentLevel].rotateMax - astronautData[gameStats.currentLevel].rotateMin)) + astronautData[gameStats.currentLevel].rotateMin;
+	float rotate_ = (random.RandomFloat() * (astronautData[gameStats.currentLevel].rotateMax - astronautData[gameStats.currentLevel].rotateMin)) + astronautData[gameStats.currentLevel].rotateMin;
 
-	SSDAstronaut* astronaut = SSDAstronaut::GetNewAstronaut(this, startPosition, speed, rotate, astronautData[gameStats.currentLevel].health);
+	SSDAstronaut* astronaut = SSDAstronaut::GetNewAstronaut(this, startPosition, speed, rotate_, astronautData[gameStats.currentLevel].health);
 	entities.Append(astronaut);
 
 	gameStats.levelStats.nextAstronautSpawnTime = currentTime + random.RandomInt(astronautData[gameStats.currentLevel].spawnMax - astronautData[gameStats.currentLevel].spawnMin) + astronautData[gameStats.currentLevel].spawnMin;
@@ -2228,9 +2228,9 @@ void idGameSSDWindow::SpawnPowerup() {
 	}
 
 	float speed = random.RandomInt(powerupData[gameStats.currentLevel].speedMax - powerupData[gameStats.currentLevel].speedMin) + powerupData[gameStats.currentLevel].speedMin;
-	float rotate = (random.RandomFloat() * (powerupData[gameStats.currentLevel].rotateMax - powerupData[gameStats.currentLevel].rotateMin)) + powerupData[gameStats.currentLevel].rotateMin;
+	float rotate_ = (random.RandomFloat() * (powerupData[gameStats.currentLevel].rotateMax - powerupData[gameStats.currentLevel].rotateMin)) + powerupData[gameStats.currentLevel].rotateMin;
 
-	SSDPowerup* powerup = SSDPowerup::GetNewPowerup(this, speed, rotate);
+	SSDPowerup* powerup = SSDPowerup::GetNewPowerup(this, speed, rotate_);
 	entities.Append(powerup);
 
 	gameStats.levelStats.nextPowerupSpawnTime = currentTime + random.RandomInt(powerupData[gameStats.currentLevel].spawnMax - powerupData[gameStats.currentLevel].spawnMin) + powerupData[gameStats.currentLevel].spawnMin;

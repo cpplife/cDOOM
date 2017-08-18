@@ -830,18 +830,18 @@ const char *idWindow::HandleEvent(const sysEvent_t *event, bool *updateVisuals) 
 
 					idWindow *currentFocus = GetFocusedChild();
 					idWindow *child = GetFocusedChild();
-					idWindow *parent = child->GetParent();
-					while ( parent ) {
+					idWindow *parent_ = child->GetParent();
+					while ( parent_ ) {
 						bool foundFocus = false;
 						bool recurse = false;
 						int index = 0;
 						if ( child ) {
-							index = parent->GetChildIndex( child ) + direction;
+							index = parent_->GetChildIndex( child ) + direction;
 						} else if ( direction < 0 ) {
-							index = parent->GetChildCount() - 1;
+							index = parent_->GetChildCount() - 1;
 						}
-						while ( index < parent->GetChildCount() && index >= 0) {
-							idWindow *testWindow = parent->GetChild( index );
+						while ( index < parent_->GetChildCount() && index >= 0) {
+							idWindow *testWindow = parent_->GetChild( index );
 							if ( testWindow == currentFocus ) {
 								// we managed to wrap around and get back to our starting window
 								foundFocus = true;
@@ -853,7 +853,7 @@ const char *idWindow::HandleEvent(const sysEvent_t *event, bool *updateVisuals) 
 									foundFocus = true;
 									break;
 								} else if ( testWindow->GetChildCount() > 0 ) {
-									parent = testWindow;
+									parent_ = testWindow;
 									child = NULL;
 									recurse = true;
 									break;
@@ -868,12 +868,12 @@ const char *idWindow::HandleEvent(const sysEvent_t *event, bool *updateVisuals) 
 							// We found a child with children
 							continue;
 						} else {
-							// We didn't find anything, so go back up to our parent
-							child = parent;
-							parent = child->GetParent();
-							if ( parent == gui->GetDesktop() ) {
+							// We didn't find anything, so go back up to our parent_
+							child = parent_;
+							parent_ = child->GetParent();
+							if ( parent_ == gui->GetDesktop() ) {
 								// We got back to the desktop, so wrap around but don't actually go to the desktop
-								parent = NULL;
+								parent_ = NULL;
 								child = NULL;
 							}
 						}
@@ -1096,21 +1096,21 @@ float idWindow::EvalRegs(int test, bool force) {
 idWindow::DrawBackground
 ================
 */
-void idWindow::DrawBackground(const idRectangle &drawRect) {
+void idWindow::DrawBackground(const idRectangle &drawRect_) {
 	if ( backColor.w() ) {
-		dc->DrawFilledRect(drawRect.x, drawRect.y, drawRect.w, drawRect.h, backColor);
+		dc->DrawFilledRect(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, backColor);
 	}
 
 	if ( background && matColor.w() ) {
 		float scalex, scaley;
 		if ( flags & WIN_NATURALMAT ) {
-			scalex = drawRect.w / background->GetImageWidth();
-			scaley = drawRect.h / background->GetImageHeight();
+			scalex = drawRect_.w / background->GetImageWidth();
+			scaley = drawRect_.h / background->GetImageHeight();
 		} else {
 			scalex = matScalex;
 			scaley = matScaley;
 		}
-		dc->DrawMaterial(drawRect.x, drawRect.y, drawRect.w, drawRect.h, background, matColor, scalex, scaley);
+		dc->DrawMaterial(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, background, matColor, scalex, scaley);
 	}
 }
 
@@ -1119,9 +1119,9 @@ void idWindow::DrawBackground(const idRectangle &drawRect) {
 idWindow::DrawBorderAndCaption
 ================
 */
-void idWindow::DrawBorderAndCaption(const idRectangle &drawRect) {
+void idWindow::DrawBorderAndCaption(const idRectangle &drawRect_) {
 	if ( flags & WIN_BORDER && borderSize && borderColor.w() ) {
-		dc->DrawRect(drawRect.x, drawRect.y, drawRect.w, drawRect.h, borderSize, borderColor);
+		dc->DrawRect(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, borderSize, borderColor);
 	}
 }
 
@@ -1515,7 +1515,7 @@ idWindow *idWindow::GetFocusedChild() {
 idWindow::SetFocus
 ================
 */
-idWindow *idWindow::SetFocus(idWindow *w, bool scripts) {
+idWindow *idWindow::SetFocus(idWindow *w, bool scripts_) {
 	// only one child can have the focus
 	idWindow *lastFocus = NULL;
 	if (w->flags & WIN_CANFOCUS) {
@@ -1526,12 +1526,12 @@ idWindow *idWindow::SetFocus(idWindow *w, bool scripts) {
 		}
 
 		//  call on lose focus
-		if ( scripts && lastFocus ) {
+		if ( scripts_ && lastFocus ) {
 			// calling this broke all sorts of guis
 			// lastFocus->RunScript(ON_MOUSEEXIT);
 		}
 		//  call on gain focus
-		if ( scripts && w ) {
+		if ( scripts_ && w ) {
 			// calling this broke all sorts of guis
 			// w->RunScript(ON_MOUSEENTER);
 		}
@@ -1659,9 +1659,9 @@ void idWindow::RestoreExpressionParseState() {
 idWindow::ParseScriptEntry
 ================
 */
-bool idWindow::ParseScriptEntry(const char *name, idTokenParser *src) {
+bool idWindow::ParseScriptEntry(const char *name_, idTokenParser *src) {
 	for (int i = 0; i < SCRIPT_COUNT; i++) {
-		if (idStr::Icmp(name, ScriptNames[i]) == 0) {
+		if (idStr::Icmp(name_, ScriptNames[i]) == 0) {
 			delete scripts[i];
 			scripts[i] = new (TAG_OLD_UI) idGuiScriptList;
 			return ParseScript(src, *scripts[i]);
@@ -2045,9 +2045,9 @@ bool idWindow::ParseInternalVar(const char *_name, idTokenParser *src) {
 idWindow::ParseRegEntry
 ================
 */
-bool idWindow::ParseRegEntry(const char *name, idTokenParser *src) {
+bool idWindow::ParseRegEntry(const char *name_, idTokenParser *src) {
 	idStr work;
-	work = name;
+	work = name_;
 	work.ToLower();
 
 	idWinVar *var = GetWinVarByName(work, NULL);
@@ -3830,8 +3830,8 @@ bool idWindow::Interactive() {
 idWindow::SetChildWinVarVal
 ================
 */
-void idWindow::SetChildWinVarVal(const char *name, const char *var, const char *val) {
-	drawWin_t *dw = FindChildByName(name);
+void idWindow::SetChildWinVarVal(const char *name_, const char *var, const char *val) {
+	drawWin_t *dw = FindChildByName(name_);
 	idWinVar *wv = NULL;
 	if (dw != NULL && dw->simp != NULL) {
 		wv = dw->simp->GetWinVarByName(var);

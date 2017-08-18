@@ -44,9 +44,9 @@ public:
 
 	void				Init( const int startTime, const int duration, const type &startValue, const type &endValue );
 	void				SetStartTime( int time ) { this->startTime = time; }
-	void				SetDuration( int duration ) { this->duration = duration; }
-	void				SetStartValue( const type &startValue ) { this->startValue = startValue; }
-	void				SetEndValue( const type &endValue ) { this->endValue = endValue; }
+	void				SetDuration( int duration_ ) { this->duration = duration_; }
+	void				SetStartValue( const type &startValue_ ) { this->startValue = startValue_; }
+	void				SetEndValue( const type &endValue_ ) { this->endValue = endValue_; }
 
 	type				GetCurrentValue( int time ) const;
 	bool				IsDone( int time ) const { return ( time >= startTime + duration ); }
@@ -82,11 +82,11 @@ idInterpolate::Init
 ====================
 */
 template< class type >
-ID_INLINE void idInterpolate<type>::Init( const int startTime, const int duration, const type &startValue, const type &endValue ) {
-	this->startTime = startTime;
-	this->duration = duration;
-	this->startValue = startValue;
-	this->endValue = endValue;
+ID_INLINE void idInterpolate<type>::Init( const int startTime_, const int duration_, const type &startValue_, const type &endValue_ ) {
+	this->startTime = startTime_;
+	this->duration = duration_;
+	this->startValue = startValue_;
+	this->endValue = endValue_;
 }
 
 /*
@@ -124,7 +124,7 @@ public:
 
 	void				Init( const int startTime, const int accelTime, const int decelTime, const int duration, const type &startValue, const type &endValue );
 	void				SetStartTime( int time ) { startTime = time; Invalidate(); }
-	void				SetStartValue( const type &startValue ) { this->startValue = startValue; Invalidate(); }
+	void				SetStartValue( const type &startValue_ ) { this->startValue = startValue_; Invalidate(); }
 	void				SetEndValue( const type &endValue ) { this->endValue = endValue; Invalidate(); }
 
 	type				GetCurrentValue( int time ) const;
@@ -170,12 +170,12 @@ idInterpolateAccelDecelLinear::Init
 ====================
 */
 template< class type >
-ID_INLINE void idInterpolateAccelDecelLinear<type>::Init( const int startTime, const int accelTime, const int decelTime, const int duration, const type &startValue, const type &endValue ) {
-	this->startTime = startTime;
-	this->accelTime = accelTime;
-	this->decelTime = decelTime;
-	this->startValue = startValue;
-	this->endValue = endValue;
+ID_INLINE void idInterpolateAccelDecelLinear<type>::Init( const int startTime_, const int accelTime_, const int decelTime_, const int duration, const type &startValue_, const type &endValue_ ) {
+	this->startTime = startTime_;
+	this->accelTime = accelTime_;
+	this->decelTime = decelTime_;
+	this->startValue = startValue_;
+	this->endValue = endValue_;
 
 	if ( duration <= 0 ) {
 		return;

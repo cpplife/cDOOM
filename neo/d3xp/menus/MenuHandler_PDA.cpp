@@ -48,10 +48,10 @@ void idMenuHandler_PDA::Update() {
 		if ( nextScreen == PDA_AREA_INVALID ) {
 			menuScreens[ activeScreen ]->HideScreen( static_cast<mainMenuTransition_t>(transition) );
 			
-			idMenuWidget_CommandBar * cmdBar = dynamic_cast< idMenuWidget_CommandBar * >( GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
-			if ( cmdBar != NULL ) {
-				cmdBar->ClearAllButtons();
-				cmdBar->Update();
+			idMenuWidget_CommandBar * cmdBar_ = dynamic_cast< idMenuWidget_CommandBar * >( GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
+			if ( cmdBar_ != NULL ) {
+				cmdBar_->ClearAllButtons();
+				cmdBar_->Update();
 			}
 
 			idSWFSpriteInstance * menu = gui->GetRootObject().GetNestedSprite( "navBar" );
@@ -133,9 +133,9 @@ void idMenuHandler_PDA::ActivateMenu( bool show ) {
 			names.Append( pda->GetPdaName() );	
 			pdaNames.Append( names );
 		}	
-		idMenuWidget_DynamicList * pdaList = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-		if ( pdaList != NULL ) {
-			pdaList->SetListData( pdaNames );
+		idMenuWidget_DynamicList * pdaList_ = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
+		if ( pdaList_ != NULL ) {
+			pdaList_->SetListData( pdaNames );
 		}
 
 		navOptions.Clear();
@@ -143,17 +143,17 @@ void idMenuHandler_PDA::ActivateMenu( bool show ) {
 		navOptions.Append( idLocalization::GetString( "#str_01442" ) );
 		navOptions.Append( idLocalization::GetString( "#str_01440" ) );
 		navOptions.Append( idLocalization::GetString( "#str_01414" ) );
-		idMenuWidget_NavBar * navBar = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
-		if ( navBar != NULL ) {
-			navBar->SetListHeadings( navOptions );
-			navBar->SetFocusIndex( 0 );			
-			navBar->Update();
+		idMenuWidget_NavBar * navBar_ = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
+		if ( navBar_ != NULL ) {
+			navBar_->SetListHeadings( navOptions );
+			navBar_->SetFocusIndex( 0 );			
+			navBar_->Update();
 		}
 
-		idMenuWidget_CommandBar * cmdBar = dynamic_cast< idMenuWidget_CommandBar * >( GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
-		if ( cmdBar != NULL ) {
-			cmdBar->ClearAllButtons();
-			cmdBar->Update();
+		idMenuWidget_CommandBar * cmdBar_ = dynamic_cast< idMenuWidget_CommandBar * >( GetChildFromIndex( PDA_WIDGET_CMD_BAR ) );
+		if ( cmdBar_ != NULL ) {
+			cmdBar_->ClearAllButtons();
+			cmdBar_->Update();
 		}
 
 	} else {
@@ -370,10 +370,10 @@ bool idMenuHandler_PDA::HandleAction( idWidgetAction & action, const idWidgetEve
 	switch ( actionType ) {
 		case WIDGET_ACTION_PDA_SELECT_USER: {
 			int index = parms[0].ToInteger();
-			idMenuWidget_DynamicList * pdaList = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
-			if ( pdaList != NULL ) {
-				pdaList->SetViewIndex( pdaList->GetViewOffset() + index );
-				pdaList->SetFocusIndex( index );
+			idMenuWidget_DynamicList * pdaList_ = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
+			if ( pdaList_ != NULL ) {
+				pdaList_->SetViewIndex( pdaList_->GetViewOffset() + index );
+				pdaList_->SetFocusIndex( index );
 			}
 			return true;
 		}
@@ -383,19 +383,19 @@ bool idMenuHandler_PDA::HandleAction( idWidgetAction & action, const idWidgetEve
 				return true;
 			}
 			int delta = parms[0].ToInteger();
-			idMenuWidget_NavBar * navBar = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
-			if ( navBar != NULL ) {
-				int focused = navBar->GetFocusIndex();
+			idMenuWidget_NavBar * navBar_ = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
+			if ( navBar_ != NULL ) {
+				int focused = navBar_->GetFocusIndex();
 				focused += delta;
 				if ( focused < 0 ) {
-					focused = navBar->GetNumVisibleOptions() - 1;
-				} else if ( focused >= navBar->GetNumVisibleOptions() ) {
+					focused = navBar_->GetNumVisibleOptions() - 1;
+				} else if ( focused >= navBar_->GetNumVisibleOptions() ) {
 					focused = 0;
 				}
 
-				navBar->SetViewIndex( focused );
-				navBar->SetFocusIndex( focused, true );
-				navBar->Update();
+				navBar_->SetViewIndex( focused );
+				navBar_->SetFocusIndex( focused, true );
+				navBar_->Update();
 
 				nextScreen = activeScreen + delta;
 				if ( nextScreen < 0 ) {
@@ -429,11 +429,11 @@ bool idMenuHandler_PDA::HandleAction( idWidgetAction & action, const idWidgetEve
 				return true;
 			}
 
-			idMenuWidget_NavBar * navBar = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
-			if ( navBar != NULL ) {
-				navBar->SetViewIndex( navBar->GetViewOffset() + index );
-				navBar->SetFocusIndex( index, true );
-				navBar->Update();
+			idMenuWidget_NavBar * navBar_ = dynamic_cast< idMenuWidget_NavBar * >( GetChildFromIndex( PDA_WIDGET_NAV_BAR ) );
+			if ( navBar_ != NULL ) {
+				navBar_->SetViewIndex( navBar_->GetViewOffset() + index );
+				navBar_->SetFocusIndex( index, true );
+				navBar_->Update();
 
 				if ( index < activeScreen ) {
 					nextScreen = index;
@@ -448,20 +448,20 @@ bool idMenuHandler_PDA::HandleAction( idWidgetAction & action, const idWidgetEve
 		case WIDGET_ACTION_SELECT_PDA_AUDIO: {
 			if ( activeScreen == PDA_AREA_USER_DATA ) {
 				int index = parms[0].ToInteger();
-				idMenuWidget_DynamicList * pdaList = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
+				idMenuWidget_DynamicList * pdaList_ = dynamic_cast< idMenuWidget_DynamicList * >( GetChildFromIndex( PDA_WIDGET_PDA_LIST ) );
 				
 				bool change = false;
-				if ( pdaList != NULL ) {
-					int pdaIndex = pdaList->GetViewIndex();
+				if ( pdaList_ != NULL ) {
+					int pdaIndex = pdaList_->GetViewIndex();
 					change = PlayPDAAudioLog( pdaIndex, index );
 				}
 
 				if ( change ) {
 					if ( widget->GetParent() != NULL ) {
 						idMenuWidget_DynamicList * audioList = dynamic_cast< idMenuWidget_DynamicList * >( widget->GetParent() );
-						int index = parms[0].ToInteger();
+						int index_ = parms[0].ToInteger();
 						if ( audioList != NULL ) {
-							audioList->SetFocusIndex( index );
+							audioList->SetFocusIndex( index_ );
 						}
 					}
 				}

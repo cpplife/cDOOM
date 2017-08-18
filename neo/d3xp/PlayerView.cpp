@@ -394,15 +394,15 @@ idAngles idPlayerView::AngleOffset() const {
 idPlayerView::SingleView
 ==================
 */
-void idPlayerView::SingleView( const renderView_t *view, idMenuHandler_HUD * hudManager ) {
+void idPlayerView::SingleView( const renderView_t *view_, idMenuHandler_HUD * hudManager ) {
 
 	// normal rendering
-	if ( !view ) {
+	if ( !view_ ) {
 		return;
 	}
 
 	// place the sound origin for the player
-	gameSoundWorld->PlaceListener( view->vieworg, view->viewaxis, player->entityNumber + 1 );
+	gameSoundWorld->PlaceListener( view_->vieworg, view_->viewaxis, player->entityNumber + 1 );
 
 	// if the objective system is up, don't do normal drawing
 	if ( player->objectiveSystemOpen ) {
@@ -413,7 +413,7 @@ void idPlayerView::SingleView( const renderView_t *view, idMenuHandler_HUD * hud
 	}
 
 	// hack the shake in at the very last moment, so it can't cause any consistency problems
-	renderView_t hackedView = *view;
+	renderView_t hackedView = *view_;
 	hackedView.viewaxis = hackedView.viewaxis * ShakeAxis();
 
 	if ( gameLocal.portalSkyEnt.GetEntity() && gameLocal.IsPortalSkyAcive() && g_enablePortalSky.GetBool() ) {
@@ -662,18 +662,18 @@ idPlayerView::EmitStereoEyeView
 ===================
 */
 void idPlayerView::EmitStereoEyeView( const int eye, idMenuHandler_HUD * hudManager ) {
-	renderView_t * view = player->GetRenderView();
-	if ( view == NULL ) {
+	renderView_t * view_ = player->GetRenderView();
+	if ( view_ == NULL ) {
 		return;
 	}
 
-	renderView_t eyeView = *view;
+	renderView_t eyeView = *view_;
 
 	const stereoDistances_t dists = CaclulateStereoDistances(
 		stereoRender_interOccularCentimeters.GetFloat(),
 		renderSystem->GetPhysicalScreenWidthInCentimeters(),
 		stereoRender_convergence.GetFloat(),
-		view->fov_x );
+		view_->fov_x );
 
 	eyeView.vieworg += eye * dists.worldSeparation * eyeView.viewaxis[1];
 
@@ -707,7 +707,7 @@ idPlayerView::RenderPlayerView
 ===================
 */
 void idPlayerView::RenderPlayerView( idMenuHandler_HUD * hudManager ) {
-	const renderView_t *view = player->GetRenderView();
+	const renderView_t *view_ = player->GetRenderView();
 	if ( renderSystem->GetStereo3DMode() != STEREO3D_OFF ) {
 		// render both eye views each frame on the PC
 		for ( int eye = 1 ; eye >= -1 ; eye -= 2 ) {
@@ -715,7 +715,7 @@ void idPlayerView::RenderPlayerView( idMenuHandler_HUD * hudManager ) {
 		}
 	} else 
 	{
-		SingleView( view, hudManager );
+		SingleView( view_, hudManager );
 	}
 	ScreenFade();
 }
@@ -926,7 +926,7 @@ bool FullscreenFX_Helltime::Active() {
 FullscreenFX_Helltime::AccumPass
 ==================
 */
-void FullscreenFX_Helltime::AccumPass( const renderView_t *view ) {
+void FullscreenFX_Helltime::AccumPass( const renderView_t *view_ ) {
 
 	int level = DetermineLevel();
 
@@ -1042,7 +1042,7 @@ bool FullscreenFX_Multiplayer::Active() {
 FullscreenFX_Multiplayer::AccumPass
 ==================
 */
-void FullscreenFX_Multiplayer::AccumPass( const renderView_t *view ) {
+void FullscreenFX_Multiplayer::AccumPass( const renderView_t *view_ ) {
 	renderSystem->SetColor4( 1.0f, 1.0f, 1.0f, 1.0f );
 	
 	float t0 = 1.0f;
@@ -1690,7 +1690,7 @@ idCVar player_allowScreenFXInStereo( "player_allowScreenFXInStereo", "1", CVAR_B
 FullscreenFXManager::Process
 ==================
 */
-void FullscreenFXManager::Process( const renderView_t *view ) {
+void FullscreenFXManager::Process( const renderView_t *view_ ) {
 	bool allpass = false;
 	bool atLeastOneFX = false;
 
@@ -1699,7 +1699,7 @@ void FullscreenFXManager::Process( const renderView_t *view ) {
 	}
 
 	// do the first render
-	gameRenderWorld->RenderScene( view );
+	gameRenderWorld->RenderScene( view_ );
 
 	// we should consider these on a case-by-case basis for stereo rendering
 	// double vision could be implemented "for real" by shifting the
@@ -1731,7 +1731,7 @@ void FullscreenFXManager::Process( const renderView_t *view ) {
 			if ( pfx->HasAccum() ) {
 				// we need to crop the accum pass
 				renderSystem->CropRenderSize( 512, 512 );
-				pfx->AccumPass( view );
+				pfx->AccumPass( view_ );
 				renderSystem->CaptureRenderToImage( "_accum" );
 				renderSystem->UnCrop();
 			}

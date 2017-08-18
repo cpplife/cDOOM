@@ -1386,10 +1386,10 @@ void idFile_Cached::CacheData( uint64 offset, uint64 length ) {
 	if ( buffered == NULL ) {
 		return;
 	}
-	int internalFilePos = idFile_Permanent::Tell();
+	int internalFilePos_ = idFile_Permanent::Tell();
 	idFile_Permanent::Seek( offset, FS_SEEK_SET );
 	idFile_Permanent::Read( buffered, length );
-	idFile_Permanent::Seek( internalFilePos, FS_SEEK_SET );
+	idFile_Permanent::Seek( internalFilePos_, FS_SEEK_SET );
 }
 
 /*
@@ -1669,21 +1669,21 @@ idFile_InnerResource::Seek
 =================
 */
 
-int idFile_InnerResource::Seek( long offset, fsOrigin_t origin ) {
+int idFile_InnerResource::Seek( long offset_, fsOrigin_t origin ) {
 	switch( origin ) {
 		case FS_SEEK_END: {
-			internalFilePos = length - offset - 1;
+			internalFilePos = length - offset_ - 1;
 			return 0;
 		}
 		case FS_SEEK_SET: {
-			internalFilePos = offset;
+			internalFilePos = offset_;
 			if ( internalFilePos >= 0 && internalFilePos < length ) {
 				return 0;
 			}
 			return -1;
 		}
 		case FS_SEEK_CUR: {
-			internalFilePos += offset;
+			internalFilePos += offset_;
 			if ( internalFilePos >= 0 && internalFilePos < length ) {
 				return 0;
 			}

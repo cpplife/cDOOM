@@ -217,7 +217,7 @@ idEntity *idProjectile::GetOwner() const {
 idProjectile::Create
 ================
 */
-void idProjectile::Create( idEntity *owner, const idVec3 &start, const idVec3 &dir ) {
+void idProjectile::Create( idEntity *owner_, const idVec3 &start, const idVec3 &dir ) {
 	idDict		args;
 	idStr		shaderName;
 	idVec3		light_color;
@@ -236,9 +236,9 @@ void idProjectile::Create( idEntity *owner, const idVec3 &start, const idVec3 &d
 	physicsObj.SetOrigin( start );
 	physicsObj.SetAxis( axis );
 
-	physicsObj.GetClipModel()->SetOwner( owner );
+	physicsObj.GetClipModel()->SetOwner( owner_ );
 
-	this->owner = owner;
+	this->owner = owner_;
 
 	memset( &renderLight, 0, sizeof( renderLight ) );
 	shaderName = spawnArgs.GetString( "mtr_light_shader" );
@@ -1114,9 +1114,9 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 					return;
 				}
 
-				idDebris *debris = static_cast<idDebris *>(ent);
-				debris->Create( owner.GetEntity(), physicsObj.GetOrigin(), dir.ToMat3() );
-				debris->Launch();
+				idDebris *debris_ = static_cast<idDebris *>(ent);
+				debris_->Create( owner.GetEntity(), physicsObj.GetOrigin(), dir.ToMat3() );
+				debris_->Launch();
 			}
 		}
 		debris = gameLocal.FindEntityDefDict( "projectile_shrapnel", false );
@@ -1136,9 +1136,9 @@ void idProjectile::Explode( const trace_t &collision, idEntity *ignore ) {
 					break;
 				}
 
-				idDebris *debris = static_cast<idDebris *>(ent);
-				debris->Create( owner.GetEntity(), physicsObj.GetOrigin(), dir.ToMat3() );
-				debris->Launch();
+				idDebris *debris_ = static_cast<idDebris *>(ent);
+				debris_->Create( owner.GetEntity(), physicsObj.GetOrigin(), dir.ToMat3() );
+				debris_->Launch();
 			}
 		}
 	}
@@ -1270,8 +1270,8 @@ int idProjectile::GetProjectileState() {
 idProjectile::Event_CreateProjectile
 ================
 */
-void idProjectile::Event_CreateProjectile( idEntity *owner, const idVec3 &start, const idVec3 &dir ) {
-	Create(owner, start, dir);
+void idProjectile::Event_CreateProjectile( idEntity *owner_, const idVec3 &start, const idVec3 &dir ) {
+	Create(owner_, start, dir);
 }
 
 /*
@@ -1731,13 +1731,13 @@ void idGuidedProjectile::Launch( const idVec3 &start, const idVec3 &dir, const i
 		if ( owner.GetEntity()->IsType( idAI::Type ) ) {
 			enemy = static_cast<idAI *>( owner.GetEntity() )->GetEnemy();
 		} else if ( owner.GetEntity()->IsType( idPlayer::Type ) ) {
-			trace_t tr;
+			trace_t tr_;
 			idPlayer *player = static_cast<idPlayer*>( owner.GetEntity() );
-			idVec3 start = player->GetEyePosition();
-			idVec3 end = start + player->viewAxis[0] * 1000.0f;
-			gameLocal.clip.TracePoint( tr, start, end, MASK_SHOT_RENDERMODEL | CONTENTS_BODY, owner.GetEntity() );
-			if ( tr.fraction < 1.0f ) {
-				enemy = gameLocal.GetTraceEntity( tr );
+			idVec3 start_ = player->GetEyePosition();
+			idVec3 end = start_ + player->viewAxis[0] * 1000.0f;
+			gameLocal.clip.TracePoint( tr_, start_, end, MASK_SHOT_RENDERMODEL | CONTENTS_BODY, owner.GetEntity() );
+			if ( tr_.fraction < 1.0f ) {
+				enemy = gameLocal.GetTraceEntity( tr_ );
 			} 
 			// ignore actors on the player's team
 			if ( enemy.GetEntity() == NULL || !enemy.GetEntity()->IsType( idActor::Type ) || ( static_cast<idActor *>( enemy.GetEntity() )->team == player->team ) ) {
@@ -2296,12 +2296,12 @@ void idBFGProjectile::Launch( const idVec3 &start, const idVec3 &dir, const idVe
 		SetTimeState	ts( maledict->timeGroup );
 
 		idVec3			realPoint;
-		idMat3			temp;
+		idMat3			temp_;
 		float			dist;
 		jointHandle_t	bodyJoint;
 
 		bodyJoint = maledict->GetAnimator()->GetJointHandle( "Chest1" );
-		maledict->GetJointWorldTransform( bodyJoint, gameLocal.time, realPoint, temp );
+		maledict->GetJointWorldTransform( bodyJoint, gameLocal.time, realPoint, temp_ );
 
 		dist = idVec3( realPoint - GetPhysics()->GetOrigin() ).Length();
 
@@ -2458,12 +2458,12 @@ void idDebris::Spawn() {
 idDebris::Create
 ================
 */
-void idDebris::Create( idEntity *owner, const idVec3 &start, const idMat3 &axis ) {
+void idDebris::Create( idEntity *owner_, const idVec3 &start, const idMat3 &axis ) {
 	Unbind();
 	GetPhysics()->SetOrigin( start );
 	GetPhysics()->SetAxis( axis );
 	GetPhysics()->SetContents( 0 );
-	this->owner = owner;
+	this->owner = owner_;
 	smokeFly = NULL;
 	smokeFlyTime = 0;
 	sndBounce = NULL;
@@ -2951,13 +2951,13 @@ void idHomingProjectile::Launch( const idVec3 &start, const idVec3 &dir, const i
 		if ( owner.GetEntity()->IsType( idAI::Type ) ) {
 			enemy = static_cast<idAI *>( owner.GetEntity() )->GetEnemy();
 		} else if ( owner.GetEntity()->IsType( idPlayer::Type ) ) {
-			trace_t tr;
+			trace_t tr_;
 			idPlayer *player = static_cast<idPlayer*>( owner.GetEntity() );
-			idVec3 start = player->GetEyePosition();
-			idVec3 end = start + player->viewAxis[0] * 1000.0f;
-			gameLocal.clip.TracePoint( tr, start, end, MASK_SHOT_RENDERMODEL | CONTENTS_BODY, owner.GetEntity() );
-			if ( tr.fraction < 1.0f ) {
-				enemy = gameLocal.GetTraceEntity( tr );
+			idVec3 start_ = player->GetEyePosition();
+			idVec3 end = start_ + player->viewAxis[0] * 1000.0f;
+			gameLocal.clip.TracePoint( tr_, start_, end, MASK_SHOT_RENDERMODEL | CONTENTS_BODY, owner.GetEntity() );
+			if ( tr_.fraction < 1.0f ) {
+				enemy = gameLocal.GetTraceEntity( tr_ );
 			} 
 			// ignore actors on the player's team
 			if ( enemy.GetEntity() == NULL || !enemy.GetEntity()->IsType( idActor::Type ) || ( static_cast<idActor *>( enemy.GetEntity() )->team == player->team ) ) {

@@ -87,9 +87,9 @@ idForce_Grab::~idForce_Grab() {
 idForce_Grab::Init
 ================
 */
-void idForce_Grab::Init( float damping ) {
-	if ( damping >= 0.0f && damping < 1.0f ) {
-		this->damping = damping;
+void idForce_Grab::Init( float damping_ ) {
+	if ( damping_ >= 0.0f && damping_ < 1.0f ) {
+		this->damping = damping_;
 	}
 }
 
@@ -98,9 +98,9 @@ void idForce_Grab::Init( float damping ) {
 idForce_Grab::SetPhysics
 ================
 */
-void idForce_Grab::SetPhysics( idPhysics *phys, int id, const idVec3 &goal ) {
+void idForce_Grab::SetPhysics( idPhysics *phys, int id_, const idVec3 &goal ) {
 	this->physics = phys;
-	this->id = id;
+	this->id = id_;
 	this->goalPosition = goal;
 }
 

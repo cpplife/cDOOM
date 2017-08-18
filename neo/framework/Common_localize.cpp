@@ -352,9 +352,9 @@ CONSOLE_COMMAND( localizeGuis, "localize guis", NULL ) {
 
 	idFileList *files;
 	if ( idStr::Icmp( args.Argv(1), "all" ) == 0 ) {
-		idStr game = cvarSystem->GetCVarString( "game_expansion" );
-		if(game.Length()) {
-			files = fileSystem->ListFilesTree( "guis", "*.gui", true, game );
+		idStr game_ = cvarSystem->GetCVarString( "game_expansion" );
+		if(game_.Length()) {
+			files = fileSystem->ListFilesTree( "guis", "*.gui", true, game_ );
 		} else {
 			files = fileSystem->ListFilesTree( "guis", "*.gui", true );
 		}
@@ -363,8 +363,8 @@ CONSOLE_COMMAND( localizeGuis, "localize guis", NULL ) {
 		}
 		fileSystem->FreeFileList( files );
 
-		if(game.Length()) {
-			files = fileSystem->ListFilesTree( "guis", "*.pd", true, game );
+		if(game_.Length()) {
+			files = fileSystem->ListFilesTree( "guis", "*.pd", true, game_ );
 		} else {
 			files = fileSystem->ListFilesTree( "guis", "*.pd", true, "d3xp" );
 		}

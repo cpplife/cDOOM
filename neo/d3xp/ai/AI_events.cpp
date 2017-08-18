@@ -625,7 +625,7 @@ idAI::Event_LaunchMissile
 */
 void idAI::Event_LaunchMissile( const idVec3 &org, const idAngles &ang ) {
 	idVec3		start;
-	trace_t		tr;
+	trace_t		tr_;
 	idBounds	projBounds;
 	const idClipModel *projClip;
 	idMat3		axis;
@@ -661,14 +661,14 @@ void idAI::Event_LaunchMissile( const idVec3 &org, const idAngles &ang ) {
 		start = ownerBounds.GetCenter();
 	}
 
-	gameLocal.clip.Translation( tr, start, org, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
+	gameLocal.clip.Translation( tr_, start, org, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
 
 	// launch the projectile
 	idThread::ReturnEntity( projectile.GetEntity() );
-	projectile.GetEntity()->Launch( tr.endpos, axis[ 0 ], vec3_origin );
+	projectile.GetEntity()->Launch( tr_.endpos, axis[ 0 ], vec3_origin );
 	projectile = NULL;
 
-	TriggerWeaponEffects( tr.endpos );
+	TriggerWeaponEffects( tr_.endpos );
 
 	lastAttackTime = gameLocal.time;
 }
@@ -685,7 +685,7 @@ void idAI::Event_LaunchProjectile( const char *entityDefName ) {
 	idMat3				axis;
 	const idClipModel	*projClip;
 	idBounds			projBounds;
-	trace_t				tr;
+	trace_t				tr_;
 	idEntity			*ent;
 	const char			*clsname;
 	float				distance;
@@ -718,8 +718,8 @@ void idAI::Event_LaunchProjectile( const char *entityDefName ) {
 	} else {
 		start = ownerBounds.GetCenter();
 	}
-	gameLocal.clip.Translation( tr, start, muzzle, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
-	muzzle = tr.endpos;
+	gameLocal.clip.Translation( tr_, start, muzzle, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
+	muzzle = tr_.endpos;
 
 	GetAimDir( muzzle, enemy.GetEntity(), this, dir );
 
@@ -791,8 +791,8 @@ void idAI::Event_RandomPath() {
 idAI::Event_BeginAttack
 =====================
 */
-void idAI::Event_BeginAttack( const char *name ) {
-	BeginAttack( name );
+void idAI::Event_BeginAttack( const char *name_ ) {
+	BeginAttack( name_ );
 }
 
 /*
@@ -1444,12 +1444,12 @@ void idAI::Event_GetTalkTarget() {
 idAI::Event_SetTalkState
 ================
 */
-void idAI::Event_SetTalkState( int state ) {
-	if ( ( state < 0 ) || ( state >= NUM_TALK_STATES ) ) {
-		gameLocal.Error( "Invalid talk state (%d)", state );
+void idAI::Event_SetTalkState( int state_ ) {
+	if ( ( state_ < 0 ) || ( state_ >= NUM_TALK_STATES ) ) {
+		gameLocal.Error( "Invalid talk state (%d)", state_ );
 	}
 
-	talk_state = static_cast<talkState_t>( state );
+	talk_state = static_cast<talkState_t>( state_ );
 }
 
 /*
@@ -1544,7 +1544,7 @@ idAI::Event_CanHitEnemy
 =====================
 */
 void idAI::Event_CanHitEnemy() {
-	trace_t	tr;
+	trace_t	tr_;
 	idEntity *hit;
 
 	idActor *enemyEnt = enemy.GetEntity();
@@ -1569,11 +1569,11 @@ void idAI::Event_CanHitEnemy() {
 	dir = toPos - eye;
 	dir.Normalize();
 	toPos = eye + dir * MAX_WORLD_SIZE;
-	gameLocal.clip.TracePoint( tr, eye, toPos, MASK_SHOT_BOUNDINGBOX, this );
-	hit = gameLocal.GetTraceEntity( tr );
-	if ( tr.fraction >= 1.0f || ( hit == enemyEnt ) ) {
+	gameLocal.clip.TracePoint( tr_, eye, toPos, MASK_SHOT_BOUNDINGBOX, this );
+	hit = gameLocal.GetTraceEntity( tr_ );
+	if ( tr_.fraction >= 1.0f || ( hit == enemyEnt ) ) {
 		lastHitCheckResult = true;
-	} else if ( ( tr.fraction < 1.0f ) && ( hit->IsType( idAI::Type ) ) && 
+	} else if ( ( tr_.fraction < 1.0f ) && ( hit->IsType( idAI::Type ) ) && 
 		( static_cast<idAI *>( hit )->team != team ) ) {
 		lastHitCheckResult = true;
 	} else {
@@ -1595,7 +1595,7 @@ void idAI::Event_CanHitEnemyFromAnim( const char *animname ) {
 	idVec3	fromPos;
 	idMat3	axis;
 	idVec3	start;
-	trace_t	tr;
+	trace_t	tr_;
 	float	distance;
 
 	idActor *enemyEnt = enemy.GetEntity();
@@ -1645,8 +1645,8 @@ void idAI::Event_CanHitEnemyFromAnim( const char *animname ) {
 		start = ownerBounds.GetCenter();
 	}
 
-	gameLocal.clip.Translation( tr, start, fromPos, projectileClipModel, mat3_identity, MASK_SHOT_RENDERMODEL, this );
-	fromPos = tr.endpos;
+	gameLocal.clip.Translation( tr_, start, fromPos, projectileClipModel, mat3_identity, MASK_SHOT_RENDERMODEL, this );
+	fromPos = tr_.endpos;
 
 	if ( GetAimDir( fromPos, enemy.GetEntity(), this, dir ) ) {
 		idThread::ReturnInt( true );
@@ -1661,7 +1661,7 @@ idAI::Event_CanHitEnemyFromJoint
 =====================
 */
 void idAI::Event_CanHitEnemyFromJoint( const char *jointname ) {
-	trace_t	tr;
+	trace_t	tr_;
 	idVec3	muzzle;
 	idMat3	axis;
 	idVec3	start;
@@ -1710,11 +1710,11 @@ void idAI::Event_CanHitEnemyFromJoint( const char *jointname ) {
 		start = ownerBounds.GetCenter();
 	}
 
-	gameLocal.clip.Translation( tr, start, muzzle, projectileClipModel, mat3_identity, MASK_SHOT_BOUNDINGBOX, this );
-	muzzle = tr.endpos;
+	gameLocal.clip.Translation( tr_, start, muzzle, projectileClipModel, mat3_identity, MASK_SHOT_BOUNDINGBOX, this );
+	muzzle = tr_.endpos;
 
-	gameLocal.clip.Translation( tr, muzzle, toPos, projectileClipModel, mat3_identity, MASK_SHOT_BOUNDINGBOX, this );
-	if ( tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr ) == enemyEnt ) ) {
+	gameLocal.clip.Translation( tr_, muzzle, toPos, projectileClipModel, mat3_identity, MASK_SHOT_BOUNDINGBOX, this );
+	if ( tr_.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr_ ) == enemyEnt ) ) {
 		lastHitCheckResult = true;
 	} else {
 		lastHitCheckResult = false;
@@ -2442,17 +2442,17 @@ idAI::Event_ThrowAF
 */
 void idAI::Event_ThrowAF() {
 	idEntity *ent;
-	idEntity *af = NULL;
+	idEntity *af_ = NULL;
 
 	for ( ent = GetNextTeamEntity(); ent != NULL; ent = ent->GetNextTeamEntity() ) {
 		if ( ent->GetBindMaster() == this && ent->IsType( idAFEntity_Base::Type ) ) {
-			af = ent;
+			af_ = ent;
 			break;
 		}
 	}
-	if ( af ) {
-		af->Unbind();
-		af->PostEventMS( &EV_SetOwner, 200, NULL );
+	if ( af_ ) {
+		af_->Unbind();
+		af_->PostEventMS( &EV_SetOwner, 200, NULL );
 	}
 }
 
@@ -2883,17 +2883,17 @@ void idAI::Event_TriggerFX( const char* joint, const char* fx ) {
 	TriggerFX(joint, fx);
 }
 
-void idAI::Event_StartEmitter( const char* name, const char* joint, const char* particle ) {
-	idEntity *ent = StartEmitter(name, joint, particle);
+void idAI::Event_StartEmitter( const char* name_, const char* joint, const char* particle ) {
+	idEntity *ent = StartEmitter(name_, joint, particle);
 	idThread::ReturnEntity(ent);
 }
 
-void idAI::Event_GetEmitter( const char* name ) {
-	idThread::ReturnEntity(GetEmitter(name));
+void idAI::Event_GetEmitter( const char* name_ ) {
+	idThread::ReturnEntity(GetEmitter(name_));
 }
 
-void idAI::Event_StopEmitter( const char* name ) {
-	StopEmitter(name);
+void idAI::Event_StopEmitter( const char* name_ ) {
+	StopEmitter(name_);
 }
 
 
@@ -2904,7 +2904,7 @@ idAI::Event_LaunchHomingMissile
 */
 void idAI::Event_LaunchHomingMissile() {
 	idVec3		start;
-	trace_t		tr;
+	trace_t		tr_;
 	idBounds	projBounds;
 	const idClipModel *projClip;
 	idMat3		axis;
@@ -2916,14 +2916,14 @@ void idAI::Event_LaunchHomingMissile() {
 		return;
 	}
 
-	idActor *enemy = GetEnemy();
-	if ( enemy == NULL ) {
+	idActor *enemy_ = GetEnemy();
+	if ( enemy_ == NULL ) {
 		idThread::ReturnEntity( NULL );
 		return;
 	}
 
 	idVec3 org = GetPhysics()->GetOrigin() + idVec3( 0.0f, 0.0f, 250.0f );
-	idVec3 goal = enemy->GetPhysics()->GetOrigin();
+	idVec3 goal = enemy_->GetPhysics()->GetOrigin();
 	homingMissileGoal = goal;
 
 //	axis = ( goal - org ).ToMat3();
@@ -2931,7 +2931,7 @@ void idAI::Event_LaunchHomingMissile() {
 	if ( !projectile.GetEntity() ) {
 		idHomingProjectile *homing = ( idHomingProjectile * ) CreateProjectile( org, idVec3( 0.0f, 0.0f, 1.0f ) );
 		if ( homing != NULL ) {
-			homing->SetEnemy( enemy );
+			homing->SetEnemy( enemy_ );
 			homing->SetSeekPos( homingMissileGoal );
 		}
 	}
@@ -2955,7 +2955,7 @@ void idAI::Event_LaunchHomingMissile() {
 		start = ownerBounds.GetCenter();
 	}
 
-	gameLocal.clip.Translation( tr, start, org, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
+	gameLocal.clip.Translation( tr_, start, org, projClip, projClip->GetAxis(), MASK_SHOT_RENDERMODEL, this );
 
 	// launch the projectile
 	idThread::ReturnEntity( projectile.GetEntity() );
@@ -2965,7 +2965,7 @@ void idAI::Event_LaunchHomingMissile() {
 	projectile.GetEntity()->Launch( org, ang.ToForward(), vec3_origin );
 	projectile = NULL;
 
-	TriggerWeaponEffects( tr.endpos );
+	TriggerWeaponEffects( tr_.endpos );
 
 	lastAttackTime = gameLocal.time;
 }
@@ -2976,11 +2976,11 @@ idAI::Event_SetHomingMissileGoal
 =====================
 */
 void idAI::Event_SetHomingMissileGoal() {
-	idActor *enemy = GetEnemy();
-	if ( enemy == NULL ) {
+	idActor *enemy_ = GetEnemy();
+	if ( enemy_ == NULL ) {
 		idThread::ReturnEntity( NULL );
 		return;
 	}
 
-	homingMissileGoal = enemy->GetPhysics()->GetOrigin();
+	homingMissileGoal = enemy_->GetPhysics()->GetOrigin();
 }

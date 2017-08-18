@@ -99,11 +99,11 @@ void idForce_Field::Restore( idRestoreGame *savefile ) {
 idForce_Field::SetClipModel
 ================
 */
-void idForce_Field::SetClipModel( idClipModel *clipModel ) {
-	if ( this->clipModel && clipModel != this->clipModel ) {
+void idForce_Field::SetClipModel( idClipModel *clipModel_ ) {
+	if ( this->clipModel && clipModel_ != this->clipModel ) {
 		delete this->clipModel;
 	}
-	this->clipModel = clipModel;
+	this->clipModel = clipModel_;
 }
 
 /*

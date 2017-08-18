@@ -458,15 +458,15 @@ void idMultiplayerGame::UpdateScoreboard( idMenuHandler_Scoreboard * scoreboard,
 			info.spectateData = spectateData;
 
 			bool added = false;
-			for ( int i = 0; i < scoreboardInfo.Num(); ++i ) {
-				if ( info.team == scoreboardInfo[i].team ) {
-					if ( info.score > scoreboardInfo[i].score ) {
-						scoreboardInfo.Insert( info, i );
+			for ( int k = 0; k < scoreboardInfo.Num(); ++k ) {
+				if ( info.team == scoreboardInfo[k].team ) {
+					if ( info.score > scoreboardInfo[k].score ) {
+						scoreboardInfo.Insert( info, k );
 						added = true;
 						break;
 					}
-				} else if ( info.team < scoreboardInfo[i].team ) {
-					scoreboardInfo.Insert( info, i );
+				} else if ( info.team < scoreboardInfo[k].team ) {
+					scoreboardInfo.Insert( info, k );
 					added = true;
 					break;
 				}
@@ -1069,7 +1069,7 @@ idMultiplayerGame::NewState
 */
 void idMultiplayerGame::NewState( gameState_t news, idPlayer *player ) {
 	idBitMsg	outMsg;
-	byte		msgBuf[MAX_GAME_MESSAGE_SIZE];
+	byte		msgBuf_[MAX_GAME_MESSAGE_SIZE];
 	int			i;
 
 	assert( news != gameState );
@@ -1079,7 +1079,7 @@ void idMultiplayerGame::NewState( gameState_t news, idPlayer *player ) {
 	switch( news ) {
 		case GAMEON: {
 			gameLocal.LocalMapRestart();
-			outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+			outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 			outMsg.WriteBits( 0, 1 );
 			session->GetActingGameStateLobbyBase().SendReliable( GAME_RELIABLE_MESSAGE_RESTART, outMsg, false );
 
@@ -1153,13 +1153,13 @@ void idMultiplayerGame::NewState( gameState_t news, idPlayer *player ) {
 			break;
 		}
 		case COUNTDOWN: {
-			idBitMsg	outMsg;
-			byte		msgBuf[ 128 ];
+			idBitMsg	outMsg_;
+			byte		msgBuff[ 128 ];
 
 			warmupEndTime = gameLocal.serverTime + 1000*cvarSystem->GetCVarInteger( "g_countDown" );
 
-			outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
-			outMsg.WriteLong( warmupEndTime );
+			outMsg_.InitWrite( msgBuff, sizeof( msgBuff ) );
+			outMsg_.WriteLong( warmupEndTime );
 			session->GetActingGameStateLobbyBase().SendReliable( GAME_RELIABLE_MESSAGE_WARMUPTIME, outMsg, false );
 
 			// Reset all the scores.
@@ -1332,8 +1332,8 @@ void idMultiplayerGame::UpdateTourneyLine() {
 		}
 
 		idBitMsg outMsg;
-		byte msgBuf[1024];
-		outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+		byte msgBuf_[1024];
+		outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 		outMsg.WriteByte( j );
 		session->GetActingGameStateLobbyBase().SendReliableToLobbyUser( gameLocal.lobbyUserIDs[imax], GAME_RELIABLE_MESSAGE_TOURNEYLINE, outMsg );
 
@@ -1355,8 +1355,8 @@ void idMultiplayerGame::CycleTourneyPlayers( ) {
 	currentTourneyPlayer[ 1 ] = -1;
 	// if any, winner from last round will play again
 	if ( lastWinner != -1 ) {
-		idEntity *ent = gameLocal.entities[ lastWinner ];
-		if ( ent && ent->IsType( idPlayer::Type ) ) {
+		idEntity *ent_ = gameLocal.entities[ lastWinner ];
+		if ( ent_ && ent_->IsType( idPlayer::Type ) ) {
 			currentTourneyPlayer[ 0 ] = lastWinner;		
 		}
 	}
@@ -1464,8 +1464,8 @@ void idMultiplayerGame::Run() {
 
 	idLobbyBase & lobby = session->GetActingGameStateLobbyBase();
 	for ( i = 0; i < gameLocal.numClients; i++ ) {
-		idPlayer * player = static_cast<idPlayer *>( gameLocal.entities[i] );
-		if ( player != NULL ) {
+		idPlayer * player_ = static_cast<idPlayer *>( gameLocal.entities[i] );
+		if ( player_ != NULL ) {
 			playerState[i].ping = lobby.GetLobbyUserQoS( gameLocal.lobbyUserIDs[i] );
 		}
 	}
@@ -1792,8 +1792,8 @@ void idMultiplayerGame::UpdateHud( idPlayer *player, idMenuHandler_HUD * hudMana
 						continue;
 					}
 
-					idPlayer * player = static_cast< idPlayer * >( ent );
-					hud->SetTeamScore( player->team, playerState[ player->entityNumber ].teamFragCount );
+					idPlayer * player_ = static_cast< idPlayer * >( ent );
+					hud->SetTeamScore( player_->team, playerState[ player_->entityNumber ].teamFragCount );
 				}
 			}
 		} 
@@ -1926,28 +1926,28 @@ idMultiplayerGame::WriteToSnapshot
 ================
 */
 void idMultiplayerGame::WriteToSnapshot( idBitMsg &msg ) const {
-	int i;
+	int k;
 	int value;
 
 	// This is a hack - I need a place to read the lobby ids before the player entities are
 	// read (SpawnPlayer requires a valid lobby id for the player).
-	for ( int i = 0; i < gameLocal.lobbyUserIDs.Num(); ++i ) {
-		gameLocal.lobbyUserIDs[i].WriteToMsg( msg );
+	for ( k = 0; k < gameLocal.lobbyUserIDs.Num(); ++k ) {
+		gameLocal.lobbyUserIDs[k].WriteToMsg( msg );
 	}
 
 	msg.WriteByte( gameState );
 	msg.WriteLong( nextStateSwitch );
 	msg.WriteShort( currentTourneyPlayer[ 0 ] );
 	msg.WriteShort( currentTourneyPlayer[ 1 ] );
-	for ( i = 0; i < MAX_CLIENTS; i++ ) {
+	for ( k = 0; k < MAX_CLIENTS; k++ ) {
 		// clamp all values to min/max possible value that we can send over
-		value = idMath::ClampInt( MP_PLAYER_MINFRAGS, MP_PLAYER_MAXFRAGS, playerState[i].fragCount );
+		value = idMath::ClampInt( MP_PLAYER_MINFRAGS, MP_PLAYER_MAXFRAGS, playerState[k].fragCount );
 		msg.WriteBits( value, ASYNC_PLAYER_FRAG_BITS );
-		value = idMath::ClampInt( MP_PLAYER_MINFRAGS, MP_PLAYER_MAXFRAGS, playerState[i].teamFragCount );
+		value = idMath::ClampInt( MP_PLAYER_MINFRAGS, MP_PLAYER_MAXFRAGS, playerState[k].teamFragCount );
 		msg.WriteBits( value, ASYNC_PLAYER_FRAG_BITS );
-		value = idMath::ClampInt( 0, MP_PLAYER_MAXWINS, playerState[i].wins );
+		value = idMath::ClampInt( 0, MP_PLAYER_MAXWINS, playerState[k].wins );
 		msg.WriteBits( value, ASYNC_PLAYER_WINS_BITS );
-		value = idMath::ClampInt( 0, MP_PLAYER_MAXPING, playerState[i].ping );
+		value = idMath::ClampInt( 0, MP_PLAYER_MAXPING, playerState[k].ping );
 		msg.WriteBits( value, ASYNC_PLAYER_PING_BITS );
 	}
 
@@ -1968,7 +1968,7 @@ void idMultiplayerGame::ReadFromSnapshot( const idBitMsg &msg ) {
 
 	// This is a hack - I need a place to read the lobby ids before the player entities are
 	// read (SpawnPlayer requires a valid lobby id for the player).
-	for ( int i = 0; i < gameLocal.lobbyUserIDs.Num(); ++i ) {
+	for ( i = 0; i < gameLocal.lobbyUserIDs.Num(); ++i ) {
 		gameLocal.lobbyUserIDs[i].ReadFromMsg( msg );
 	}
 
@@ -2034,8 +2034,8 @@ void idMultiplayerGame::PlayGlobalSound( int toPlayerNum, snd_evt_t evt, const c
 
 	if ( !common->IsClient() && toPlayerNum != gameLocal.GetLocalClientNum() ) {
 		idBitMsg outMsg;
-		byte msgBuf[1024];
-		outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+		byte msgBuf_[1024];
+		outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 		int type = 0;
 
 		if ( shader ) {
@@ -2201,8 +2201,8 @@ void idMultiplayerGame::PrintMessageEvent( msg_evt_t evt, int parm1, int parm2 )
 	}
 	if ( !common->IsClient() ) {
 		idBitMsg outMsg;
-		byte msgBuf[1024];
-		outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+		byte msgBuf_[1024];
+		outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 		outMsg.WriteByte( evt );
 		outMsg.WriteByte( parm1 );
 		outMsg.WriteByte( parm2 );
@@ -2633,7 +2633,7 @@ idMultiplayerGame::ProcessChatMessage
 */
 void idMultiplayerGame::ProcessChatMessage( int clientNum, bool team, const char *name, const char *text, const char *sound ) {
 	idBitMsg	outMsg;
-	byte		msgBuf[ 256 ];
+	byte		msgBuf_[ 256 ];
 	const char *prefix = NULL;
 	int			send_to; // 0 - all, 1 - specs, 2 - team
 	int			i;
@@ -2671,7 +2671,7 @@ void idMultiplayerGame::ProcessChatMessage( int clientNum, bool team, const char
 		send_to = 0;
 	}
 	// put the message together
-	outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+	outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 	if ( prefix ) {
 		prefixed_name = va( "(%s) %s", prefix, name );
 	} else {
@@ -2758,9 +2758,9 @@ void idMultiplayerGame::ToggleSpectate() {
 		return;
 	}
 
-	byte msgBuf[ 256 ];
+	byte msgBuf_[ 256 ];
 	idBitMsg outMsg;
-	outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+	outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 	outMsg.WriteBool( !spectating );
 	outMsg.WriteByteAlign();
 	session->GetActingGameStateLobbyBase().SendReliableToHost( GAME_RELIABLE_MESSAGE_SPECTATE, outMsg );
@@ -2809,7 +2809,7 @@ idMultiplayerGame::VoiceChat
 */
 void idMultiplayerGame::VoiceChat( const idCmdArgs &args, bool team ) {
 	idBitMsg			outMsg;
-	byte				msgBuf[128];
+	byte				msgBuf_[128];
 	const char			*voc;
 	const idDict		*spawnArgs;
 	const idKeyValue	*keyval;
@@ -2850,7 +2850,7 @@ void idMultiplayerGame::VoiceChat( const idCmdArgs &args, bool team ) {
 	}
 	voiceChatThrottle = gameLocal.realClientTime + 1000;
 
-	outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+	outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 	outMsg.WriteLong( index );
 	outMsg.WriteBits( team ? 1 : 0, 1 );
 	session->GetActingGameStateLobbyBase().SendReliableToHost( GAME_RELIABLE_MESSAGE_VCHAT, outMsg );
@@ -2908,9 +2908,9 @@ idMultiplayerGame::ServerWriteInitialReliableMessages
 */
 void idMultiplayerGame::ServerWriteInitialReliableMessages( int clientNum, lobbyUserID_t lobbyUserID ) {
 	idBitMsg	outMsg;
-	byte		msgBuf[ MAX_GAME_MESSAGE_SIZE ];
+	byte		msgBuf_[ MAX_GAME_MESSAGE_SIZE ];
 
-	outMsg.InitWrite( msgBuf, sizeof( msgBuf ) );
+	outMsg.InitWrite( msgBuf_, sizeof( msgBuf_ ) );
 	outMsg.BeginWriting();
 	// send the game state and start time
 	outMsg.WriteByte( gameState );

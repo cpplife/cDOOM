@@ -166,7 +166,7 @@ and write it out.
 void RectAllocator( const idList<idVec2i> &inputSizes, idList<idVec2i> &outputPositions, idVec2i &totalSize );
 float RectPackingFraction( const idList<idVec2i> &inputSizes, const idVec2i totalSize );
 
-void idSWF::WriteSwfImageAtlas( const char *filename ) {
+void idSWF::WriteSwfImageAtlas( const char *filename_ ) {
 	idList<idVec2i>	inputSizes;
 	inputSizes.SetNum( packImages.Num() );
 	for ( int i = 0 ; i < packImages.Num() ; i++ ) {
@@ -217,7 +217,7 @@ void idSWF::WriteSwfImageAtlas( const char *filename ) {
 		int	maxV[4] = { 0, 0, 0, 0 };
 		for ( int j = 0 ; j < pack.trueSize.x * pack.trueSize.y * 4 ; j++ ) {
 			int	v = pack.imageData[ j ];
-			int	x = j & 3;
+			x = j & 3;
 			if ( v < minV[x] ) {
 				minV[x] = v;
 			}
@@ -229,7 +229,7 @@ void idSWF::WriteSwfImageAtlas( const char *filename ) {
 //			minV[0], maxV[0], minV[1], maxV[1], minV[2], maxV[2], minV[3], maxV[3] );
 
 		// don't divide by zero
-		for ( int x = 0 ; x < 4 ; x++ ) {
+		for ( x = 0 ; x < 4 ; x++ ) {
 			if ( maxV[x] == 0 ) {
 				maxV[x] = 1;
 			}
@@ -245,7 +245,7 @@ void idSWF::WriteSwfImageAtlas( const char *filename ) {
 		// and just doing a scale avoids changing more code.
 		for ( int j = 0; j < pack.trueSize.x * pack.trueSize.y * 4; j++ ) {
 			int	v = pack.imageData[ j ];
-			int	x = j & 3;
+			x = j & 3;
 			v = v * 255 / maxV[x];
 			pack.imageData[ j ] = v;
 		}
@@ -285,7 +285,7 @@ void idSWF::WriteSwfImageAtlas( const char *filename ) {
 		entry->imageSize.y = pack.trueSize.y;
 		entry->imageAtlasOffset.x = x + 1;
 		entry->imageAtlasOffset.y = y + 1;
-		for ( int i = 0; i < 4; i++ ) {
+		for ( i = 0; i < 4; i++ ) {
 			entry->channelScale[i] = maxV[i] / 255.0f;
 		}
 
@@ -294,7 +294,7 @@ void idSWF::WriteSwfImageAtlas( const char *filename ) {
 	}
 
 	// the TGA is only for examination during development
-	R_WriteTGA( filename, swfAtlas.Ptr(), atlasWidth, atlasHeight, false, "fs_basepath" );
+	R_WriteTGA( filename_, swfAtlas.Ptr(), atlasWidth, atlasHeight, false, "fs_basepath" );
 }
 
 /*
@@ -383,12 +383,12 @@ Identical to DefineBits, except it uses a local JPEG table (not the one defined 
 void idSWF::DefineBitsJPEG2( idSWFBitStream & bitstream ) {
 	uint16 characterID = bitstream.ReadU16();
 
-	idDecompressJPEG jpeg;
+	idDecompressJPEG jpeg_;
 
 	int jpegSize = bitstream.Length() - sizeof( uint16 );
 
 	int width, height;
-	byte * imageData = jpeg.Load( bitstream.ReadData( jpegSize ), jpegSize, width, height );
+	byte * imageData = jpeg_.Load( bitstream.ReadData( jpegSize ), jpegSize, width, height );
 	if ( imageData == NULL ) {
 		return;
 	}
@@ -408,10 +408,10 @@ void idSWF::DefineBitsJPEG3( idSWFBitStream & bitstream ) {
 	uint16 characterID = bitstream.ReadU16();
 	uint32 jpegSize = bitstream.ReadU32();
 
-	idDecompressJPEG jpeg;
+	idDecompressJPEG jpeg_;
 
 	int width, height;
-	byte * imageData = jpeg.Load( bitstream.ReadData( jpegSize ), jpegSize, width, height );
+	byte * imageData = jpeg_.Load( bitstream.ReadData( jpegSize ), jpegSize, width, height );
 	if ( imageData == NULL ) {
 		return;
 	}

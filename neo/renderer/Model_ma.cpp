@@ -599,23 +599,23 @@ void MA_ParseMesh(idParser& parser) {
 			break;
 		}
 		if(!token.Icmp("setAttr")) {
-			maAttribHeader_t header;
-			MA_ParseAttribHeader(parser, &header);
+			maAttribHeader_t header_;
+			MA_ParseAttribHeader(parser, &header_);
 
-			if(strstr(header.name, ".vt")) {
-				MA_ParseVertex(parser, &header);
-			} else if (strstr(header.name, ".ed")) {
-				MA_ParseEdge(parser, &header);
-			} else if (strstr(header.name, ".pt")) {
-				MA_ParseVertexTransforms(parser, &header);
-			} else if (strstr(header.name, ".n")) {
-				MA_ParseNormal(parser, &header);
-			} else if (strstr(header.name, ".fc")) {
-				MA_ParseFace(parser, &header);
-			} else if (strstr(header.name, ".clr")) {
-				MA_ParseColor(parser, &header);
-			} else if (strstr(header.name, ".uvst")) {
-				MA_ParseTVert(parser, &header);
+			if(strstr(header_.name, ".vt")) {
+				MA_ParseVertex(parser, &header_);
+			} else if (strstr(header_.name, ".ed")) {
+				MA_ParseEdge(parser, &header_);
+			} else if (strstr(header_.name, ".pt")) {
+				MA_ParseVertexTransforms(parser, &header_);
+			} else if (strstr(header_.name, ".n")) {
+				MA_ParseNormal(parser, &header_);
+			} else if (strstr(header_.name, ".fc")) {
+				MA_ParseFace(parser, &header_);
+			} else if (strstr(header_.name, ".clr")) {
+				MA_ParseColor(parser, &header_);
+			} else if (strstr(header_.name, ".uvst")) {
+				MA_ParseTVert(parser, &header_);
 			} else {
 				parser.SkipRestOfLine();
 			}

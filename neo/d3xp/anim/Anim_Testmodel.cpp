@@ -368,11 +368,11 @@ void idTestModel::Think() {
 		idClipModel *clip = physicsObj.GetClipModel();
 		if ( clip != NULL && animator.ModelDef() ) {
 			idVec3 neworigin;
-			idMat3 axis;
+			idMat3 axis_;
 			jointHandle_t joint;
 
 			joint = animator.GetJointHandle( "origin" );
-			animator.GetJointTransform( joint, gameLocal.time, neworigin, axis );
+			animator.GetJointTransform( joint, gameLocal.time, neworigin, axis_ );
 			neworigin = ( ( neworigin - animator.ModelDef()->GetVisualOffset() ) * physicsObj.GetAxis() ) + GetPhysics()->GetOrigin();
 			clip->Link( gameLocal.clip, this, 0, neworigin, clip->GetAxis() );
 		}
@@ -524,7 +524,7 @@ idTestModel::TestAnim
 ================
 */
 void idTestModel::TestAnim( const idCmdArgs &args ) {
-	idStr			name;
+	idStr			name_;
 	int				animNum;
 	const idAnim	*newanim;
 
@@ -535,11 +535,11 @@ void idTestModel::TestAnim( const idCmdArgs &args ) {
 
 	newanim = NULL;
 
-	name = args.Argv( 1 );
-	animNum = animator.GetAnim( name );
+	name_ = args.Argv( 1 );
+	animNum = animator.GetAnim( name_ );
 
 	if ( !animNum ) {
-		gameLocal.Printf( "Animation '%s' not found.\n", name.c_str() );
+		gameLocal.Printf( "Animation '%s' not found.\n", name_.c_str() );
 		return;
 	}
 
@@ -562,7 +562,7 @@ void idTestModel::TestAnim( const idCmdArgs &args ) {
 		}
 	}
 
-	animname = name;
+	animname = name_;
 	gameLocal.Printf( "anim '%s', %d.%03d seconds, %d frames\n", animname.c_str(), animator.AnimLength( anim ) / 1000, animator.AnimLength( anim ) % 1000, animator.NumFrames( anim ) );
 
 	// reset the anim

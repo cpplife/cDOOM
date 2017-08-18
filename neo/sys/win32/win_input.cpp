@@ -598,33 +598,33 @@ int Sys_PollMouseInputEvents( int mouseEvents[MAX_MOUSE_EVENTS][2] ) {
 		dwElements = MAX_MOUSE_EVENTS;
 	}
 
-	for( DWORD i = 0; i < dwElements; i++ ) {
-		mouseEvents[i][0] = M_INVALID;
-		mouseEvents[i][1] = 0;
+	for( DWORD k = 0; k < dwElements; k++ ) {
+		mouseEvents[k][0] = M_INVALID;
+		mouseEvents[k][1] = 0;
 
-		if ( polled_didod[i].dwOfs >= DIMOFS_BUTTON0 && polled_didod[i].dwOfs <= DIMOFS_BUTTON7 ) {
-			const int mouseButton = ( polled_didod[i].dwOfs - DIMOFS_BUTTON0 );
-			const bool mouseDown = (polled_didod[i].dwData & 0x80) == 0x80;
-			mouseEvents[i][0] = M_ACTION1 + mouseButton;
-			mouseEvents[i][1] = mouseDown;
+		if ( polled_didod[k].dwOfs >= DIMOFS_BUTTON0 && polled_didod[k].dwOfs <= DIMOFS_BUTTON7 ) {
+			const int mouseButton = ( polled_didod[k].dwOfs - DIMOFS_BUTTON0 );
+			const bool mouseDown = (polled_didod[k].dwData & 0x80) == 0x80;
+			mouseEvents[k][0] = M_ACTION1 + mouseButton;
+			mouseEvents[k][1] = mouseDown;
 			Sys_QueEvent( SE_KEY, K_MOUSE1 + mouseButton, mouseDown, 0, NULL, 0 );
 		} else {
-			switch (polled_didod[i].dwOfs) {
+			switch (polled_didod[k].dwOfs) {
 			case DIMOFS_X:
-				mouseEvents[i][0] = M_DELTAX;
-				mouseEvents[i][1] = polled_didod[i].dwData;
-				Sys_QueEvent( SE_MOUSE, polled_didod[i].dwData, 0, 0, NULL, 0 );
+				mouseEvents[k][0] = M_DELTAX;
+				mouseEvents[k][1] = polled_didod[k].dwData;
+				Sys_QueEvent( SE_MOUSE, polled_didod[k].dwData, 0, 0, NULL, 0 );
 				break;
 			case DIMOFS_Y:
-				mouseEvents[i][0] = M_DELTAY;
-				mouseEvents[i][1] = polled_didod[i].dwData;
-				Sys_QueEvent( SE_MOUSE, 0, polled_didod[i].dwData, 0, NULL, 0 );
+				mouseEvents[k][0] = M_DELTAY;
+				mouseEvents[k][1] = polled_didod[k].dwData;
+				Sys_QueEvent( SE_MOUSE, 0, polled_didod[k].dwData, 0, NULL, 0 );
 				break;
 			case DIMOFS_Z:
-				mouseEvents[i][0] = M_DELTAZ;
-				mouseEvents[i][1] = (int)polled_didod[i].dwData / WHEEL_DELTA;
+				mouseEvents[k][0] = M_DELTAZ;
+				mouseEvents[k][1] = (int)polled_didod[k].dwData / WHEEL_DELTA;
 				{
-					const int value = (int)polled_didod[i].dwData / WHEEL_DELTA;
+					const int value = (int)polled_didod[k].dwData / WHEEL_DELTA;
 					const int key = value < 0 ? K_MWHEELDOWN : K_MWHEELUP;
 					const int iterations = abs( value );
 					for ( int i = 0; i < iterations; i++ ) {
@@ -708,7 +708,7 @@ void JoystickSamplingThread( void *data ) {
 			}
 
 			// do this short amount of processing inside a critical section
-			idScopedCriticalSection cs( win32.g_Joystick.mutexXis );
+			idScopedCriticalSection cs_( win32.g_Joystick.mutexXis );
 
 			for ( int i = 0 ; i < MAX_JOYSTICKS ; i++ ) {
 				controllerState_t * cs = &win32.g_Joystick.controllers[i];

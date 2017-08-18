@@ -382,7 +382,7 @@ void idEvent::Free() {
 idEvent::Schedule
 ================
 */
-void idEvent::Schedule( idClass *obj, const idTypeInfo *type, int time ) {
+void idEvent::Schedule( idClass *obj, const idTypeInfo *type, int time_ ) {
 	idEvent *event;
 
 	assert( initialized );
@@ -394,7 +394,7 @@ void idEvent::Schedule( idClass *obj, const idTypeInfo *type, int time ) {
 	typeinfo = type;
 
 	// wraps after 24 days...like I care. ;)
-	this->time = gameLocal.time + time;
+	this->time = gameLocal.time + time_;
 
 	eventNode.Remove();
 
@@ -412,7 +412,7 @@ void idEvent::Schedule( idClass *obj, const idTypeInfo *type, int time ) {
 
 		return;
 	} else {
-		this->time = gameLocal.slow.time + time;
+		this->time = gameLocal.slow.time + time_;
 	}
 
 	event = EventQueue.Next();

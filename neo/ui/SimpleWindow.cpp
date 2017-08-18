@@ -148,30 +148,30 @@ void idSimpleWindow::SetupTransforms(float x, float y) {
 	}
 }
 
-void idSimpleWindow::DrawBackground(const idRectangle &drawRect) {
+void idSimpleWindow::DrawBackground(const idRectangle &drawRect_) {
 	if (backColor.w() > 0) {
-		dc->DrawFilledRect(drawRect.x, drawRect.y, drawRect.w, drawRect.h, backColor);
+		dc->DrawFilledRect(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, backColor);
 	}
 
 	if (background) {
 		if (matColor.w() > 0) {
 			float scalex, scaley;
 			if ( flags & WIN_NATURALMAT ) {
-				scalex = drawRect.w / background->GetImageWidth();
-				scaley = drawRect.h / background->GetImageHeight();
+				scalex = drawRect_.w / background->GetImageWidth();
+				scaley = drawRect_.h / background->GetImageHeight();
 			} else {
 				scalex = matScalex;
 				scaley = matScaley;
 			}
-			dc->DrawMaterial(drawRect.x, drawRect.y, drawRect.w, drawRect.h, background, matColor, scalex, scaley);
+			dc->DrawMaterial(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, background, matColor, scalex, scaley);
 		}
 	}
 }
 
-void idSimpleWindow::DrawBorderAndCaption(const idRectangle &drawRect) {
+void idSimpleWindow::DrawBorderAndCaption(const idRectangle &drawRect_) {
 	if (flags & WIN_BORDER) {
 		if (borderSize) {
-			dc->DrawRect(drawRect.x, drawRect.y, drawRect.w, drawRect.h, borderSize, borderColor);
+			dc->DrawRect(drawRect_.x, drawRect_.y, drawRect_.w, drawRect_.h, borderSize, borderColor);
 		}
 	}
 }

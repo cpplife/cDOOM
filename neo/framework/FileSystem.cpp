@@ -972,7 +972,7 @@ void idFileSystemLocal::WriteResourcePacks() {
 	idList< idFileManifest > manifests;				// list of all manifest files
 	// load all file manifests
 	for ( int i = 0; i < manifestFiles.Num(); i++ ) {
-		idStr path = "maps/";
+		path = "maps/";
 		path += manifestFiles[ i ];
 		idFileManifest manifest;
 		if ( manifest.LoadManifest( path ) ) {
@@ -990,7 +990,7 @@ void idFileSystemLocal::WriteResourcePacks() {
 	idList< idPreloadManifest > preloadManifests;	// list of all preload manifest files
 	// load all preload manifests
 	for ( int i = 0; i < preloadFiles.Num(); i++ ) {
-		idStr path = "maps/";
+		path = "maps/";
 		path += preloadFiles[ i ];
 		if ( path.Find( "_startup", false ) >= 0 ) {
 			continue;
@@ -1434,7 +1434,7 @@ const char * idFileSystemLocal::BuildOSPath( const char * base, const char * rel
 idFileSystemLocal::BuildOSPath
 ===================
 */
-const char *idFileSystemLocal::BuildOSPath( const char *base, const char *game, const char *relativePath ) {
+const char *idFileSystemLocal::BuildOSPath( const char *base, const char *game_, const char *relativePath ) {
 	static char OSPath[MAX_STRING_CHARS];
 	idStr newPath;
 
@@ -1446,7 +1446,7 @@ const char *idFileSystemLocal::BuildOSPath( const char *base, const char *game, 
 	idStr strBase = base;
 	strBase.StripTrailing( '/' );
 	strBase.StripTrailing( '\\' );
-	sprintf( newPath, "%s/%s/%s", strBase.c_str(), game, relativePath );
+	sprintf( newPath, "%s/%s/%s", strBase.c_str(), game_, relativePath );
 	ReplaceSeparators( newPath );
 	idStr::Copynz( OSPath, newPath, sizeof( OSPath ) );
 	return OSPath;
@@ -2856,25 +2856,25 @@ idFile *idFileSystemLocal::OpenFileReadFlags( const char *relativePath, int sear
 				copypath += name;
 
 				if ( fs_buildResources.GetBool() ) {
-					idStrStatic< MAX_OSPATH > relativePath = OSPathToRelativePath( copypath );
-					relativePath.BackSlashesToSlashes();
-					relativePath.ToLower();
+					idStrStatic< MAX_OSPATH > relativePath_ = OSPathToRelativePath( copypath );
+					relativePath_.BackSlashesToSlashes();
+					relativePath_.ToLower();
 
-					if ( IsSoundSample( relativePath ) ) {
-						idStrStatic< MAX_OSPATH > samplePath = relativePath;
+					if ( IsSoundSample( relativePath_ ) ) {
+						idStrStatic< MAX_OSPATH > samplePath = relativePath_;
 						samplePath.SetFileExtension( "idwav" );
 						if ( samplePath.Find( "generated/" ) == -1 ) {
 							samplePath.Insert( "generated/", 0 );
 						}
 						fileManifest.AddUnique( samplePath );
-						if ( relativePath.Find( "/vo/", false ) >= 0 ) {
+						if ( relativePath_.Find( "/vo/", false ) >= 0 ) {
 							// this is vo so add the language variants
 							for ( int i = 0; i < Sys_NumLangs(); i++ ) {
 								const char *lang = Sys_Lang( i );
 								if ( idStr::Icmp( lang, ID_LANG_ENGLISH ) == 0 ) {
 									continue;
 								}
-								samplePath = relativePath;
+								samplePath = relativePath_;
 								samplePath.Replace( "/vo/", va( "/vo/%s/", lang ) );
 								samplePath.SetFileExtension( "idwav" );
 								if ( samplePath.Find( "generated/" ) == -1 ) {
@@ -2884,22 +2884,22 @@ idFile *idFileSystemLocal::OpenFileReadFlags( const char *relativePath, int sear
 
 							}
 						}
-					} else if ( relativePath.Icmpn( "guis/", 5 ) == 0 ) {
+					} else if ( relativePath_.Icmpn( "guis/", 5 ) == 0 ) {
 						// this is a gui so add the language variants
 						for ( int i = 0; i < Sys_NumLangs(); i++ ) {
 							const char *lang = Sys_Lang( i );
 							if ( idStr::Icmp( lang, ID_LANG_ENGLISH ) == 0 ) {
-								fileManifest.Append( relativePath );
+								fileManifest.Append( relativePath_ );
 								continue;
 							}
-							idStrStatic< MAX_OSPATH > guiPath = relativePath;
+							idStrStatic< MAX_OSPATH > guiPath = relativePath_;
 							guiPath.Replace( "guis/", va( "guis/%s/", lang ) );
 							fileManifest.Append( guiPath );
 						}
 					} else {
 						// never add .amp files
-						if ( strstr( relativePath, ".amp" ) == NULL ) {
-							fileManifest.Append( relativePath );
+						if ( strstr( relativePath_, ".amp" ) == NULL ) {
+							fileManifest.Append( relativePath_ );
 						}
 					}
 

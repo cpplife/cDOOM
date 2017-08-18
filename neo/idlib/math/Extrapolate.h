@@ -95,13 +95,13 @@ idExtrapolate::Init
 ====================
 */
 template< class type >
-ID_INLINE void idExtrapolate<type>::Init( const int startTime, const int duration, const type &startValue, const type &baseSpeed, const type &speed, const extrapolation_t extrapolationType ) {
+ID_INLINE void idExtrapolate<type>::Init( const int startTime_, const int duration_, const type &startValue_, const type &baseSpeed_, const type &speed_, const extrapolation_t extrapolationType_ ) {
 	this->extrapolationType = extrapolationType;
-	this->startTime = startTime;
-	this->duration = duration;
-	this->startValue = startValue;
-	this->baseSpeed = baseSpeed;
-	this->speed = speed;
+	this->startTime = startTime_;
+	this->duration = duration_;
+	this->startValue = startValue_;
+	this->baseSpeed = baseSpeed_;
+	this->speed = speed_;
 }
 
 /*

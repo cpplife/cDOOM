@@ -76,9 +76,9 @@ idCompressor_None::idCompressor_None() {
 idCompressor_None::Init
 ================
 */
-void idCompressor_None::Init( idFile *f, bool compress, int wordLength ) {
+void idCompressor_None::Init( idFile *f, bool compress_, int wordLength_ ) {
 	this->file = f;
-	this->compress = compress;
+	this->compress = compress_;
 }
 
 /*
@@ -271,13 +271,13 @@ protected:
 idCompressor_BitStream::Init
 ================
 */
-void idCompressor_BitStream::Init( idFile *f, bool compress, int wordLength ) {
+void idCompressor_BitStream::Init( idFile *f, bool compress_, int wordLength_ ) {
 
-	assert( wordLength >= 1 && wordLength <= 32 );
+	assert( wordLength_ >= 1 && wordLength_ <= 32 );
 
 	this->file = f;
-	this->compress = compress;
-	this->wordLength = wordLength;
+	this->compress = compress_;
+	this->wordLength = wordLength_;
 
 	readTotalBytes = 0;
 	readLength = 0;
@@ -626,9 +626,9 @@ private:
 idCompressor_RunLength::Init
 ================
 */
-void idCompressor_RunLength::Init( idFile *f, bool compress, int wordLength ) {
-	idCompressor_BitStream::Init( f, compress, wordLength );
-	runLengthCode = ( 1 << wordLength ) - 1;
+void idCompressor_RunLength::Init( idFile *f, bool compress_, int wordLength_ ) {
+	idCompressor_BitStream::Init( f, compress_, wordLength_ );
+	runLengthCode = ( 1 << wordLength_ ) - 1;
 }
 
 /*
@@ -869,11 +869,11 @@ private:
 idCompressor_Huffman::Init
 ================
 */
-void idCompressor_Huffman::Init( idFile *f, bool compress, int wordLength ) {
+void idCompressor_Huffman::Init( idFile *f, bool compress_, int wordLength_ ) {
 	int i;
 
 	this->file = f;
-	this->compress = compress;
+	this->compress = compress_;
 	bloc = 0;
 	blocMax = 0;
 	blocIn = 0;
@@ -895,7 +895,7 @@ void idCompressor_Huffman::Init( idFile *f, bool compress, int wordLength ) {
 		nodePtrs[i] = NULL;
 	}
 
-	if ( compress ) {
+	if ( compress_ ) {
 		// Add the NYT (not yet transmitted) node into the tree/list
 		tree = lhead = loc[NYT] = &nodeList[blocNode++];
 		tree->symbol = NYT;
@@ -1430,8 +1430,8 @@ private:
 idCompressor_Arithmetic::Init
 ================
 */
-void idCompressor_Arithmetic::Init( idFile *f, bool compress, int wordLength ) {
-	idCompressor_BitStream::Init( f, compress, wordLength );
+void idCompressor_Arithmetic::Init( idFile *f, bool compress_, int wordLength_ ) {
+	idCompressor_BitStream::Init( f, compress_, wordLength_ );
 
 	symbolBuffer	= 0;
 	symbolBit		= 0;
@@ -1837,13 +1837,13 @@ protected:
 idCompressor_LZSS::Init
 ================
 */
-void idCompressor_LZSS::Init( idFile *f, bool compress, int wordLength ) {
-	idCompressor_BitStream::Init( f, compress, wordLength );
+void idCompressor_LZSS::Init( idFile *f, bool compress_, int wordLength_ ) {
+	idCompressor_BitStream::Init( f, compress_, wordLength_ );
 
 	offsetBits = LZSS_OFFSET_BITS;
 	lengthBits = LZSS_LENGTH_BITS;
 
-	minMatchWords = ( offsetBits + lengthBits + wordLength ) / wordLength;
+	minMatchWords = ( offsetBits + lengthBits + wordLength_ ) / wordLength_;
 	blockSize = 0;
 	blockIndex = 0;
 }
@@ -2096,13 +2096,13 @@ private:
 idCompressor_LZSS_WordAligned::Init
 ================
 */
-void idCompressor_LZSS_WordAligned::Init( idFile *f, bool compress, int wordLength ) {
-	idCompressor_LZSS::Init( f, compress, wordLength );
+void idCompressor_LZSS_WordAligned::Init( idFile *f, bool compress_, int wordLength_ ) {
+	idCompressor_LZSS::Init( f, compress_, wordLength_ );
 
-	offsetBits = 2 * wordLength;
-	lengthBits = wordLength;
+	offsetBits = 2 * wordLength_;
+	lengthBits = wordLength_;
 
-	minMatchWords = ( offsetBits + lengthBits + wordLength ) / wordLength;
+	minMatchWords = ( offsetBits + lengthBits + wordLength_ ) / wordLength_;
 	blockSize = 0;
 	blockIndex = 0;
 }
@@ -2272,8 +2272,8 @@ protected:
 idCompressor_LZW::Init
 ================
 */
-void idCompressor_LZW::Init( idFile *f, bool compress, int wordLength ) {
-	idCompressor_BitStream::Init( f, compress, wordLength );
+void idCompressor_LZW::Init( idFile *f, bool compress_, int wordLength_ ) {
+	idCompressor_BitStream::Init( f, compress_, wordLength_ );
 
 	for ( int i=0; i<LZW_FIRST_CODE; i++ ) {
 		dictionary[i].k = i;
@@ -2331,14 +2331,14 @@ int idCompressor_LZW::Read( void *outData, int outLength ) {
 idCompressor_LZW::Lookup
 ================
 */
-int idCompressor_LZW::Lookup( int w, int k ) {
+int idCompressor_LZW::Lookup( int w_, int k ) {
 	int j;
 
-	if ( w == -1 ) {
+	if ( w_ == -1 ) {
 		return k;
 	} else {
-		for ( j = index.First( w ^ k ); j >= 0 ; j = index.Next( j ) ) {
-			if ( dictionary[ j ].k == k && dictionary[ j ].w == w ) { 
+		for ( j = index.First( w_ ^ k ); j >= 0 ; j = index.Next( j ) ) {
+			if ( dictionary[ j ].k == k && dictionary[ j ].w == w_ ) { 
 				return j;
 			}
 		}
@@ -2352,10 +2352,10 @@ int idCompressor_LZW::Lookup( int w, int k ) {
 idCompressor_LZW::AddToDict
 ================
 */
-int idCompressor_LZW::AddToDict( int w, int k ) {
+int idCompressor_LZW::AddToDict( int w_, int k ) {
 	dictionary[ nextCode ].k = k;
-	dictionary[ nextCode ].w = w;
-	index.Add( w ^ k, nextCode );
+	dictionary[ nextCode ].w = w_;
+	index.Add( w_ ^ k, nextCode );
 	return nextCode++;
 }
 

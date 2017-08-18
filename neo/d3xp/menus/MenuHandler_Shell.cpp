@@ -1432,9 +1432,9 @@ void idMenuHandler_Shell::ShowROEIntro() {
 
 														int nextDateIndex = ( nextIndex + 1 );
 														if ( nextDateIndex < NUM_ROE_INTRO_LINES ) {
-															idSWFSpriteInstance * nextInfo = gui->GetRootObject().GetNestedSprite( va( "info%d", nextDateIndex ) );
-															if ( nextInfo != NULL && nextInfo->GetCurrentFrame() != nextInfo->FindFrame( "active" ) ) {
-																nextInfo->StopFrame( "active" );
+															idSWFSpriteInstance * nextInfo_ = gui->GetRootObject().GetNestedSprite( va( "info%d", nextDateIndex ) );
+															if ( nextInfo_ != NULL && nextInfo_->GetCurrentFrame() != nextInfo_->FindFrame( "active" ) ) {
+																nextInfo_->StopFrame( "active" );
 																return idSWFScriptVar();
 															}
 														} else {

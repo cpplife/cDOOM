@@ -573,7 +573,7 @@ bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char *name, uns
 	ID_TIME_T currentTimeStamp = fileSystem->GetTimestamp( fileName );
 
 	// see if we have a generated version of this 
-	bool loaded = false;
+	bool loaded_ = false;
 	idFileLocal file( fileSystem->OpenFileReadMemory( generatedFileName ) );
 	if ( file != NULL ) {
 		int numEntries = 0;
@@ -590,11 +590,11 @@ bool idCollisionModelManagerLocal::LoadCollisionModelFile( const char *name, uns
 				models[ numModels ] = model;
 				numModels++;
 			}
-			loaded = true;
+			loaded_ = true;
 		}
 	}
 
-	if ( !loaded ) {
+	if ( !loaded_ ) {
 
 		fileName.SetFileExtension( CM_FILE_EXT );
 		src = new (TAG_COLLISION) idLexer( fileName );

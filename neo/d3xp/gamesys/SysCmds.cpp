@@ -403,8 +403,8 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 		} else if ( idStr::Icmp( args.Argv(2), "all" ) == 0 ) {
 			// Give the personal PDA first
 			player->GivePDA( NULL, NULL );
-			for ( int i = 0; i < declManager->GetNumDecls( DECL_PDA ); i++ ) {
-				player->GivePDA( static_cast<const idDeclPDA *>( declManager->DeclByIndex( DECL_PDA, i ) ), NULL );
+			for ( int k = 0; k < declManager->GetNumDecls( DECL_PDA ); k++ ) {
+				player->GivePDA( static_cast<const idDeclPDA *>( declManager->DeclByIndex( DECL_PDA, k ) ), NULL );
 			}
 		} else {
 			const idDeclPDA * pda = static_cast<const idDeclPDA *>( declManager->FindType( DECL_PDA, args.Argv(2), false ) );
@@ -1363,7 +1363,6 @@ static void Cmd_ListAnims_f( const idCmdArgs &args ) {
 	int				num;
 	size_t			size;
 	size_t			alloced;
-	idAnimator *	animator;
 	const char *	classname;
 	const idDict *	dict;
 	int				i;
@@ -1387,6 +1386,7 @@ static void Cmd_ListAnims_f( const idCmdArgs &args ) {
 		}
 		gameLocal.Printf( "%d anims\n", num );
 	} else {
+		idAnimator * animator;
 		animationLib.ListAnims();
 
 		size = 0;

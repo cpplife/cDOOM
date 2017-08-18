@@ -820,7 +820,7 @@ const idMD5Joint *idRenderModelStatic::GetJoints() const {
 idRenderModelStatic::GetJointHandle
 ================
 */
-jointHandle_t idRenderModelStatic::GetJointHandle( const char *name ) const {
+jointHandle_t idRenderModelStatic::GetJointHandle( const char *name_ ) const {
 	return INVALID_JOINT;
 }
 
@@ -1322,10 +1322,10 @@ bool idRenderModelStatic::ConvertASEToModelSurfaces( const struct aseModel_s *as
 			tri->verts[ j ].SetNormal( mv->normal );
 			*(unsigned *)tri->verts[j].color = *(unsigned *)mv->color;
 			if ( mesh->numTVFaces == mesh->numFaces && mesh->numTVertexes != 0 ) {
-				const idVec2 &tv = mesh->tvertexes[ mv->tv ];
-				float u = tv.x * uTiling + uOffset;
-				float v = tv.y * vTiling + vOffset;
-				tri->verts[j].SetTexCoord( u * textureCos + v * textureSin, u * -textureSin + v * textureCos );
+				const idVec2 &tv_ = mesh->tvertexes[ mv->tv ];
+				float u = tv_.x * uTiling + uOffset;
+				float v_ = tv_.y * vTiling + vOffset;
+				tri->verts[j].SetTexCoord( u * textureCos + v_ * textureSin, u * -textureSin + v_ * textureCos );
 			}
 		}
 
@@ -2171,10 +2171,10 @@ bool idRenderModelStatic::ConvertMAToModelSurfaces (const struct maModel_s *ma )
 			tri->verts[ j ].SetNormal( mv->normal );
 			*(unsigned *)tri->verts[j].color = *(unsigned *)mv->color;
 			if ( mesh->numTVertexes != 0 ) {
-				const idVec2 &tv = mesh->tvertexes[ mv->tv ];
-				float u = tv.x * uTiling + uOffset;
-				float v = tv.y * vTiling + vOffset;
-				tri->verts[j].SetTexCoord( u * textureCos + v * textureSin, u * -textureSin + v * textureCos );
+				const idVec2 &tv_ = mesh->tvertexes[ mv->tv ];
+				float u = tv_.x * uTiling + uOffset;
+				float v_ = tv_.y * vTiling + vOffset;
+				tri->verts[j].SetTexCoord( u * textureCos + v_ * textureSin, u * -textureSin + v_ * textureCos );
 			}
 		}
 

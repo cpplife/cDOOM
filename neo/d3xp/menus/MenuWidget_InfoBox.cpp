@@ -70,10 +70,10 @@ void idMenuWidget_InfoBox::Update() {
 		scrollbar->Update();
 	}
 
-	idSWFScriptObject * info = GetSprite()->GetScriptObject()->GetNestedObj( "info" );
-	if ( info != NULL ) {
-		info->Set( "onRollOver", new ( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OVER, 0 ) );
-		info->Set( "onRollOut", new ( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OUT, 0 ) );
+	idSWFScriptObject * info_ = GetSprite()->GetScriptObject()->GetNestedObj( "info" );
+	if ( info_ != NULL ) {
+		info_->Set( "onRollOver", new ( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OVER, 0 ) );
+		info_->Set( "onRollOut", new ( TAG_SWF ) WrapWidgetSWFEvent( this, WIDGET_EVENT_ROLL_OUT, 0 ) );
 	}
 
 }

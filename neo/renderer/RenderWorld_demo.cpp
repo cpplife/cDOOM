@@ -495,9 +495,9 @@ void	idRenderWorldLocal::ReadRenderLight( ) {
 		light.shader = declManager->FindMaterial( common->ReadDemo()->ReadHashString() );
 	}
 	if ( light.referenceSound ) {
-		int	index;
-		common->ReadDemo()->ReadInt( index );
-		light.referenceSound = common->SW()->EmitterForIndex( index );
+		int	index_;
+		common->ReadDemo()->ReadInt( index_ );
+		light.referenceSound = common->SW()->EmitterForIndex( index_ );
 	}
 
 	UpdateLightDef( index, &light );
@@ -669,13 +669,13 @@ void	idRenderWorldLocal::ReadRenderEntity() {
 		ent.referenceShader = declManager->FindMaterial( common->ReadDemo()->ReadHashString() );
 	}
 	if ( ent.referenceSound ) {
-		int	index;
-		common->ReadDemo()->ReadInt( index );
-		ent.referenceSound = common->SW()->EmitterForIndex( index );
+		int	index_;
+		common->ReadDemo()->ReadInt( index_ );
+		ent.referenceSound = common->SW()->EmitterForIndex( index_ );
 	}
 	if ( ent.numJoints ) {
 		ent.joints = (idJointMat *)Mem_Alloc16( SIMD_ROUND_JOINTS( ent.numJoints ) * sizeof( ent.joints[0] ), TAG_JOINTMAT ); 
-		for ( int i = 0; i < ent.numJoints; i++) {
+		for ( i = 0; i < ent.numJoints; i++) {
 			float *data = ent.joints[i].ToFloatPtr();
 			for ( int j = 0; j < 12; ++j ) {
 				common->ReadDemo()->ReadFloat( data[j] );

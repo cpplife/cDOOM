@@ -160,13 +160,13 @@ idAASFindCover::TestArea
 bool idAASFindCover::TestArea( const idAAS *aas, int areaNum ) {
 	idVec3	areaCenter;
 	int		numPVSAreas;
-	int		PVSAreas[ idEntity::MAX_PVS_AREAS ];
+	int		PVSAreas_[ idEntity::MAX_PVS_AREAS ];
 
 	areaCenter = aas->AreaCenter( areaNum );
 	areaCenter[ 2 ] += 1.0f;
 
-	numPVSAreas = gameLocal.pvs.GetPVSAreas( idBounds( areaCenter ).Expand( 16.0f ), PVSAreas, idEntity::MAX_PVS_AREAS );
-	if ( !gameLocal.pvs.InCurrentPVS( hidePVS, PVSAreas, numPVSAreas ) ) {
+	numPVSAreas = gameLocal.pvs.GetPVSAreas( idBounds( areaCenter ).Expand( 16.0f ), PVSAreas_, idEntity::MAX_PVS_AREAS );
+	if ( !gameLocal.pvs.InCurrentPVS( hidePVS, PVSAreas_, numPVSAreas ) ) {
 		return true;
 	}
 
@@ -251,7 +251,7 @@ bool idAASFindAttackPosition::TestArea( const idAAS *aas, int areaNum ) {
 	idMat3	axis;
 	idVec3	areaCenter;
 	int		numPVSAreas;
-	int		PVSAreas[ idEntity::MAX_PVS_AREAS ];
+	int		PVSAreas_[ idEntity::MAX_PVS_AREAS ];
 
 	areaCenter = aas->AreaCenter( areaNum );
 	areaCenter[ 2 ] += 1.0f;
@@ -261,8 +261,8 @@ bool idAASFindAttackPosition::TestArea( const idAAS *aas, int areaNum ) {
 		return false;
 	}
 
-	numPVSAreas = gameLocal.pvs.GetPVSAreas( idBounds( areaCenter ).Expand( 16.0f ), PVSAreas, idEntity::MAX_PVS_AREAS );
-	if ( !gameLocal.pvs.InCurrentPVS( targetPVS, PVSAreas, numPVSAreas ) ) {
+	numPVSAreas = gameLocal.pvs.GetPVSAreas( idBounds( areaCenter ).Expand( 16.0f ), PVSAreas_, idEntity::MAX_PVS_AREAS );
+	if ( !gameLocal.pvs.InCurrentPVS( targetPVS, PVSAreas_, numPVSAreas ) ) {
 		return false;
 	}
 
@@ -532,8 +532,8 @@ void idAI::Save( idSaveGame *savefile ) const {
 	savefile->WriteBool( GetPhysics() == static_cast<const idPhysics *>(&physicsObj) );
 
 	savefile->WriteInt(funcEmitters.Num());
-	for(int i = 0; i < funcEmitters.Num(); i++) {
-		funcEmitter_t* emitter = funcEmitters.GetIndex(i);
+	for(int k = 0; k < funcEmitters.Num(); k++) {
+		funcEmitter_t* emitter = funcEmitters.GetIndex(k);
 		savefile->WriteString(emitter->name);
 		savefile->WriteJoint(emitter->joint);
 		savefile->WriteObject(emitter->particle);
@@ -707,8 +707,8 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 
 	//Clean up the emitters
-	for(int i = 0; i < funcEmitters.Num(); i++) {
-		funcEmitter_t* emitter = funcEmitters.GetIndex(i);
+	for(int k = 0; k < funcEmitters.Num(); k++) {
+		funcEmitter_t* emitter = funcEmitters.GetIndex(k);
 		if(emitter->particle) {
 			//Destroy the emitters
 			emitter->particle->PostEventMS(&EV_Remove, 0 );
@@ -718,14 +718,14 @@ void idAI::Restore( idRestoreGame *savefile ) {
 
 	int emitterCount;
 	savefile->ReadInt( emitterCount );
-	for(int i = 0; i < emitterCount; i++) {
+	for(int k = 0; k < emitterCount; k++) {
 		funcEmitter_t newEmitter;
 		memset(&newEmitter, 0, sizeof(newEmitter));
 
-		idStr name;
-		savefile->ReadString( name ); 
+		idStr name_;
+		savefile->ReadString( name_ ); 
 
-		strcpy( newEmitter.name, name.c_str() );
+		strcpy( newEmitter.name, name_.c_str() );
 
 		savefile->ReadJoint( newEmitter.joint );
 		savefile->ReadObject(reinterpret_cast<idClass *&>(newEmitter.particle));
@@ -3731,7 +3731,7 @@ idAI::EnemyPositionValid
 =====================
 */
 bool idAI::EnemyPositionValid() const {
-	trace_t	tr;
+	trace_t	tr_;
 	idVec3	muzzle;
 	idMat3	axis;
 
@@ -3743,8 +3743,8 @@ bool idAI::EnemyPositionValid() const {
 		return true;
 	}
 
-	gameLocal.clip.TracePoint( tr, GetEyePosition(), lastVisibleEnemyPos + lastVisibleEnemyEyeOffset, MASK_OPAQUE, this );
-	if ( tr.fraction < 1.0f ) {
+	gameLocal.clip.TracePoint( tr_, GetEyePosition(), lastVisibleEnemyPos + lastVisibleEnemyEyeOffset, MASK_OPAQUE, this );
+	if ( tr_.fraction < 1.0f ) {
 		// can't see the area yet, so don't know if he's there or not
 		return true;
 	}
@@ -3836,11 +3836,11 @@ void idAI::SetEnemyPosition() {
 		}
 
 		if ( move.moveType == MOVETYPE_FLY ) {
-			predictedPath_t path;
+			predictedPath_t path_;
 			idVec3 end = move.moveDest;
 			end.z += enemyEnt->EyeOffset().z + fly_offset;
-			idAI::PredictPath( this, aas, move.moveDest, end - move.moveDest, 1000, 1000, SE_BLOCKED, path );
-			move.moveDest = path.endPos;
+			idAI::PredictPath( this, aas, move.moveDest, end - move.moveDest, 1000, 1000, SE_BLOCKED, path_ );
+			move.moveDest = path_.endPos;
 			move.toAreaNum = PointReachableAreaNum( move.moveDest, 1.0f );
 		}
 	}
@@ -3972,7 +3972,7 @@ void idAI::SetEnemy( idActor *newEnemy ) {
 idAI::FirstVisiblePointOnPath
 ============
 */
-idVec3 idAI::FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags ) const {
+idVec3 idAI::FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target, int travelFlags_ ) const {
 	int i, areaNum, targetAreaNum, curAreaNum, travelTime;
 	idVec3 curOrigin;
 	idReachability *reach;
@@ -3997,7 +3997,7 @@ idVec3 idAI::FirstVisiblePointOnPath( const idVec3 origin, const idVec3 &target,
 
 	for( i = 0; i < 10; i++ ) {
 
-		if ( !aas->RouteToGoalArea( curAreaNum, curOrigin, targetAreaNum, travelFlags, travelTime, &reach ) ) {
+		if ( !aas->RouteToGoalArea( curAreaNum, curOrigin, targetAreaNum, travelFlags_, travelTime, &reach ) ) {
 			break;
 		}
 
@@ -4136,8 +4136,8 @@ bool idAI::GetAimDir( const idVec3 &firePos, idEntity *aimAtEnt, const idEntity 
 idAI::BeginAttack
 =====================
 */
-void idAI::BeginAttack( const char *name ) {
-	attack = name;
+void idAI::BeginAttack( const char *name_ ) {
+	attack = name_;
 	lastAttackTime = gameLocal.time;
 }
 
@@ -4200,7 +4200,7 @@ idProjectile *idAI::LaunchProjectile( const char *jointname, idEntity *target, b
 	idVec3				muzzle;
 	idVec3				dir;
 	idVec3				start;
-	trace_t				tr;
+	trace_t				tr_;
 	idBounds			projBounds;
 	float				distance;
 	const idClipModel	*projClip;
@@ -4273,8 +4273,8 @@ idProjectile *idAI::LaunchProjectile( const char *jointname, idEntity *target, b
 			start = ownerBounds.GetCenter();
 		}
 
-		gameLocal.clip.Translation( tr, start, muzzle, projClip, axis, MASK_SHOT_RENDERMODEL, this );
-		muzzle = tr.endpos;
+		gameLocal.clip.Translation( tr_, start, muzzle, projClip, axis, MASK_SHOT_RENDERMODEL, this );
+		muzzle = tr_.endpos;
 	}
 
 	// set aiming direction
@@ -4356,7 +4356,7 @@ that the view kick and knockback should go
 void idAI::DirectDamage( const char *meleeDefName, idEntity *ent ) {
 	const idDict *meleeDef;
 	const char *p;
-	const idSoundShader *shader;
+	const idSoundShader *shader_;
 
 	meleeDef = gameLocal.FindEntityDefDict( meleeDefName, false );
 	if ( meleeDef == NULL ) {
@@ -4365,8 +4365,8 @@ void idAI::DirectDamage( const char *meleeDefName, idEntity *ent ) {
 	}
 
 	if ( !ent->fl.takedamage ) {
-		const idSoundShader *shader = declManager->FindSound(meleeDef->GetString( "snd_miss" ));
-		StartSoundShader( shader, SND_CHANNEL_DAMAGE, 0, false, NULL );
+		shader_ = declManager->FindSound(meleeDef->GetString( "snd_miss" ));
+		StartSoundShader( shader_, SND_CHANNEL_DAMAGE, 0, false, NULL );
 		return;
 	}
 
@@ -4375,8 +4375,8 @@ void idAI::DirectDamage( const char *meleeDefName, idEntity *ent ) {
 	//
 	p = meleeDef->GetString( "snd_hit" );
 	if ( p != NULL && *p != NULL ) {
-		shader = declManager->FindSound( p );
-		StartSoundShader( shader, SND_CHANNEL_DAMAGE, 0, false, NULL );
+		shader_ = declManager->FindSound( p );
+		StartSoundShader( shader_, SND_CHANNEL_DAMAGE, 0, false, NULL );
 	}
 
 	idVec3	kickDir;
@@ -4457,7 +4457,7 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 	const idDict *meleeDef;
 	idActor *enemyEnt = enemy.GetEntity();
 	const char *p;
-	const idSoundShader *shader;
+	const idSoundShader *shader_;
 
 	meleeDef = gameLocal.FindEntityDefDict( meleeDefName, false );
 	if ( meleeDef == NULL ) {
@@ -4468,8 +4468,8 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 	if ( enemyEnt == NULL ) {
 		p = meleeDef->GetString( "snd_miss" );
 		if ( p != NULL && *p != NULL ) {
-			shader = declManager->FindSound( p );
-			StartSoundShader( shader, SND_CHANNEL_DAMAGE, 0, false, NULL );
+			shader_ = declManager->FindSound( p );
+			StartSoundShader( shader_, SND_CHANNEL_DAMAGE, 0, false, NULL );
 		}
 		return false;
 	}
@@ -4500,8 +4500,8 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 		// missed
 		p = meleeDef->GetString( "snd_miss" );
 		if ( p != NULL && *p != NULL ) {
-			shader = declManager->FindSound( p );
-			StartSoundShader( shader, SND_CHANNEL_DAMAGE, 0, false, NULL );
+			shader_ = declManager->FindSound( p );
+			StartSoundShader( shader_, SND_CHANNEL_DAMAGE, 0, false, NULL );
 		}
 		return false;
 	}
@@ -4511,8 +4511,8 @@ bool idAI::AttackMelee( const char *meleeDefName ) {
 	//
 	p = meleeDef->GetString( "snd_hit" );
 	if ( p != NULL && *p != NULL ) {
-		shader = declManager->FindSound( p );
-		StartSoundShader( shader, SND_CHANNEL_DAMAGE, 0, false, NULL );
+		shader_ = declManager->FindSound( p );
+		StartSoundShader( shader_, SND_CHANNEL_DAMAGE, 0, false, NULL );
 	}
 
 	idVec3	kickDir;
@@ -4844,9 +4844,9 @@ void idAI::TriggerFX( const char* joint, const char* fx ) {
 	}
 }
 
-idEntity* idAI::StartEmitter( const char* name, const char* joint, const char* particle ) {
+idEntity* idAI::StartEmitter( const char* name_, const char* joint, const char* particle ) {
 
-	idEntity* existing = GetEmitter(name);
+	idEntity* existing = GetEmitter(name_);
 	if(existing) {
 		return existing;
 	}
@@ -4897,7 +4897,7 @@ idEntity* idAI::StartEmitter( const char* name, const char* joint, const char* p
 	
 	//Keep a reference to the emitter so we can track it
 	funcEmitter_t newEmitter;
-	strcpy(newEmitter.name, name);
+	strcpy(newEmitter.name, name_);
 	newEmitter.particle = (idFuncEmitter*)ent;
 	newEmitter.joint = jointNum;
 	funcEmitters.Set(newEmitter.name, newEmitter);
@@ -4910,22 +4910,22 @@ idEntity* idAI::StartEmitter( const char* name, const char* joint, const char* p
 	return newEmitter.particle;
 }
 
-idEntity* idAI::GetEmitter( const char* name ) {
+idEntity* idAI::GetEmitter( const char* name_ ) {
 	funcEmitter_t* emitter;
-	funcEmitters.Get(name, &emitter);
+	funcEmitters.Get(name_, &emitter);
 	if(emitter) {
 		return emitter->particle;
 	}
 	return NULL;
 }
 
-void idAI::StopEmitter( const char* name ) {
+void idAI::StopEmitter( const char* name_ ) {
 	funcEmitter_t* emitter;
-	funcEmitters.Get(name, &emitter);
+	funcEmitters.Get(name_, &emitter);
 	if(emitter) {
 		emitter->particle->Unbind();
 		emitter->particle->PostEventMS( &EV_Remove, 0 );
-		funcEmitters.Remove(name);
+		funcEmitters.Remove(name_);
 	}
 }
 

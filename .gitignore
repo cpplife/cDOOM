@@ -21,6 +21,7 @@ CMakeFiles/
 *.sln
 *.vcxproj
 *.vcxproj.filters
+*.vcxproj.user
 *.VC.opendb
 *.VC.db
 *.sdf
@@ -30,5 +31,7 @@ build/
 Debug/
 dbghelp.pdb/
 ipch/
+.vimproj/
+update_cscope_db.py
 
 

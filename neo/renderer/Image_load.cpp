@@ -147,9 +147,9 @@ ID_INLINE void idImage::DeriveOpts() {
 idImage::AllocImage
 ========================
 */
-void idImage::AllocImage( const idImageOpts &imgOpts, textureFilter_t tf, textureRepeat_t tr ) {
+void idImage::AllocImage( const idImageOpts &imgOpts, textureFilter_t tf, textureRepeat_t tr_ ) {
 	filter = tf;
-	repeat = tr;
+	repeat = tr_;
 	opts = imgOpts;
 	DeriveOpts();
 	AllocImage();
@@ -704,12 +704,12 @@ void idImage::Reload( bool force ) {
 idImage::SetSamplerState
 ========================
 */
-void idImage::SetSamplerState( textureFilter_t tf, textureRepeat_t tr ) {
-	if ( tf == filter && tr == repeat ) {
+void idImage::SetSamplerState( textureFilter_t tf, textureRepeat_t tr_ ) {
+	if ( tf == filter && tr_ == repeat ) {
 		return;
 	}
 	filter = tf;
-	repeat = tr;
+	repeat = tr_;
 	qglBindTexture( ( opts.textureType == TT_CUBIC ) ? GL_TEXTURE_CUBE_MAP_EXT : GL_TEXTURE_2D, texnum );
 	SetTexParameters();
 }

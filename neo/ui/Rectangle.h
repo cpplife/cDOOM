@@ -41,9 +41,9 @@ public:
 	idRectangle(float ix, float iy, float iw, float ih) { x = ix; y = iy; w = iw; h = ih; }
 	float Bottom() const { return y + h; }
 	float Right() const { return x + w; }
-	void Offset (float x, float y) { 
-		this->x += x;
-		this->y += y;
+	void Offset (float x_, float y_) { 
+		this->x += x_;
+		this->y += y_;
 	}
 	bool Contains(float xt, float yt) {
 		if (w == 0.0 && h == 0.0) {

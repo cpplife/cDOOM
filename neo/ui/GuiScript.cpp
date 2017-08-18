@@ -107,10 +107,10 @@ Script_RunScript
 void Script_RunScript(idWindow *window, idList<idGSWinVar, TAG_OLD_UI> *src) {
 	idWinStr *parm = dynamic_cast<idWinStr*>((*src)[0].var);
 	if (parm) {
-		idStr str = window->cmd;
-		str += " ; runScript ";
-		str += parm->c_str();
-		window->cmd = str;
+		idStr str_ = window->cmd;
+		str_ += " ; runScript ";
+		str_ += parm->c_str();
+		window->cmd = str_;
 	}
 }
 
@@ -213,27 +213,27 @@ void Script_Transition(idWindow *window, idList<idGSWinVar, TAG_OLD_UI> *src) {
 		}
 		int time = atoi(*timeStr);
 		float ac = 0.0f;
-		float dc = 0.0f;
+		float dc_ = 0.0f;
 		if (src->Num() > 4) {
 			idWinStr *acv = dynamic_cast<idWinStr*>((*src)[4].var);
 			idWinStr *dcv = dynamic_cast<idWinStr*>((*src)[5].var);
 			assert(acv && dcv);
 			ac = atof(*acv);
-			dc = atof(*dcv);
+			dc_ = atof(*dcv);
 		}
 				
 		if (vec4) {
 			vec4->SetEval(false);
-			window->AddTransition(vec4, *from, *to, time, ac, dc);
+			window->AddTransition(vec4, *from, *to, time, ac, dc_);
 			// 
 			//  added float variable					
 		} else if ( val ) {
 			val->SetEval ( false );
-			window->AddTransition(val, *from, *to, time, ac, dc);
+			window->AddTransition(val, *from, *to, time, ac, dc_);
 			// 
 		} else {
 			rect->SetEval(false);
-			window->AddTransition(rect, *from, *to, time, ac, dc);
+			window->AddTransition(rect, *from, *to, time, ac, dc_);
 		}
 		window->StartTransition();
 	}
@@ -386,11 +386,11 @@ bool idGuiScript::Parse(idTokenParser *src) {
 			break;
 		}
 
-		idWinStr *str = new (TAG_OLD_UI) idWinStr();
-		*str = token;
+		idWinStr *str_ = new (TAG_OLD_UI) idWinStr();
+		*str_ = token;
 		idGSWinVar wv;
 		wv.own = true;
-		wv.var = str;
+		wv.var = str_;
 		parms.Append( wv );
 	}
 
@@ -439,9 +439,9 @@ void idGuiScript::FixupParms(idWindow *win) {
 	if (handler == &Script_Set) {
 		bool precacheBackground = false;
 		bool precacheSounds = false;
-		idWinStr *str = dynamic_cast<idWinStr*>(parms[0].var);
-		assert(str);
-		idWinVar *dest = win->GetWinVarByName(*str, true);
+		idWinStr *str_ = dynamic_cast<idWinStr*>(parms[0].var);
+		assert(str_);
+		idWinVar *dest = win->GetWinVarByName(*str_, true);
 		if (dest) {
 			delete parms[0].var;
 			parms[0].var = dest;
@@ -450,51 +450,51 @@ void idGuiScript::FixupParms(idWindow *win) {
 			if ( dynamic_cast<idWinBackground *>(dest) != NULL ) {
 				precacheBackground = true;
 			}
-		} else if ( idStr::Icmp( str->c_str(), "cmd" ) == 0 ) {
+		} else if ( idStr::Icmp( str_->c_str(), "cmd" ) == 0 ) {
 			precacheSounds = true;
 		}
 		int parmCount = parms.Num();
 		for (int i = 1; i < parmCount; i++) {
-			idWinStr *str = dynamic_cast<idWinStr*>(parms[i].var);		
-			if (idStr::Icmpn(*str, "gui::", 5) == 0) {
+			str_ = dynamic_cast<idWinStr*>(parms[i].var);		
+			if (idStr::Icmpn(*str_, "gui::", 5) == 0) {
 
 				//  always use a string here, no point using a float if it is one
 				//  FIXME: This creates duplicate variables, while not technically a problem since they
 				//  are all bound to the same guiDict, it does consume extra memory and is generally a bad thing
 				idWinStr* defvar = new (TAG_OLD_UI) idWinStr();
-				defvar->Init ( *str, win );
+				defvar->Init ( *str_, win );
 				win->AddDefinedVar ( defvar );
 				delete parms[i].var;
 				parms[i].var = defvar;
 				parms[i].own = false;
 
-				//dest = win->GetWinVarByName(*str, true);
+				//dest = win->GetWinVarByName(*str_, true);
 				//if (dest) {
 				//	delete parms[i].var;
 				//	parms[i].var = dest;
 				//	parms[i].own = false;
 				//}
 				// 
-			} else if ((*str[0]) == '$') {
+			} else if ((*str_[0]) == '$') {
 				// 
 				//  dont include the $ when asking for variable
-				dest = win->GetGui()->GetDesktop()->GetWinVarByName((const char*)(*str) + 1, true);
+				dest = win->GetGui()->GetDesktop()->GetWinVarByName((const char*)(*str_) + 1, true);
 				// 					
 				if (dest) {
 					delete parms[i].var;
 					parms[i].var = dest;
 					parms[i].own = false;
 				}
-			} else if ( idStr::Cmpn( str->c_str(), STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 ) {
-				str->Set( idLocalization::GetString( str->c_str() ) );
+			} else if ( idStr::Cmpn( str_->c_str(), STRTABLE_ID, STRTABLE_ID_LENGTH ) == 0 ) {
+				str_->Set( idLocalization::GetString( str_->c_str() ) );
 			} else if ( precacheBackground ) {
-				const idMaterial *mat = declManager->FindMaterial( str->c_str() );
+				const idMaterial *mat = declManager->FindMaterial( str_->c_str() );
 				mat->SetSort( SS_GUI );
 			} else if ( precacheSounds ) {
 				// Search for "play <...>"
 				idToken token;
 				idParser parser( LEXFL_NOSTRINGCONCAT | LEXFL_ALLOWMULTICHARLITERALS | LEXFL_ALLOWBACKSLASHSTRINGCONCAT );
-				parser.LoadMemory(str->c_str(), str->Length(), "command");
+				parser.LoadMemory(str_->c_str(), str_->Length(), "command");
 
 				while ( parser.ReadToken(&token) ) {
 					if ( token.Icmp("play") == 0 ) {
@@ -509,12 +509,12 @@ void idGuiScript::FixupParms(idWindow *win) {
 		if (parms.Num() < 4) {
 			common->Warning("Window %s in gui %s has a bad transition definition", win->GetName(), win->GetGui()->GetSourceFile()); 
 		}
-		idWinStr *str = dynamic_cast<idWinStr*>(parms[0].var);
-		assert(str);
+		idWinStr *str_ = dynamic_cast<idWinStr*>(parms[0].var);
+		assert(str_);
 
 		// 
 		drawWin_t *destowner;
-		idWinVar *dest = win->GetWinVarByName(*str, true, &destowner );
+		idWinVar *dest = win->GetWinVarByName(*str_, true, &destowner );
 		// 
 
 		if (dest) {
@@ -522,14 +522,14 @@ void idGuiScript::FixupParms(idWindow *win) {
 			parms[0].var = dest;
 			parms[0].own = false;
 		} else {
-			common->Warning("Window %s in gui %s: a transition does not have a valid destination var %s", win->GetName(), win->GetGui()->GetSourceFile(),str->c_str());
+			common->Warning("Window %s in gui %s: a transition does not have a valid destination var %s", win->GetName(), win->GetGui()->GetSourceFile(),str_->c_str());
 		}
 
 		// 
 		//  support variables as parameters		
 		int c;
 		for ( c = 1; c < 3; c ++ ) {
-			str = dynamic_cast<idWinStr*>(parms[c].var);
+			str_ = dynamic_cast<idWinStr*>(parms[c].var);
 
 			idWinVec4 *v4 = new (TAG_OLD_UI) idWinVec4;
 			parms[c].var = v4;
@@ -537,8 +537,8 @@ void idGuiScript::FixupParms(idWindow *win) {
 
 			drawWin_t* owner = NULL;
 
-			if ( (*str[0]) == '$' ) {
-				dest = win->GetWinVarByName ( (const char*)(*str) + 1, true, &owner );
+			if ( (*str_[0]) == '$' ) {
+				dest = win->GetWinVarByName ( (const char*)(*str_) + 1, true, &owner );
 			} else {
 				dest = NULL;
 			}
@@ -566,16 +566,16 @@ void idGuiScript::FixupParms(idWindow *win) {
 					v4->Set ( dest->c_str ( ) );
 				}
 			} else {
-				v4->Set(*str);
+				v4->Set(*str_);
 			}			
 			
-			delete str;
+			delete str_;
 		}		
 		// 
 	} else if (handler == &Script_LocalSound) {
-		idWinStr * str = dynamic_cast<idWinStr*>(parms[0].var);
-		if ( str ) {
-			declManager->FindSound( str->c_str() );
+		idWinStr * str_ = dynamic_cast<idWinStr*>(parms[0].var);
+		if ( str_ ) {
+			declManager->FindSound( str_->c_str() );
 		}
 	} else {
 		int c = parms.Num();

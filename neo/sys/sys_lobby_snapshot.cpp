@@ -674,9 +674,9 @@ bool idLobby::AllPeersHaveStaleSnapObj( int objId ) {
 
 		idSnapShot * baseState = peers[i].snapProc->GetBaseState();
 
-		idSnapShot::objectState_t * state = baseState->FindObjectByID( objId );
+		idSnapShot::objectState_t * state_ = baseState->FindObjectByID( objId );
 
-		if ( state == NULL || !state->stale ) {
+		if ( state_ == NULL || !state_->stale ) {
 			return false;
 		}
 	}
@@ -697,17 +697,17 @@ bool idLobby::AllPeersHaveExpectedSnapObj( int objId ) {
 		}
 
 		idSnapShot * baseState = peers[i].snapProc->GetBaseState();
-		idSnapShot::objectState_t * state = baseState->FindObjectByID( objId );
-		if ( state == NULL ) {
+		idSnapShot::objectState_t * state_ = baseState->FindObjectByID( objId );
+		if ( state_ == NULL ) {
 			return false;
 		}
 
-		if ( state->expectedSequence == -2 ) {
+		if ( state_->expectedSequence == -2 ) {
 			return false;
 		}
 
-		if ( state->expectedSequence > 0 && peers[i].snapProc->GetFullSnapBaseSequence() <= state->expectedSequence ) {
-			//idLib::Printf("^3Not ready to go stale. obj %d Base: %d  expected: %d\n", objId, peers[i].snapProc->GetBaseSequence(), state->expectedSequence );
+		if ( state_->expectedSequence > 0 && peers[i].snapProc->GetFullSnapBaseSequence() <= state_->expectedSequence ) {
+			//idLib::Printf("^3Not ready to go stale. obj %d Base: %d  expected: %d\n", objId, peers[i].snapProc->GetBaseSequence(), state_->expectedSequence );
 			return false;
 		}
 	}
@@ -729,10 +729,10 @@ void idLobby::RefreshSnapObj( int objId ) {
 		}
 		
 		idSnapShot * baseState = peers[i].snapProc->GetBaseState();
-		idSnapShot::objectState_t * state = baseState->FindObjectByID( objId );
-		if ( state != NULL ) {
+		idSnapShot::objectState_t * state_ = baseState->FindObjectByID( objId );
+		if ( state_ != NULL ) {
 			// Setting to -2 will defer setting the expected sequence until the current snap is ready to send
-			state->expectedSequence = -2;
+			state_->expectedSequence = -2;
 		}
 	}
 }
@@ -752,10 +752,10 @@ void idLobby::MarkSnapObjDeleted( int objId ) {
 
 		idSnapShot * baseState = peers[i].snapProc->GetBaseState();
 
-		idSnapShot::objectState_t * state = baseState->FindObjectByID( objId );
+		idSnapShot::objectState_t * state_ = baseState->FindObjectByID( objId );
 
-		if ( state != NULL ) {
-			state->deleted = true;
+		if ( state_ != NULL ) {
+			state_->deleted = true;
 		}
 	}
 }

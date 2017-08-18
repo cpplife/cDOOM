@@ -167,18 +167,18 @@ void idRenderModelLiquid::WaterDrop( int x, int y, float *page ) {
 idRenderModelLiquid::IntersectBounds
 ====================
 */
-void idRenderModelLiquid::IntersectBounds( const idBounds &bounds, float displacement ) {
+void idRenderModelLiquid::IntersectBounds( const idBounds &bounds_, float displacement ) {
 	int		cx, cy;
 	int		left,top,right,bottom;
 	float	up, down;
 	float	*pos;
 
-	left	= ( int )( bounds[ 0 ].x / scale_x );
-	right	= ( int )( bounds[ 1 ].x / scale_x );
-	top		= ( int )( bounds[ 0 ].y / scale_y );
-	bottom	= ( int )( bounds[ 1 ].y / scale_y );
-	down	= bounds[ 0 ].z;
-	up		= bounds[ 1 ].z;
+	left	= ( int )( bounds_[ 0 ].x / scale_x );
+	right	= ( int )( bounds_[ 1 ].x / scale_x );
+	top		= ( int )( bounds_[ 0 ].y / scale_y );
+	bottom	= ( int )( bounds_[ 1 ].y / scale_y );
+	down	= bounds_[ 0 ].z;
+	up		= bounds_[ 1 ].z;
 
 	if ( ( right < 1 ) || ( left >= verts_x ) || ( bottom < 1 ) || ( top >= verts_x ) ) {
 		return;

@@ -623,8 +623,8 @@ idSWFScriptVar idSWFScriptFunction_Script::Run( idSWFScriptObject * thisObject, 
 			case Action_GotoFrame2: {
 
 				uint32 frameNum = 0;
-				uint8 flags = bitstream.ReadU8();
-				if ( flags & 2 ) {
+				uint8 flags_ = bitstream.ReadU8();
+				if ( flags_ & 2 ) {
 					frameNum += bitstream.ReadU16();
 				}
 
@@ -634,14 +634,14 @@ idSWFScriptVar idSWFScriptFunction_Script::Run( idSWFScriptObject * thisObject, 
 					} else {
 						frameNum += (uint32)stack.A().ToInteger();
 					}
-					if ( ( flags & 1 ) != 0 ){
+					if ( ( flags_ & 1 ) != 0 ){
 						thisSprite->Play();
 					} else {
 						thisSprite->Stop();
 					}
 					thisSprite->RunTo( frameNum );
 				} else if ( swf_debug.GetInteger() > 0 ) {
-					if ( ( flags & 1 ) != 0 ){
+					if ( ( flags_ & 1 ) != 0 ){
 						idLib::Printf( "SWF: no target movie clip for gotoAndPlay\n" );
 					} else {
 						idLib::Printf( "SWF: no target movie clip for gotoAndStop\n" );
@@ -795,11 +795,11 @@ idSWFScriptVar idSWFScriptFunction_Script::Run( idSWFScriptObject * thisObject, 
 				// Note that SWF byte-ordering causes the flag bits to be reversed per-byte
 				// from how the swf_file_format_spec_v10.pdf document describes the ordering in ActionDefineFunction2.
 				// PreloadThisFlag is byte 0, not 7, PreloadGlobalFlag is 8, not 15.  
-				uint16 flags = bitstream.ReadU16();
+				uint16 flags_ = bitstream.ReadU16();
 
 				newFunction->AllocParameters( numParms );
 				newFunction->AllocRegisters( numRegs );
-				newFunction->SetFlags( flags );
+				newFunction->SetFlags( flags_ );
 
 				for ( int i = 0; i < numParms; i++ ) {
 					uint8 reg = bitstream.ReadU8();

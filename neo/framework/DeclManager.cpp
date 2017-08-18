@@ -1692,7 +1692,7 @@ void idDeclManagerLocal::TouchDecl_f( const idCmdArgs &args ) {
 	if ( args.Argc() != 3 ) {
 		common->Printf( "usage: touch <type> <name>\n" );
 		common->Printf( "valid types: " );
-		for ( int i = 0 ; i < declManagerLocal.declTypes.Num() ; i++ ) {
+		for ( i = 0 ; i < declManagerLocal.declTypes.Num() ; i++ ) {
 			if ( declManagerLocal.declTypes[i] ) {
 				common->Printf( "%s ", declManagerLocal.declTypes[i]->typeName.c_str() );
 			}
@@ -2301,10 +2301,10 @@ const char *idDeclLocal::DefaultDefinition() const {
 idDeclLocal::Parse
 =================
 */
-bool idDeclLocal::Parse( const char *text, const int textLength, bool allowBinaryVersion ) {
+bool idDeclLocal::Parse( const char *text, const int textLength_, bool allowBinaryVersion ) {
 	idLexer src;
 
-	src.LoadMemory( text, textLength, GetFileName(), GetLineNum() );
+	src.LoadMemory( text, textLength_, GetFileName(), GetLineNum() );
 	src.SetFlags( DECL_LEXER_FLAGS );
 	src.SkipUntilString( "{" );
 	src.SkipBracedSection( false );

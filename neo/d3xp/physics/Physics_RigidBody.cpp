@@ -359,7 +359,7 @@ idPhysics_RigidBody::DropToFloorAndRest
 */
 void idPhysics_RigidBody::DropToFloorAndRest() {
 	idVec3 down;
-	trace_t tr;
+	trace_t tr_;
 
 	if ( testSolid ) {
 
@@ -376,12 +376,12 @@ void idPhysics_RigidBody::DropToFloorAndRest() {
 
 	// put the body on the floor
 	down = current.i.position + gravityNormal * 128.0f;
-	gameLocal.clip.Translation( tr, current.i.position, down, clipModel, current.i.orientation, clipMask, self );
-	current.i.position = tr.endpos;
-	clipModel->Link( gameLocal.clip, self, clipModel->GetId(), tr.endpos, current.i.orientation );
+	gameLocal.clip.Translation( tr_, current.i.position, down, clipModel, current.i.orientation, clipMask, self );
+	current.i.position = tr_.endpos;
+	clipModel->Link( gameLocal.clip, self, clipModel->GetId(), tr_.endpos, current.i.orientation );
 
 	// if on the floor already
-	if ( tr.fraction == 0.0f ) {
+	if ( tr_.fraction == 0.0f ) {
 		// test if we are really at rest
 		EvaluateContacts();
 		if ( !TestIfAtRest() ) {
@@ -667,12 +667,12 @@ int idPhysics_RigidBody::GetNumClipModels() const {
 idPhysics_RigidBody::SetMass
 ================
 */
-void idPhysics_RigidBody::SetMass( float mass, int id ) {
-	assert( mass > 0.0f );
-	inertiaTensor *= mass / this->mass;
+void idPhysics_RigidBody::SetMass( float mass_, int id ) {
+	assert( mass_ > 0.0f );
+	inertiaTensor *= mass_ / this->mass;
 	inverseInertiaTensor = inertiaTensor.Inverse() * (1.0f / 6.0f);
-	this->mass = mass;
-	inverseMass = 1.0f / mass;
+	this->mass = mass_;
+	inverseMass = 1.0f / mass_;
 }
 
 /*

@@ -61,9 +61,9 @@ idForce_Drag::~idForce_Drag() {
 idForce_Drag::Init
 ================
 */
-void idForce_Drag::Init( float damping ) {
-	if ( damping >= 0.0f && damping < 1.0f ) {
-		this->damping = damping;
+void idForce_Drag::Init( float damping_ ) {
+	if ( damping_ >= 0.0f && damping_ < 1.0f ) {
+		this->damping = damping_;
 	}
 }
 
@@ -72,10 +72,10 @@ void idForce_Drag::Init( float damping ) {
 idForce_Drag::SetPhysics
 ================
 */
-void idForce_Drag::SetPhysics( idPhysics *phys, int id, const idVec3 &p ) {
+void idForce_Drag::SetPhysics( idPhysics *phys, int id_, const idVec3 &p_ ) {
 	this->physics = phys;
-	this->id = id;
-	this->p = p;
+	this->id = id_;
+	this->p = p_;
 }
 
 /*

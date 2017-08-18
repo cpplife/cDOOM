@@ -1967,7 +1967,7 @@ idSessionLocal::sessionState_t idSessionLocal::GetState() const {
 }
 
 const char * idSessionLocal::GetStateString() const {
-	static const char * stateToString[] = {
+	static const char * stateToString_[] = {
 		ASSERT_ENUM_STRING( STATE_PRESS_START, 0 ),
 		ASSERT_ENUM_STRING( STATE_IDLE, 1 ),
 		ASSERT_ENUM_STRING( STATE_PARTY_LOBBY_HOST, 2 ),
@@ -1987,7 +1987,7 @@ const char * idSessionLocal::GetStateString() const {
 		ASSERT_ENUM_STRING( STATE_LOADING, 16 ),
 		ASSERT_ENUM_STRING( STATE_INGAME, 17 )
 	};
-	return stateToString[ localState ];
+	return stateToString_[ localState ];
 }
 
 // idSession interface
@@ -3945,11 +3945,11 @@ CONSOLE_COMMAND( Net_DropClient, "Drop a client", 0 ) {
 idSessionLocal::DropClient
 ========================
 */
-void idSessionLocal::DropClient( int peerNum, int session ) {
-	if ( session == 1 || session >= 2 ) {
+void idSessionLocal::DropClient( int peerNum, int session_ ) {
+	if ( session_ == 1 || session_ >= 2 ) {
 		GetPartyLobby().DisconnectPeerFromSession( peerNum );
 	}
-	if ( session == 0 || session >= 2 ) {
+	if ( session_ == 0 || session_ >= 2 ) {
 		GetGameLobby().DisconnectPeerFromSession( peerNum );
 	}
 }

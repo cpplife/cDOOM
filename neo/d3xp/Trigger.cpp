@@ -374,8 +374,8 @@ bool idTrigger_Multi::CheckFacing( idEntity *activator ) {
 		if ( !activator->IsType( idPlayer::Type ) ) {
 			return true;
 		}
-		idPlayer *player = static_cast< idPlayer* >( activator );
-		float dot = player->viewAngles.ToForward() * GetPhysics()->GetAxis()[0];
+		idPlayer *player_ = static_cast< idPlayer* >( activator );
+		float dot = player_->viewAngles.ToForward() * GetPhysics()->GetAxis()[0];
 		float angle = RAD2DEG( idMath::ACos( dot ) );
 		if ( angle  > spawnArgs.GetFloat( "angleLimit", "30" ) ) {
 			return false;
@@ -471,8 +471,8 @@ void idTrigger_Multi::Event_Touch( idEntity *other, trace_t *trace ) {
 		return;
 	}
 
-	bool player = other->IsType( idPlayer::Type );
-	if ( player ) {
+	bool player_ = other->IsType( idPlayer::Type );
+	if ( player_ ) {
 		if ( !touchClient ) {
 			return;
 		}
@@ -1092,13 +1092,13 @@ idTrigger_Fade::Event_Trigger
 void idTrigger_Fade::Event_Trigger( idEntity *activator ) {
 	idVec4		fadeColor;
 	int			fadeTime;
-	idPlayer	*player;
+	idPlayer	*player_;
 
-	player = gameLocal.GetLocalPlayer();
-	if ( player ) {
+	player_ = gameLocal.GetLocalPlayer();
+	if ( player_ ) {
 		fadeColor = spawnArgs.GetVec4( "fadeColor", "0, 0, 0, 1" );
 		fadeTime = SEC2MS( spawnArgs.GetFloat( "fadeTime", "0.5" ) );
-		player->playerView.Fade( fadeColor, fadeTime );
+		player_->playerView.Fade( fadeColor, fadeTime );
 		PostEventMS( &EV_ActivateTargets, fadeTime, activator );
 	}
 }
@@ -1292,11 +1292,11 @@ void idTrigger_Flag::Event_Touch( idEntity *other, trace_t *trace ) {
 		if ( !other->IsType( idPlayer::Type ) )
 			return;
 
-		idPlayer * player = static_cast<idPlayer *>(other);
-		if ( player->carryingFlag == false )
+		idPlayer * player_ = static_cast<idPlayer *>(other);
+		if ( player_->carryingFlag == false )
 			return;
 
-		if ( team != -1 && ( player->team != team || (player->team != 0 && player->team != 1))  )
+		if ( team != -1 && ( player_->team != team || (player_->team != 0 && player_->team != 1))  )
 			return;
 
 		idItemTeam * flags[2];
@@ -1304,13 +1304,13 @@ void idTrigger_Flag::Event_Touch( idEntity *other, trace_t *trace ) {
 		flags[0] = gameLocal.mpGame.GetTeamFlag( 0 );
 		flags[1] = gameLocal.mpGame.GetTeamFlag( 1 );
 
-		int iFriend = 1 - player->team;			// index to the flag player team wants
-		int iOpp	= player->team;				// index to the flag opp team wants
+		int iFriend = 1 - player_->team;			// index to the flag player_ team wants
+		int iOpp	= player_->team;				// index to the flag opp team wants
 
 		// flag is captured if :
-		// 1)flag is truely bound to the player
+		// 1)flag is truely bound to the player_
 		// 2)opponent flag has been return
-		if ( flags[iFriend]->carried && !flags[iFriend]->dropped && //flags[iFriend]->IsBoundTo( player ) &&
+		if ( flags[iFriend]->carried && !flags[iFriend]->dropped && //flags[iFriend]->IsBoundTo( player_ ) &&
 			!flags[iOpp]->carried && !flags[iOpp]->dropped )
 			flag = flags[iFriend];
 		else

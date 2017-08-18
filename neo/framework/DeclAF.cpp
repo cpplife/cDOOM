@@ -119,7 +119,7 @@ bool idAFVector::Parse( idLexer &src ) {
 idAFVector::Finish
 ================
 */
-bool idAFVector::Finish( const char *fileName, const getJointTransform_t GetJointTransform, const idJointMat *frame, void *model ) const {
+bool idAFVector::Finish( const char *fileName, const getJointTransform_t GetJointTransform, const idJointMat *frame, void *model_ ) const {
 	idMat3 axis;
 	idVec3 start, end;
 
@@ -128,18 +128,18 @@ bool idAFVector::Finish( const char *fileName, const getJointTransform_t GetJoin
 			break;
 		}
 		case idAFVector::VEC_JOINT: {
-			if ( !GetJointTransform( model, frame, joint1, vec, axis ) ) {
+			if ( !GetJointTransform( model_, frame, joint1, vec, axis ) ) {
 				common->Warning( "invalid joint %s in joint() in '%s'", joint1.c_str(), fileName );
 				vec.Zero();
 			}
 			break;
 		}
 		case idAFVector::VEC_BONECENTER: {
-			if ( !GetJointTransform( model, frame, joint1, start, axis ) ) {
+			if ( !GetJointTransform( model_, frame, joint1, start, axis ) ) {
 				common->Warning( "invalid joint %s in bonecenter() in '%s'", joint1.c_str(), fileName );
 				start.Zero();
 			}
-			if ( !GetJointTransform( model, frame, joint2, end, axis ) ) {
+			if ( !GetJointTransform( model_, frame, joint2, end, axis ) ) {
 				common->Warning( "invalid joint %s in bonecenter() in '%s'", joint2.c_str(), fileName );
 				end.Zero();
 			}
@@ -147,11 +147,11 @@ bool idAFVector::Finish( const char *fileName, const getJointTransform_t GetJoin
 			break;
 		}
 		case idAFVector::VEC_BONEDIR: {
-			if ( !GetJointTransform( model, frame, joint1, start, axis ) ) {
+			if ( !GetJointTransform( model_, frame, joint1, start, axis ) ) {
 				common->Warning( "invalid joint %s in bonedir() in '%s'", joint1.c_str(), fileName );
 				start.Zero();
 			}
-			if ( !GetJointTransform( model, frame, joint2, end, axis ) ) {
+			if ( !GetJointTransform( model_, frame, joint2, end, axis ) ) {
 				common->Warning( "invalid joint %s in bonedir() in '%s'", joint2.c_str(), fileName );
 				end.Zero();
 			}
@@ -1589,26 +1589,26 @@ void idDeclAF::FreeData() {
 idDeclAF::Finish
 ================
 */
-void idDeclAF::Finish( const getJointTransform_t GetJointTransform, const idJointMat *frame, void *model ) const {
+void idDeclAF::Finish( const getJointTransform_t GetJointTransform, const idJointMat *frame, void *model_ ) const {
 	int i;
 
 	const char *name = GetName();
 	for ( i = 0; i < bodies.Num(); i++ ) {
 		idDeclAF_Body *body = bodies[i];
-		body->v1.Finish( name, GetJointTransform, frame, model );
-		body->v2.Finish( name, GetJointTransform, frame, model );
-		body->origin.Finish( name, GetJointTransform, frame, model );
-		body->frictionDirection.Finish( name, GetJointTransform, frame, model );
-		body->contactMotorDirection.Finish( name, GetJointTransform, frame, model );
+		body->v1.Finish( name, GetJointTransform, frame, model_ );
+		body->v2.Finish( name, GetJointTransform, frame, model_ );
+		body->origin.Finish( name, GetJointTransform, frame, model_ );
+		body->frictionDirection.Finish( name, GetJointTransform, frame, model_ );
+		body->contactMotorDirection.Finish( name, GetJointTransform, frame, model_ );
 	}
 	for ( i = 0; i < constraints.Num(); i++ ) {
 		idDeclAF_Constraint *constraint = constraints[i];
-		constraint->anchor.Finish( name, GetJointTransform, frame, model );
-		constraint->anchor2.Finish( name, GetJointTransform, frame, model );
-		constraint->shaft[0].Finish( name, GetJointTransform, frame, model );
-		constraint->shaft[1].Finish( name, GetJointTransform, frame, model );
-		constraint->axis.Finish( name, GetJointTransform, frame, model );
-		constraint->limitAxis.Finish( name, GetJointTransform, frame, model );
+		constraint->anchor.Finish( name, GetJointTransform, frame, model_ );
+		constraint->anchor2.Finish( name, GetJointTransform, frame, model_ );
+		constraint->shaft[0].Finish( name, GetJointTransform, frame, model_ );
+		constraint->shaft[1].Finish( name, GetJointTransform, frame, model_ );
+		constraint->axis.Finish( name, GetJointTransform, frame, model_ );
+		constraint->limitAxis.Finish( name, GetJointTransform, frame, model_ );
 	}
 }
 

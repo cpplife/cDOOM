@@ -267,8 +267,8 @@ void idMenuScreen_Shell_Bindings::UpdateBindingDisplay() {
 					"JOY1", "JOY2", "JOY3", "JOY4", "JOY5", "JOY6",
 					"JOY_TRIGGER1", "JOY_TRIGGER2", 0
 				};
-				for ( int i = 0; i < joyBinds.Num(); i++ ) {
-					if ( joyBinds[i].Icmpn( "JOY_STICK", 9 ) == 0 ) {
+				for ( int k = 0; k < joyBinds.Num(); k++ ) {
+					if ( joyBinds[k].Icmpn( "JOY_STICK", 9 ) == 0 ) {
 						continue; // Can't rebind the sticks, so don't even show them
 					}
 					bool hasImage = false;

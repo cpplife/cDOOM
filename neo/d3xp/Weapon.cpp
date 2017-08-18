@@ -642,11 +642,11 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 		WeaponParticle_t newParticle;
 		memset(&newParticle, 0, sizeof(newParticle));
 
-		idStr name, particlename;
-		savefile->ReadString( name );
+		idStr name_, particlename;
+		savefile->ReadString( name_ );
 		savefile->ReadString( particlename );
 
-		strcpy( newParticle.name, name.c_str() );
+		strcpy( newParticle.name, name_.c_str() );
 		strcpy( newParticle.particlename, particlename.c_str() );
 
 		savefile->ReadBool( newParticle.active );
@@ -668,9 +668,9 @@ void idWeapon::Restore( idRestoreGame *savefile ) {
 		WeaponLight_t newLight;
 		memset(&newLight, 0, sizeof(newLight));
 		
-		idStr name;
-		savefile->ReadString( name );
-		strcpy( newLight.name, name.c_str() );
+		idStr name_;
+		savefile->ReadString( name_ );
+		strcpy( newLight.name, name_.c_str() );
 
 		savefile->ReadBool( newLight.active );
 		savefile->ReadInt( newLight.startTime );
@@ -1229,17 +1229,17 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 			WeaponParticle_t newParticle;
 			memset( &newParticle, 0, sizeof( newParticle ) );
 
-			idStr name = pkv->GetValue();
+			idStr name_ = pkv->GetValue();
 
-			strcpy(newParticle.name, name.c_str());
+			strcpy(newParticle.name, name_.c_str());
 
-			idStr jointName = weaponDef->dict.GetString(va("%s_joint", name.c_str()));
+			idStr jointName = weaponDef->dict.GetString(va("%s_joint", name_.c_str()));
 			newParticle.joint = animator.GetJointHandle(jointName.c_str());
-			newParticle.smoke = weaponDef->dict.GetBool(va("%s_smoke", name.c_str()));
+			newParticle.smoke = weaponDef->dict.GetBool(va("%s_smoke", name_.c_str()));
 			newParticle.active = false;
 			newParticle.startTime = 0;
 
-			idStr particle = weaponDef->dict.GetString(va("%s_particle", name.c_str()));
+			idStr particle = weaponDef->dict.GetString(va("%s_particle", name_.c_str()));
 			strcpy(newParticle.particlename, particle.c_str());
 
 			if(newParticle.smoke) {
@@ -1252,7 +1252,6 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 				args.Set("model", particle.c_str());
 				args.SetBool("start_off", true);
 
-				idEntity* ent;
 				gameLocal.SpawnEntityDef(args, &ent, false);
 				newParticle.emitter = (idFuncEmitter*)ent;
 
@@ -1261,7 +1260,7 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 				}
 			}
 
-			weaponParticles.Set(name.c_str(), newParticle);
+			weaponParticles.Set(name_.c_str(), newParticle);
 
 			pkv = weaponDef->dict.MatchPrefix( "weapon_particle", pkv );
 		}
@@ -1275,23 +1274,23 @@ void idWeapon::GetWeaponDef( const char *objectname, int ammoinclip ) {
 			newLight.active = false;
 			newLight.startTime = 0;
 
-			idStr name = lkv->GetValue();
-			strcpy(newLight.name, name.c_str());
+			idStr name_ = lkv->GetValue();
+			strcpy(newLight.name, name_.c_str());
 
-			idStr jointName = weaponDef->dict.GetString(va("%s_joint", name.c_str()));
+			idStr jointName = weaponDef->dict.GetString(va("%s_joint", name_.c_str()));
 			newLight.joint = animator.GetJointHandle(jointName.c_str());
 
-			idStr shader = weaponDef->dict.GetString(va("%s_shader", name.c_str()));
+			shader = weaponDef->dict.GetString(va("%s_shader", name_.c_str()));
 			newLight.light.shader = declManager->FindMaterial( shader, false );
 
-			float radius = weaponDef->dict.GetFloat(va("%s_radius", name.c_str()));
+			float radius = weaponDef->dict.GetFloat(va("%s_radius", name_.c_str()));
 			newLight.light.lightRadius[0] = newLight.light.lightRadius[1] = newLight.light.lightRadius[2] = radius;
 			newLight.light.pointLight = true;
 			newLight.light.noShadows = true;
 
 			newLight.light.allowLightInViewID = owner->entityNumber+1;
 
-			weaponLights.Set(name.c_str(), newLight);
+			weaponLights.Set(name_.c_str(), newLight);
 
 			lkv = weaponDef->dict.MatchPrefix( "weapon_light", lkv );
 		}
@@ -1431,10 +1430,10 @@ void idWeapon::UpdateFlashPosition() {
 	// if the desired point is inside or very close to a wall, back it up until it is clear
 	idVec3	start = muzzleFlash.origin - playerViewAxis[0] * 16;
 	idVec3	end = muzzleFlash.origin + playerViewAxis[0] * 8;
-	trace_t	tr;
-	gameLocal.clip.TracePoint( tr, start, end, MASK_SHOT_RENDERMODEL, owner );
+	trace_t	tr_;
+	gameLocal.clip.TracePoint( tr_, start, end, MASK_SHOT_RENDERMODEL, owner );
 	// be at least 8 units away from a solid
-	muzzleFlash.origin = tr.endpos - playerViewAxis[0] * 8;
+	muzzleFlash.origin = tr_.endpos - playerViewAxis[0] * 8;
 
 	muzzleFlash.noShadows = !g_weaponShadows.GetBool();
 
@@ -1615,8 +1614,8 @@ bool idWeapon::GetGlobalJointTransform( bool viewModel, const jointHandle_t join
 idWeapon::SetPushVelocity
 ================
 */
-void idWeapon::SetPushVelocity( const idVec3 &pushVelocity ) {
-	this->pushVelocity = pushVelocity;
+void idWeapon::SetPushVelocity( const idVec3 &pushVelocity_ ) {
+	this->pushVelocity = pushVelocity_;
 }
 
 
@@ -2217,42 +2216,42 @@ idWeapon::AlertMonsters
 ================
 */
 void idWeapon::AlertMonsters() {
-	trace_t	tr;
+	trace_t	tr_;
 	idEntity *ent;
 	idVec3 end = muzzleFlash.origin + muzzleFlash.axis * muzzleFlash.target;
 
-	gameLocal.clip.TracePoint( tr, muzzleFlash.origin, end, CONTENTS_OPAQUE | MASK_SHOT_RENDERMODEL | CONTENTS_FLASHLIGHT_TRIGGER, owner );
+	gameLocal.clip.TracePoint( tr_, muzzleFlash.origin, end, CONTENTS_OPAQUE | MASK_SHOT_RENDERMODEL | CONTENTS_FLASHLIGHT_TRIGGER, owner );
 	if ( g_debugWeapon.GetBool() ) {
 		gameRenderWorld->DebugLine( colorYellow, muzzleFlash.origin, end, 0 );
-		gameRenderWorld->DebugArrow( colorGreen, muzzleFlash.origin, tr.endpos, 2, 0 );
+		gameRenderWorld->DebugArrow( colorGreen, muzzleFlash.origin, tr_.endpos, 2, 0 );
 	}
 
-	if ( tr.fraction < 1.0f ) {
-		ent = gameLocal.GetTraceEntity( tr );
+	if ( tr_.fraction < 1.0f ) {
+		ent = gameLocal.GetTraceEntity( tr_ );
 		if ( ent->IsType( idAI::Type ) ) {
 			static_cast<idAI *>( ent )->TouchedByFlashlight( owner );
 		} else if ( ent->IsType( idTrigger::Type ) ) {
 			ent->Signal( SIG_TOUCH );
-			ent->ProcessEvent( &EV_Touch, owner, &tr );
+			ent->ProcessEvent( &EV_Touch, owner, &tr_ );
 		}
 	}
 
 	// jitter the trace to try to catch cases where a trace down the center doesn't hit the monster
 	end += muzzleFlash.axis * muzzleFlash.right * idMath::Sin16( MS2SEC( gameLocal.time ) * 31.34f );
 	end += muzzleFlash.axis * muzzleFlash.up * idMath::Sin16( MS2SEC( gameLocal.time ) * 12.17f );
-	gameLocal.clip.TracePoint( tr, muzzleFlash.origin, end, CONTENTS_OPAQUE | MASK_SHOT_RENDERMODEL | CONTENTS_FLASHLIGHT_TRIGGER, owner );
+	gameLocal.clip.TracePoint( tr_, muzzleFlash.origin, end, CONTENTS_OPAQUE | MASK_SHOT_RENDERMODEL | CONTENTS_FLASHLIGHT_TRIGGER, owner );
 	if ( g_debugWeapon.GetBool() ) {
 		gameRenderWorld->DebugLine( colorYellow, muzzleFlash.origin, end, 0 );
-		gameRenderWorld->DebugArrow( colorGreen, muzzleFlash.origin, tr.endpos, 2, 0 );
+		gameRenderWorld->DebugArrow( colorGreen, muzzleFlash.origin, tr_.endpos, 2, 0 );
 	}
 
-	if ( tr.fraction < 1.0f ) {
-		ent = gameLocal.GetTraceEntity( tr );
+	if ( tr_.fraction < 1.0f ) {
+		ent = gameLocal.GetTraceEntity( tr_ );
 		if ( ent->IsType( idAI::Type ) ) {
 			static_cast<idAI *>( ent )->TouchedByFlashlight( owner );
 		} else if ( ent->IsType( idTrigger::Type ) ) {
 			ent->Signal( SIG_TOUCH );
-			ent->ProcessEvent( &EV_Touch, owner, &tr );
+			ent->ProcessEvent( &EV_Touch, owner, &tr_ );
 		}
 	}
 }
@@ -2756,13 +2755,13 @@ const char *idWeapon::GetAmmoPickupNameForNum( ammo_t ammonum ) {
 		gameLocal.Error( "Could not find entity definition for 'ammo_names'\n" );
 	}
 
-	const char *name = GetAmmoNameForNum( ammonum );
+	const char *name_ = GetAmmoNameForNum( ammonum );
 
-	if ( name != NULL && *name != NULL ) {
+	if ( name_ != NULL && *name_ != NULL ) {
 		num = ammoDict->GetNumKeyVals();
 		for( i = 0; i < num; i++ ) {
 			kv = ammoDict->GetKeyVal( i );
-			if ( idStr::Icmp( kv->GetKey(), name) == 0 ) {
+			if ( idStr::Icmp( kv->GetKey(), name_) == 0 ) {
 				return kv->GetValue();
 			}
 		}
@@ -3525,7 +3524,7 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 	float			ang;
 	float			spin;
 	float			distance;
-	trace_t			tr;
+	trace_t			tr_;
 	idVec3			start;
 	idVec3			muzzle_pos;
 	idBounds		ownerBounds, projBounds;
@@ -3669,8 +3668,8 @@ void idWeapon::Event_LaunchProjectiles( int num_projectiles, float spread, float
 				} else {
 					start = ownerBounds.GetCenter();
 				}
-				gameLocal.clip.Translation( tr, start, muzzle_pos, proj->GetPhysics()->GetClipModel(), proj->GetPhysics()->GetClipModel()->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
-				muzzle_pos = tr.endpos;
+				gameLocal.clip.Translation( tr_, start, muzzle_pos, proj->GetPhysics()->GetClipModel(), proj->GetPhysics()->GetClipModel()->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
+				muzzle_pos = tr_.endpos;
 			}
 
 			// If this is the server simulating a remote client, the client has spawned the projectile in the past.
@@ -3727,7 +3726,7 @@ void idWeapon::Event_LaunchProjectilesEllipse( int num_projectiles, float spread
 	float			anga, angb;
 	float			spin;
 	float			distance;
-	trace_t			tr;
+	trace_t			tr_;
 	idVec3			start;
 	idVec3			muzzle_pos;
 	idBounds		ownerBounds, projBounds;
@@ -3830,8 +3829,8 @@ void idWeapon::Event_LaunchProjectilesEllipse( int num_projectiles, float spread
 				else {
 					start = ownerBounds.GetCenter();
 				}
-				gameLocal.clip.Translation( tr, start, muzzle_pos, proj->GetPhysics()->GetClipModel(), proj->GetPhysics()->GetClipModel()->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
-				muzzle_pos = tr.endpos;
+				gameLocal.clip.Translation( tr_, start, muzzle_pos, proj->GetPhysics()->GetClipModel(), proj->GetPhysics()->GetClipModel()->GetAxis(), MASK_SHOT_RENDERMODEL, owner );
+				muzzle_pos = tr_.endpos;
 			}
 
 			proj->Launch( muzzle_pos, dir, pushVelocity, fuseOffset, power );
@@ -3906,9 +3905,9 @@ void idWeapon::Event_StopWeaponSmoke() {
 	weaponSmokeStartTime = 0;
 }
 
-void idWeapon::Event_StartWeaponParticle( const char* name) {
+void idWeapon::Event_StartWeaponParticle( const char* name_) {
 	WeaponParticle_t* part;
-	weaponParticles.Get(name, &part);
+	weaponParticles.Get(name_, &part);
 	if(part) {
 		part->active = true;
 		part->startTime = gameLocal.time;
@@ -3921,9 +3920,9 @@ void idWeapon::Event_StartWeaponParticle( const char* name) {
 	}
 }
 
-void idWeapon::Event_StopWeaponParticle( const char* name) {
+void idWeapon::Event_StopWeaponParticle( const char* name_) {
 	WeaponParticle_t* part;
-	weaponParticles.Get(name, &part);
+	weaponParticles.Get(name_, &part);
 	if(part) {
 		part->active = false;
 		part->startTime = 0;
@@ -3938,18 +3937,18 @@ void idWeapon::Event_StopWeaponParticle( const char* name) {
 	}
 }
 
-void idWeapon::Event_StartWeaponLight( const char* name) {
+void idWeapon::Event_StartWeaponLight( const char* name_) {
 	WeaponLight_t* light;
-	weaponLights.Get(name, &light);
+	weaponLights.Get(name_, &light);
 	if(light) {
 		light->active = true;
 		light->startTime = gameLocal.time;
 	}
 }
 
-void idWeapon::Event_StopWeaponLight( const char* name) {
+void idWeapon::Event_StopWeaponLight( const char* name_) {
 	WeaponLight_t* light;
-	weaponLights.Get(name, &light);
+	weaponLights.Get(name_, &light);
 	if(light) {
 		light->active = false;
 		light->startTime = 0;
@@ -3966,7 +3965,7 @@ idWeapon::Event_Melee
 */
 void idWeapon::Event_Melee() {
 	idEntity	*ent;
-	trace_t		tr;
+	trace_t		tr_;
 
 	if ( weaponDef == NULL ) {
 		gameLocal.Error( "No weaponDef on '%s'", this->GetName() );
@@ -3981,9 +3980,9 @@ void idWeapon::Event_Melee() {
 	if ( !common->IsClient() ) {
 		idVec3 start = playerViewOrigin;
 		idVec3 end = start + playerViewAxis[0] * ( meleeDistance * owner->PowerUpModifier( MELEE_DISTANCE ) );
-		gameLocal.clip.TracePoint( tr, start, end, MASK_SHOT_RENDERMODEL, owner );
-		if ( tr.fraction < 1.0f ) {
-			ent = gameLocal.GetTraceEntity( tr );
+		gameLocal.clip.TracePoint( tr_, start, end, MASK_SHOT_RENDERMODEL, owner );
+		if ( tr_.fraction < 1.0f ) {
+			ent = gameLocal.GetTraceEntity( tr_ );
 		} else {
 			ent = NULL;
 		}
@@ -4001,14 +4000,14 @@ void idWeapon::Event_Melee() {
 		if ( ent != NULL ) {
 
 			float push = meleeDef->dict.GetFloat( "push" );
-			idVec3 impulse = -push * owner->PowerUpModifier( SPEED ) * tr.c.normal;
+			idVec3 impulse = -push * owner->PowerUpModifier( SPEED ) * tr_.c.normal;
 
 			if ( gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) && ( ent->IsType( idActor::Type ) || ent->IsType( idAFAttachment::Type) ) ) {
 				idThread::ReturnInt( 0 );
 				return;
 			}
 
-			ent->ApplyImpulse( this, tr.c.id, tr.c.point, impulse );
+			ent->ApplyImpulse( this, tr_.c.id, tr_.c.point, impulse );
 
 			// weapon stealing - do this before damaging so weapons are not dropped twice
 			if ( common->IsMultiplayer()
@@ -4033,7 +4032,7 @@ void idWeapon::Event_Melee() {
 					//Only do a quater of the damage mod
 					mod *= 0.25f;
 				}
-				ent->Damage( owner, owner, globalKickDir, meleeDefName, mod, tr.c.id );
+				ent->Damage( owner, owner, globalKickDir, meleeDefName, mod, tr_.c.id );
 				hit = true;
 			}
 
@@ -4043,11 +4042,11 @@ void idWeapon::Event_Melee() {
 
 					hitSound = meleeDef->dict.GetString( owner->PowerUpActive( BERSERK ) ? "snd_hit_berserk" : "snd_hit" );
 
-					ent->AddDamageEffect( tr, impulse, meleeDef->dict.GetString( "classname" ) );
+					ent->AddDamageEffect( tr_, impulse, meleeDef->dict.GetString( "classname" ) );
 
 				} else {
 
-					int type = tr.c.material->GetSurfaceType();
+					int type = tr_.c.material->GetSurfaceType();
 					if ( type == SURFTYPE_NONE ) {
 						type = GetDefaultSurfaceType();
 					}
@@ -4065,7 +4064,7 @@ void idWeapon::Event_Melee() {
 						// project decal
 						decal = weaponDef->dict.GetString( "mtr_strike" );
 						if ( decal != NULL && *decal != NULL ) {
-							gameLocal.ProjectDecal( tr.c.point, -tr.c.normal, 8.0f, true, 6.0, decal );
+							gameLocal.ProjectDecal( tr_.c.point, -tr_.c.normal, 8.0f, true, 6.0, decal );
 						}
 						nextStrikeFx = gameLocal.time + 200;
 					} else {
@@ -4073,8 +4072,8 @@ void idWeapon::Event_Melee() {
 					}
 
 					strikeSmokeStartTime = gameLocal.time;
-					strikePos = tr.c.point;
-					strikeAxis = -tr.endAxis;
+					strikePos = tr_.c.point;
+					strikeAxis = -tr_.endAxis;
 				}
 			}
 		}

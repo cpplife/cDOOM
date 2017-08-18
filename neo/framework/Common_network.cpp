@@ -386,10 +386,10 @@ totalBufferedTime - total amount of snapshot time (includng what we've already p
 totalRecvTime - total real time (sys_milliseconds) all of totalBufferedTime was received over
 ========================
 */
-int idCommonLocal::CalcSnapTimeBuffered( int & totalBufferedTime, int & totalRecvTime ) {
+int idCommonLocal::CalcSnapTimeBuffered( int & totalBufferedTime_, int & totalRecvTime_ ) {
 
-	totalBufferedTime = snapRate;
-	totalRecvTime = snapTimeDelta;
+	totalBufferedTime_ = snapRate;
+	totalRecvTime_ = snapTimeDelta;
 
 	// oldSS = last ss we deserialized
 	int lastBuffTime = oldss.GetTime();		
@@ -400,20 +400,20 @@ int idCommonLocal::CalcSnapTimeBuffered( int & totalBufferedTime, int & totalRec
 		int buffTime = receivedSnaps[i % RECEIVE_SNAPSHOT_BUFFER_SIZE].GetTime();
 		int recvTime = receivedSnaps[i % RECEIVE_SNAPSHOT_BUFFER_SIZE].GetRecvTime();
 
-		totalBufferedTime += buffTime - lastBuffTime;
-		totalRecvTime += recvTime - lastRecvTime;
+		totalBufferedTime_ += buffTime - lastBuffTime;
+		totalRecvTime_ += recvTime - lastRecvTime;
 
 		lastRecvTime = recvTime;
 		lastBuffTime = buffTime;
 	}
 
-	totalRecvTime = Max( 1, totalRecvTime );
-	totalRecvTime = static_cast<float>( initialBaseTicksPerSec ) * static_cast<float>( totalRecvTime / 1000.0f ); // convert realMS to gameMS
+	totalRecvTime_ = Max( 1, totalRecvTime_ );
+	totalRecvTime_ = static_cast<float>( initialBaseTicksPerSec ) * static_cast<float>( totalRecvTime_ / 1000.0f ); // convert realMS to gameMS
 
 	// remove time we've already interpolated over
-	int timeLeft = totalBufferedTime - Min< int >( snapRate, snapCurrentTime ); 
+	int timeLeft = totalBufferedTime_ - Min< int >( snapRate, snapCurrentTime ); 
 
-	//idLib::Printf( "CalcSnapTimeBuffered. timeLeft: %d totalRecvTime: %d, totalTimeBuffered: %d\n", timeLeft, totalRecvTime, totalBufferedTime );
+	//idLib::Printf( "CalcSnapTimeBuffered. timeLeft: %d totalRecvTime_: %d, totalTimeBuffered: %d\n", timeLeft, totalRecvTime_, totalBufferedTime_ );
 	return timeLeft;
 }
 

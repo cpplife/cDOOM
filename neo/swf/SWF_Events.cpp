@@ -78,8 +78,8 @@ idSWFScriptObject * idSWF::HitTest( idSWFSpriteInstance * spriteInstance, const 
 			}
 		} else if ( entry->type == SWF_DICT_SHAPE && ( parentObject != NULL ) ) {
 			idSWFShape * shape = entry->shape;
-			for ( int i = 0; i < shape->fillDraws.Num(); i++ ) {
-				const idSWFShapeDrawFill & fill = shape->fillDraws[i];
+			for ( int k = 0; k < shape->fillDraws.Num(); k++ ) {
+				const idSWFShapeDrawFill & fill = shape->fillDraws[k];
 				for ( int j = 0; j < fill.indices.Num(); j+=3 ) {
 					idVec2 xy1 = renderState2.matrix.Transform( fill.startVerts[fill.indices[j+0]] );
 					idVec2 xy2 = renderState2.matrix.Transform( fill.startVerts[fill.indices[j+1]] );
@@ -137,8 +137,8 @@ idSWFScriptObject * idSWF::HitTest( idSWFSpriteInstance * spriteInstance, const 
 			idVec3 br; 
 			idVec3 bl;
 
-			float xOffset = spriteInstance->xOffset;
-			float yOffset = spriteInstance->yOffset;
+			xOffset = spriteInstance->xOffset;
+			yOffset = spriteInstance->yOffset;
 
 			float topOffset = 0.0f;
 
@@ -245,7 +245,7 @@ bool idSWF::HandleEvent( const sysEvent_t * event ) {
 						return true;
 					}
 
-					idSWFScriptVar var = hitObject->Get( "onDrag" );
+					var = hitObject->Get( "onDrag" );
 					if ( var.IsFunction() ) {
 						idSWFParmList parms;
 						parms.Append( mouseX );

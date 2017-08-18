@@ -582,9 +582,9 @@ void idUsercmdGenLocal::HandleJoystickAxis( int keyNum, float unclampedValue, fl
 		lookValue = idMath::Pow( value, joy_powerScale.GetFloat() );
 	}
 
-	idGame * game = common->Game();
-	if ( game != NULL ) {
-		lookValue *= game->GetAimAssistSensitivity();
+	idGame * game_ = common->Game();
+	if ( game_ != NULL ) {
+		lookValue *= game_->GetAimAssistSensitivity();
 	}
 
 	switch ( action ) {
@@ -847,7 +847,7 @@ void	DrawJoypadTexture(
 	for ( int point = 0 ; point < octantPoints ; point++, rad += radStep ) {
 		float	s, c;
 		idMath::SinCos( rad, s, c );
-		for ( int ringNum = 0 ; ringNum < NUM_RINGS ; ringNum++ ) {
+		for ( ringNum = 0 ; ringNum < NUM_RINGS ; ringNum++ ) {
 			const float ringSize = ringSizes[ ringNum ];
 			const int	ix = idMath::Floor( ringSize * c );
 			const int	iy = idMath::Floor( ringSize * s );
@@ -903,8 +903,8 @@ void idUsercmdGenLocal::JoystickMove2() {
 	const float pitchSpeed =		joy_pitchSpeed.GetFloat();
 	const float yawSpeed =			joy_yawSpeed.GetFloat();
 
-	idGame * game = common->Game();
-	const float aimAssist = game != NULL ? game->GetAimAssistSensitivity() : 1.0f;
+	idGame * game_ = common->Game();
+	const float aimAssist = game_ != NULL ? game_->GetAimAssistSensitivity() : 1.0f;
 
 	idVec2 leftRaw( joystickAxis[ AXIS_LEFT_X ], joystickAxis[ AXIS_LEFT_Y ] );
 	idVec2 rightRaw( joystickAxis[ AXIS_RIGHT_X ], joystickAxis[ AXIS_RIGHT_Y ] );
@@ -1064,9 +1064,9 @@ void idUsercmdGenLocal::AimAssist() {
 	// callback to the game to update the aim assist for the current device
 	idAngles aimAssistAngles( 0.0f, 0.0f, 0.0f );
 
-	idGame * game = common->Game();
-	if ( game != NULL ) {
-		game->GetAimAssistAngles( aimAssistAngles );
+	idGame * game_ = common->Game();
+	if ( game_ != NULL ) {
+		game_->GetAimAssistAngles( aimAssistAngles );
 	}
 
 	viewangles[YAW] += aimAssistAngles.yaw;

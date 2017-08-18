@@ -459,9 +459,9 @@ byte idZeroRunLengthCompressor::ReadByte() {
 	return 0;
 }
 
-void idZeroRunLengthCompressor::ReadBytes( byte * dest, int count ) {
+void idZeroRunLengthCompressor::ReadBytes( byte * dest_, int count ) {
 	for ( int i = 0; i < count; i++ ) {
-		*dest++ = ReadByte();
+		*dest_++ = ReadByte();
 	}
 }
 

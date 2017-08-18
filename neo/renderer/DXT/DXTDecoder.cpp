@@ -174,15 +174,15 @@ void idDxtDecoder::DecodeCTX1Values( byte *colorBlock ) {
 idDxtDecoder::DecompressImageDXT1
 ========================
 */
-void idDxtDecoder::DecompressImageDXT1( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressImageDXT1( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
-	for ( int j = 0; j < height; j += 4 ) {
-		for ( int i = 0; i < width; i += 4 ) {
+	for ( int j = 0; j < height_; j += 4 ) {
+		for ( int i = 0; i < width_; i += 4 ) {
 			DecodeColorValues( block, false, true );
 			EmitBlock( outBuf, i, j, block );
 		}
@@ -194,15 +194,15 @@ void idDxtDecoder::DecompressImageDXT1( const byte *inBuf, byte *outBuf, int wid
 idDxtDecoder::DecompressImageDXT5
 ========================
 */
-void idDxtDecoder::DecompressImageDXT5( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressImageDXT5( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
-	for ( int j = 0; j < height; j += 4 ) {
-		for ( int i = 0; i < width; i += 4 ) {
+	for ( int j = 0; j < height_; j += 4 ) {
+		for ( int i = 0; i < width_; i += 4 ) {
 			DecodeAlphaValues( block, 3 );
 			DecodeColorValues( block, true, false );
 			EmitBlock( outBuf, i, j, block );
@@ -215,11 +215,11 @@ void idDxtDecoder::DecompressImageDXT5( const byte *inBuf, byte *outBuf, int wid
 idDxtDecoder::DecompressImageDXT5_nVidia7x
 ========================
 */
-void idDxtDecoder::DecompressImageDXT5_nVidia7x( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressImageDXT5_nVidia7x( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	for ( int j = 0; j < height; j += 4 ) {
@@ -236,10 +236,10 @@ void idDxtDecoder::DecompressImageDXT5_nVidia7x( const byte *inBuf, byte *outBuf
 idDxtDecoder::DecompressYCoCgDXT5
 ========================
 */
-void idDxtDecoder::DecompressYCoCgDXT5( const byte *inBuf, byte *outBuf, int width, int height ) {
-	DecompressImageDXT5_nVidia7x( inBuf, outBuf, width, height );
+void idDxtDecoder::DecompressYCoCgDXT5( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
+	DecompressImageDXT5_nVidia7x( inBuf, outBuf, width_, height_ );
 	// descale the CoCg values and set the scale factor effectively to 1
-	for ( int i = 0; i < width * height; i++ ) {
+	for ( int i = 0; i < width_ * height_; i++ ) {
 		int scale = ( outBuf[i*4+2] >> 3 ) + 1;
 		outBuf[i*4+0] = byte( ( outBuf[i*4+0] - 128 ) / scale + 128 );
 		outBuf[i*4+1] = byte( ( outBuf[i*4+1] - 128 ) / scale + 128 );
@@ -253,11 +253,11 @@ void idDxtDecoder::DecompressYCoCgDXT5( const byte *inBuf, byte *outBuf, int wid
 idDxtDecoder::DecompressYCoCgCTX1DXT5A
 ========================
 */
-void idDxtDecoder::DecompressYCoCgCTX1DXT5A( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressYCoCgCTX1DXT5A( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	for ( int j = 0; j < height; j += 4 ) {
@@ -378,11 +378,11 @@ void UnRotateNormals( const byte *block, float *normals, byte c0, byte c1 ) {
 idDxtDecoder::DecompressNormalMapDXT1
 ========================
 */
-void idDxtDecoder::DecompressNormalMapDXT1( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressNormalMapDXT1( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	for ( int j = 0; j < height; j += 4 ) {
@@ -422,11 +422,11 @@ void idDxtDecoder::DecompressNormalMapDXT1( const byte *inBuf, byte *outBuf, int
 idDxtDecoder::DecompressNormalMapDXT1Renormalize
 ========================
 */
-void idDxtDecoder::DecompressNormalMapDXT1Renormalize( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressNormalMapDXT1Renormalize( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	for ( int j = 0; j < height; j += 4 ) {
@@ -457,15 +457,15 @@ void idDxtDecoder::DecompressNormalMapDXT1Renormalize( const byte *inBuf, byte *
 idDxtDecoder::DecompressNormalMapDXT5Renormalize
 ========================
 */
-void idDxtDecoder::DecompressNormalMapDXT5Renormalize( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressNormalMapDXT5Renormalize( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
-	for ( int j = 0; j < height; j += 4 ) {
-		for ( int i = 0; i < width; i += 4 ) {
+	for ( int j = 0; j < height_; j += 4 ) {
+		for ( int i = 0; i < width_; i += 4 ) {
 			DecodeAlphaValues( block, 3 );
 			DecodeColorValues( block, false, false );
 
@@ -526,16 +526,16 @@ void BiasScaleNormals( const byte *block, float *normals, const byte c0, const b
 idDxtDecoder::DecompressNormalMapDXT5
 ========================
 */
-void idDxtDecoder::DecompressNormalMapDXT5( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressNormalMapDXT5( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 	byte c0, c1;
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
-	for ( int j = 0; j < height; j += 4 ) {
-		for ( int i = 0; i < width; i += 4 ) {
+	for ( int j = 0; j < height_; j += 4 ) {
+		for ( int i = 0; i < width_; i += 4 ) {
 			DecodeAlphaValues( block, 0 );
 			DecodeNormalYValues( block, 1, c0, c1 );
 #if 1
@@ -569,11 +569,11 @@ void idDxtDecoder::DecompressNormalMapDXT5( const byte *inBuf, byte *outBuf, int
 idDxtDecoder::DecompressNormalMapDXN2
 ========================
 */
-void idDxtDecoder::DecompressNormalMapDXN2( const byte *inBuf, byte *outBuf, int width, int height ) {
+void idDxtDecoder::DecompressNormalMapDXN2( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 	byte block[64];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	for ( int j = 0; j < height; j += 4 ) {
@@ -681,12 +681,12 @@ void idDxtDecoder::DecomposeAlphaBlock( byte colors[2][4], byte alphaIndices[16]
 idDxtDecoder::DecomposeImageDXT1
 ========================
 */
-void idDxtDecoder::DecomposeImageDXT1( const byte *inBuf, byte *colorIndices, byte *pic1, byte *pic2, int width, int height ) {
+void idDxtDecoder::DecomposeImageDXT1( const byte *inBuf, byte *colorIndices, byte *pic1, byte *pic2, int width_, int height_ ) {
 	byte colors[2][4];
 	byte indices[16];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	// extract the colors from the DXT
@@ -711,13 +711,13 @@ void idDxtDecoder::DecomposeImageDXT1( const byte *inBuf, byte *colorIndices, by
 idDxtDecoder::DecomposeImageDXT5
 ========================
 */
-void idDxtDecoder::DecomposeImageDXT5( const byte *inBuf, byte *colorIndices, byte *alphaIndices, byte *pic1, byte *pic2, int width, int height ) {
+void idDxtDecoder::DecomposeImageDXT5( const byte *inBuf, byte *colorIndices, byte *alphaIndices, byte *pic1, byte *pic2, int width_, int height_ ) {
 	byte colors[2][4];
 	byte colorInd[16];
 	byte alphaInd[16];
 
-	this->width = width;
-	this->height = height;
+	this->width = width_;
+	this->height = height_;
 	this->inData = inBuf;
 
 	// extract the colors from the DXT

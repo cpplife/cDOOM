@@ -243,8 +243,8 @@ public:
 	virtual void			VerifyArbitration() {}
 	virtual bool			UserArbitrated( lobbyUser_t * user ) { return false; }
 
-	virtual void			RegisterUser( lobbyUser_t * user, bool isLocal ) {}
-	virtual void			UnregisterUser( lobbyUser_t * user, bool isLocal ) {}
+	virtual void			RegisterUser( lobbyUser_t * user, bool isLocal_ ) {}
+	virtual void			UnregisterUser( lobbyUser_t * user, bool isLocal_ ) {}
 
 	virtual void			StartSession() {}
 	virtual void			EndSession() {}

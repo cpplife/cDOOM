@@ -128,7 +128,7 @@ extern idCVar r_binaryLoadRenderModels;
 idRenderWorldLocal::ParseModel
 ================
 */
-idRenderModel *idRenderWorldLocal::ParseModel( idLexer *src, const char *mapName, ID_TIME_T mapTimeStamp, idFile *fileOut ) {
+idRenderModel *idRenderWorldLocal::ParseModel( idLexer *src, const char *mapName_, ID_TIME_T mapTimeStamp_, idFile *fileOut ) {
 	idToken token;
 
 	src->ExpectTokenString( "{" );
@@ -267,7 +267,7 @@ idRenderModel *idRenderWorldLocal::ParseModel( idLexer *src, const char *mapName
 	model->FinishSurfaces();
 
 	if ( fileOut != NULL && model->SupportsBinaryModel() && r_binaryLoadRenderModels.GetBool() ) {
-		model->WriteBinaryModel( fileOut, &mapTimeStamp );
+		model->WriteBinaryModel( fileOut, &mapTimeStamp_ );
 	}
 
 	return model;
@@ -633,16 +633,16 @@ int idRenderWorldLocal::CommonChildrenArea_r( areaNode_t *node ) {
 		nums[1] = nums[0];
 	}
 
-	int	common;
+	int	common_;
 	if ( nums[0] == nums[1] ) {
-		common = nums[0];
+		common_ = nums[0];
 	} else {
-		common = CHILDREN_HAVE_MULTIPLE_AREAS;
+		common_ = CHILDREN_HAVE_MULTIPLE_AREAS;
 	}
 
-	node->commonChildrenArea = common;
+	node->commonChildrenArea = common_;
 
-	return common;
+	return common_;
 }
 
 /*
@@ -779,21 +779,21 @@ bool idRenderWorldLocal::InitFromMap( const char *name ) {
 				file->ReadString( type );
 				type.ToLower();
 				if ( type == "model" ) {
-					idRenderModel * lastModel = ReadBinaryModel( file );
-					if ( lastModel == NULL ) {
+					idRenderModel * lastModel_ = ReadBinaryModel( file );
+					if ( lastModel_ == NULL ) {
 						loaded = false;
 						break;
 					}
-					renderModelManager->AddModel( lastModel );
-					localModels.Append( lastModel );
+					renderModelManager->AddModel( lastModel_ );
+					localModels.Append( lastModel_ );
 				} else if ( type == "shadowmodel" ) {
-					idRenderModel * lastModel = ReadBinaryModel( file );
-					if ( lastModel == NULL ) {
+					idRenderModel * lastModel__ = ReadBinaryModel( file );
+					if ( lastModel__ == NULL ) {
 						loaded = false;
 						break;
 					}
-					renderModelManager->AddModel( lastModel );
-					localModels.Append( lastModel );
+					renderModelManager->AddModel( lastModel__ );
+					localModels.Append( lastModel__ );
 				} else if ( type == "interareaportals" ) {
 					ReadBinaryAreaPortals( file );
 				} else if ( type == "nodes" ) {

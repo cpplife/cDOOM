@@ -218,35 +218,35 @@ void idSWFShapeParser::ParseShapes( idSWFBitStream & bitstream1, idSWFBitStream 
 					idLib::Warning( "idSWFShapeParser: morph stream 1 defines style change, but stream 2 does not" );
 					break;
 				}
-				bool stateNewStyles = bitstream2->ReadBool();
-				bool stateLineStyle = bitstream2->ReadBool();
-				bool stateFillStyle1 = bitstream2->ReadBool();
-				bool stateFillStyle0 = bitstream2->ReadBool();
-				bool stateMoveTo = bitstream2->ReadBool();
-				if ( stateMoveTo ) {
+				bool stateNewStyles_ = bitstream2->ReadBool();
+				bool stateLineStyle_ = bitstream2->ReadBool();
+				bool stateFillStyle1_ = bitstream2->ReadBool();
+				bool stateFillStyle0_ = bitstream2->ReadBool();
+				bool stateMoveTo_ = bitstream2->ReadBool();
+				if ( stateMoveTo_ ) {
 					uint8 moveBits = bitstream2->ReadU( 5 );
 					pen2X = bitstream2->ReadS( moveBits );
 					pen2Y = bitstream2->ReadS( moveBits );
 				}
-				if ( stateFillStyle0 ) {
+				if ( stateFillStyle0_ ) {
 					if ( bitstream2->ReadU( numFillBits2 ) != fillStyle0 ) {
 						idLib::Warning( "idSWFShapeParser: morph stream 2 defined a different fillStyle0 from stream 1" );
 						break;
 					}
 				}
-				if ( stateFillStyle1 ) {
+				if ( stateFillStyle1_ ) {
 					if ( bitstream2->ReadU( numFillBits2 ) != fillStyle1 ) {
 						idLib::Warning( "idSWFShapeParser: morph stream 2 defined a different fillStyle1 from stream 1" );
 						break;
 					}
 				}
-				if ( stateLineStyle ) {
+				if ( stateLineStyle_ ) {
 					if ( bitstream2->ReadU( numLineBits2 ) != lineStyle ) {
 						idLib::Warning( "idSWFShapeParser: morph stream 2 defined a different lineStyle from stream 1" );
 						break;
 					}
 				}
-				if ( stateNewStyles ) {
+				if ( stateNewStyles_ ) {
 					idLib::Warning( "idSWFShapeParser: morph stream 2 defines new styles" );
 					break;
 				}

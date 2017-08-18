@@ -92,7 +92,7 @@ public:
 				idQueueNode() { next = NULL; }
 
 	type *		GetNext() const { return next; }
-	void		SetNext( type *next ) { this->next = next; }
+	void		SetNext( type *next_ ) { this->next = next_; }
 
 private:
 	type *		next;

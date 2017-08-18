@@ -174,17 +174,17 @@ float idSWFTextInstance::GetTextLength() {
 		float width = fabs( shape->bounds.br.x - shape->bounds.tl.x );
 		float postTrans = SWFTWIP( shape->fontHeight );
 		const idFont * fontInfo = swfFont->fontID;
-		float glyphScale = postTrans / 48.0f;
+		float glyphScale_ = postTrans / 48.0f;
 
 		int tlen = txtLengthCheck.Length();
 		int index = 0;
 		while ( index < tlen ) {
 			scaledGlyphInfo_t glyph;
-			fontInfo->GetScaledGlyph( glyphScale, txtLengthCheck.UTF8Char( index ), glyph );
+			fontInfo->GetScaledGlyph( glyphScale_, txtLengthCheck.UTF8Char( index ), glyph );
 
 			len += glyph.xSkip;
 			if ( useStroke ) {
-				len += ( swf_textStrokeSizeGlyphSpacer.GetFloat() * strokeWeight * glyphScale );
+				len += ( swf_textStrokeSizeGlyphSpacer.GetFloat() * strokeWeight * glyphScale_ );
 			}
 
 			if ( !( shape->flags & SWF_ET_AUTOSIZE ) && len >= width ) {
@@ -766,23 +766,23 @@ int idSWFTextInstance::CalcNumLines() {
 	float postTransformHeight = SWFTWIP( shape->fontHeight );
 	const idFont * fontInfo = swfFont->fontID;
 
-	float glyphScale = postTransformHeight / 48.0f;
+	float glyphScale_ = postTransformHeight / 48.0f;
 
-	swfRect_t bounds;
-	bounds.tl.x = ( shape->bounds.tl.x + SWFTWIP( shape->leftMargin ) );
-	bounds.br.x = ( shape->bounds.br.x - SWFTWIP( shape->rightMargin ) );
-	bounds.tl.y = ( shape->bounds.tl.y + ( 1.15f * glyphScale ) );
-	bounds.br.y = ( shape->bounds.br.y );
+	swfRect_t bounds_;
+	bounds_.tl.x = ( shape->bounds.tl.x + SWFTWIP( shape->leftMargin ) );
+	bounds_.br.x = ( shape->bounds.br.x - SWFTWIP( shape->rightMargin ) );
+	bounds_.tl.y = ( shape->bounds.tl.y + ( 1.15f * glyphScale_ ) );
+	bounds_.br.y = ( shape->bounds.br.y );
 
-	float linespacing = fontInfo->GetAscender( 1.15f * glyphScale );
+	float linespacing_ = fontInfo->GetAscender( 1.15f * glyphScale_ );
 	if ( shape->leading != 0 ) {
-		linespacing += ( glyphScale * SWFTWIP( shape->leading ) );
+		linespacing_ += ( glyphScale_ * SWFTWIP( shape->leading ) );
 	}
 
-	float x = bounds.tl.x;
-	int maxLines = idMath::Ftoi( ( bounds.br.y - bounds.tl.y ) / linespacing );
-	if ( maxLines == 0 ) {
-		maxLines = 1;
+	float x = bounds_.tl.x;
+	int maxLines_ = idMath::Ftoi( ( bounds_.br.y - bounds_.tl.y ) / linespacing_ );
+	if ( maxLines_ == 0 ) {
+		maxLines_ = 1;
 	}
 
 	// tracks the last breakable character we found
@@ -792,32 +792,32 @@ int idSWFTextInstance::CalcNumLines() {
 
 	while ( charIndex < textCheck.Length() ) {
 		if ( textCheck[ charIndex ] == '\n' ) {
-			if ( numLines == maxLines ) {
-				return maxLines;
+			if ( numLines == maxLines_ ) {
+				return maxLines_;
 			}
 			numLines++;
 			lastbreak = 0;
-			x = bounds.tl.x;
+			x = bounds_.tl.x;
 			charIndex++;
 		} else {
 			uint32 tc = textCheck[ charIndex++ ];
 			scaledGlyphInfo_t glyph;
-			fontInfo->GetScaledGlyph( glyphScale, tc, glyph );
+			fontInfo->GetScaledGlyph( glyphScale_, tc, glyph );
 
 			float glyphSkip = glyph.xSkip;
 			if ( useStroke ) {
-				glyphSkip += ( swf_textStrokeSizeGlyphSpacer.GetFloat() * strokeWeight * glyphScale );
+				glyphSkip += ( swf_textStrokeSizeGlyphSpacer.GetFloat() * strokeWeight * glyphScale_ );
 			}
 
-			if ( x + glyphSkip > bounds.br.x ) {
-				if ( numLines == maxLines ) {
-					return maxLines;
+			if ( x + glyphSkip > bounds_.br.x ) {
+				if ( numLines == maxLines_ ) {
+					return maxLines_;
 				} else {
 					numLines++;
 					if ( lastbreak != 0 ) {
 						charIndex = charIndex - ( charIndex - lastbreak );
 					}
-					x = bounds.tl.x;					
+					x = bounds_.tl.x;					
 					lastbreak = 0;
 				}
 			} else {

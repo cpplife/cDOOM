@@ -67,7 +67,7 @@ public:
 	void	CompressImageDXT1Fast_SSE2( const byte *inBuf, byte *outBuf, int width, int height );
 
 	// high quality DXT1 compression (with alpha), uses exhaustive search to find a line through color space and is very slow
-	void	CompressImageDXT1AlphaHQ( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageDXT1AlphaHQ( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// fast DXT1 compression (with alpha), for real-time use at the cost of a little quality
 	void	CompressImageDXT1AlphaFast( const byte *inBuf, byte *outBuf, int width, int height );
@@ -87,17 +87,17 @@ public:
 	void	CompressImageCTX1HQ( const byte *inBuf, byte *outBuf, int width, int height );
 
 	// fast CTX1 compression for real-time use
-	void	CompressImageCTX1Fast( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
-	void	CompressImageCTX1Fast_Generic( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
-	void	CompressImageCTX1Fast_SSE2( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageCTX1Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageCTX1Fast_Generic( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageCTX1Fast_SSE2( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// high quality DXN1 (aka DXT5A or ATI1N) compression, uses exhaustive search to find a line through color space and is very slow
-	void	CompressImageDXN1HQ( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageDXN1HQ( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 	
 	// fast single channel compression into, DXN1 (aka DXT5A or ATI1N) format, for real-time use
 	void	CompressImageDXN1Fast( const byte *inBuf, byte *outBuf, int width, int height );
 	void	CompressImageDXN1Fast_Generic( const byte *inBuf, byte *outBuf, int width, int height );
-	void	CompressImageDXN1Fast_SSE2( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressImageDXN1Fast_SSE2( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// high quality YCoCg DXT5 compression, uses exhaustive search to find a line through color space and is very slow
 	void	CompressYCoCgDXT5HQ( const byte *inBuf, byte *outBuf, int width, int height );
@@ -116,16 +116,16 @@ public:
 	// fast YCoCg CTX1 + DXT5A compression for real-time use (the input is expected to be in CoCg_Y format)
 	void	CompressYCoCgCTX1DXT5AFast( const byte *inBuf, byte *outBuf, int width, int height );
 	void	CompressYCoCgCTX1DXT5AFast_Generic( const byte *inBuf, byte *outBuf, int width, int height );
-	void	CompressYCoCgCTX1DXT5AFast_SSE2( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressYCoCgCTX1DXT5AFast_SSE2( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// high quality tangent space NxNyNz normal map compression into DXT1 format (Nz is not used)
 	void	CompressNormalMapDXT1HQ( const byte *inBuf, byte *outBuf, int width, int height );
 	void	CompressNormalMapDXT1RenormalizeHQ( const byte *inBuf, byte *outBuf, int width, int height );
 
 	// fast tangent space NxNyNz normal map compression into DXT1 format (Nz is not used), for real-time use
-	void	CompressNormalMapDXT1Fast( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
-	void	CompressNormalMapDXT1Fast_Generic( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
-	void	CompressNormalMapDXT1Fast_SSE2( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressNormalMapDXT1Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
+	void	CompressNormalMapDXT1Fast_Generic( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
+	void	CompressNormalMapDXT1Fast_SSE2( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// high quality tangent space _Ny_Nx normal map compression into DXT5 format
 	void	CompressNormalMapDXT5HQ( const byte *inBuf, byte *outBuf, int width, int height );
@@ -142,13 +142,13 @@ public:
 	// fast tangent space NxNy_ normal map compression into DXN2 (3Dc, ATI2N) format, for real-time use
 	void	CompressNormalMapDXN2Fast( const byte *inBuf, byte *outBuf, int width, int height );
 	void	CompressNormalMapDXN2Fast_Generic( const byte *inBuf, byte *outBuf, int width, int height );
-	void	CompressNormalMapDXN2Fast_SSE2( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	CompressNormalMapDXN2Fast_SSE2( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// fast single channel conversion from DXN1 (aka DXT5A or ATI1N) to DXT1, reasonably fast (also works in-place)
 	void	ConvertImageDXN1_DXT1( const byte *inBuf, byte *outBuf, int width, int height );
 	
 	// fast single channel conversion from DXT1 to DXN1 (aka DXT5A or ATI1N), reasonably fast (also works in-place)
-	void	ConvertImageDXT1_DXN1( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	ConvertImageDXT1_DXN1( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// fast tangent space NxNyNz normal map conversion from DXN (3Dc, ATI2N) to DXT5, reasonably fast (also works in-place)
 	void	ConvertNormalMapDXN2_DXT5( const byte *inBuf, byte *outBuf, int width, int height );
@@ -257,11 +257,11 @@ private:
 idDxtEncoder::CompressImageDXT1Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressImageDXT1Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
+ID_INLINE void idDxtEncoder::CompressImageDXT1Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 #ifdef ID_WIN_X86_SSE2_INTRIN
-	CompressImageDXT1Fast_SSE2( inBuf, outBuf, width, height );
+	CompressImageDXT1Fast_SSE2( inBuf, outBuf, width_, height_ );
 #else
-	CompressImageDXT1Fast_Generic( inBuf, outBuf, width, height );
+	CompressImageDXT1Fast_Generic( inBuf, outBuf, width_, height_ );
 #endif
 }
 
@@ -270,11 +270,11 @@ ID_INLINE void idDxtEncoder::CompressImageDXT1Fast( const byte *inBuf, byte *out
 idDxtEncoder::CompressImageDXT1AlphaFast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressImageDXT1AlphaFast( const byte *inBuf, byte *outBuf, int width, int height ) {
+ID_INLINE void idDxtEncoder::CompressImageDXT1AlphaFast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 #ifdef ID_WIN_X86_SSE2_INTRIN
-	CompressImageDXT1AlphaFast_SSE2( inBuf, outBuf, width, height );
+	CompressImageDXT1AlphaFast_SSE2( inBuf, outBuf, width_, height_ );
 #else
-	CompressImageDXT1AlphaFast_Generic( inBuf, outBuf, width, height );
+	CompressImageDXT1AlphaFast_Generic( inBuf, outBuf, width_, height_ );
 #endif
 }
 
@@ -283,11 +283,11 @@ ID_INLINE void idDxtEncoder::CompressImageDXT1AlphaFast( const byte *inBuf, byte
 idDxtEncoder::CompressImageDXT5Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressImageDXT5Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
+ID_INLINE void idDxtEncoder::CompressImageDXT5Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 #ifdef ID_WIN_X86_SSE2_INTRIN
-	CompressImageDXT5Fast_SSE2( inBuf, outBuf, width, height );
+	CompressImageDXT5Fast_SSE2( inBuf, outBuf, width_, height_ );
 #else
-	CompressImageDXT5Fast_Generic( inBuf, outBuf, width, height );
+	CompressImageDXT5Fast_Generic( inBuf, outBuf, width_, height_ );
 #endif
 }
 
@@ -296,8 +296,8 @@ ID_INLINE void idDxtEncoder::CompressImageDXT5Fast( const byte *inBuf, byte *out
 idDxtEncoder::CompressImageDXN1Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressImageDXN1Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
-	CompressImageDXN1Fast_Generic( inBuf, outBuf, width, height );
+ID_INLINE void idDxtEncoder::CompressImageDXN1Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
+	CompressImageDXN1Fast_Generic( inBuf, outBuf, width_, height_ );
 }
 
 /*
@@ -305,11 +305,11 @@ ID_INLINE void idDxtEncoder::CompressImageDXN1Fast( const byte *inBuf, byte *out
 idDxtEncoder::CompressYCoCgDXT5Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressYCoCgDXT5Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
+ID_INLINE void idDxtEncoder::CompressYCoCgDXT5Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 #ifdef ID_WIN_X86_SSE2_INTRIN
-	CompressYCoCgDXT5Fast_SSE2( inBuf, outBuf, width, height );
+	CompressYCoCgDXT5Fast_SSE2( inBuf, outBuf, width_, height_ );
 #else
-	CompressYCoCgDXT5Fast_Generic( inBuf, outBuf, width, height );
+	CompressYCoCgDXT5Fast_Generic( inBuf, outBuf, width_, height_ );
 #endif
 }
 
@@ -318,8 +318,8 @@ ID_INLINE void idDxtEncoder::CompressYCoCgDXT5Fast( const byte *inBuf, byte *out
 idDxtEncoder::CompressYCoCgCTX1DXT5AFast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressYCoCgCTX1DXT5AFast( const byte *inBuf, byte *outBuf, int width, int height ) {
-	CompressYCoCgCTX1DXT5AFast_Generic( inBuf, outBuf, width, height );
+ID_INLINE void idDxtEncoder::CompressYCoCgCTX1DXT5AFast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
+	CompressYCoCgCTX1DXT5AFast_Generic( inBuf, outBuf, width_, height_ );
 }
 
 /*
@@ -327,11 +327,11 @@ ID_INLINE void idDxtEncoder::CompressYCoCgCTX1DXT5AFast( const byte *inBuf, byte
 idDxtEncoder::CompressNormalMapDXT5Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressNormalMapDXT5Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
+ID_INLINE void idDxtEncoder::CompressNormalMapDXT5Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
 #ifdef ID_WIN_X86_SSE2_INTRIN
-	CompressNormalMapDXT5Fast_SSE2( inBuf, outBuf, width, height );
+	CompressNormalMapDXT5Fast_SSE2( inBuf, outBuf, width_, height_ );
 #else
-	CompressNormalMapDXT5Fast_Generic( inBuf, outBuf, width, height );
+	CompressNormalMapDXT5Fast_Generic( inBuf, outBuf, width_, height_ );
 #endif
 }
 
@@ -340,8 +340,8 @@ ID_INLINE void idDxtEncoder::CompressNormalMapDXT5Fast( const byte *inBuf, byte 
 idDxtEncoder::CompressNormalMapDXN2Fast
 ========================
 */
-ID_INLINE void idDxtEncoder::CompressNormalMapDXN2Fast( const byte *inBuf, byte *outBuf, int width, int height ) {
-	CompressNormalMapDXN2Fast_Generic( inBuf, outBuf, width, height );
+ID_INLINE void idDxtEncoder::CompressNormalMapDXN2Fast( const byte *inBuf, byte *outBuf, int width_, int height_ ) {
+	CompressNormalMapDXN2Fast_Generic( inBuf, outBuf, width_, height_ );
 }
 
 /*
@@ -476,10 +476,10 @@ public:
 	void	DecompressImageDXT5_nVidia7x( const byte *inBuf, byte *outBuf, int width, int height );
 
 	// CTX1
-	void	DecompressImageCTX1( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	DecompressImageCTX1( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// DXN1
-	void	DecompressImageDXN1( const byte *inBuf, byte *outBuf, int width, int height ) { /* not implemented */ assert( 0 ); }
+	void	DecompressImageDXN1( const byte *inBuf, byte *outBuf, int width_, int height_ ) { /* not implemented */ assert( 0 ); }
 
 	// YCoCg DXT5 (the output is in CoCg_Y format)
 	void	DecompressYCoCgDXT5( const byte *inBuf, byte *outBuf, int width, int height );

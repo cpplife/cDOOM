@@ -203,18 +203,18 @@ ID_INLINE idVectorSubset<type,dimension>::idVectorSubset( const type &mins, cons
 }
 
 template< class type, int dimension >
-ID_INLINE void idVectorSubset<type,dimension>::Init( const type &mins, const type &maxs, const int boxHashSize, const int initialSize ) {
+ID_INLINE void idVectorSubset<type,dimension>::Init( const type &mins_, const type &maxs_, const int boxHashSize_, const int initialSize ) {
 	int i;
 	float boxSize;
 
-	hash.Clear( idMath::IPow( boxHashSize, dimension ), initialSize );
+	hash.Clear( idMath::IPow( boxHashSize_, dimension ), initialSize );
 
-	this->mins = mins;
-	this->maxs = maxs;
-	this->boxHashSize = boxHashSize;
+	this->mins = mins_;
+	this->maxs = maxs_;
+	this->boxHashSize = boxHashSize_;
 
 	for ( i = 0; i < dimension; i++ ) {
-		boxSize = ( maxs[i] - mins[i] ) / (float) boxHashSize;
+		boxSize = ( maxs_[i] - mins[i] ) / (float) boxHashSize_;
 		boxInvSize[i] = 1.0f / boxSize;
 		boxHalfSize[i] = boxSize * 0.5f;
 	}

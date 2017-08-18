@@ -362,7 +362,7 @@ void R_AddSingleModel( viewEntity_t * vEntity ) {
 	if ( renderEntity->hModel == NULL ||
 			renderEntity->hModel->ModelHasInteractingSurfaces() ||
 			renderEntity->hModel->ModelHasShadowCastingSurfaces() ) {
-		SCOPED_PROFILE_EVENT( "Find lights" );
+		//SCOPED_PROFILE_EVENT( "Find lights" );
 		for ( viewLight_t * vLight = viewDef->viewLights; vLight != NULL; vLight = vLight->next ) {
 			if ( vLight->scissorRect.IsEmpty() ) {
 				continue;
@@ -547,7 +547,7 @@ void R_AddSingleModel( viewEntity_t * vEntity ) {
 			shader = tr.primaryRenderView.globalMaterial;
 		}
 
-		SCOPED_PROFILE_EVENT( shader->GetName() );
+		//SCOPED_PROFILE_EVENT( shader->GetName() );
 
 		// debugging tool to make sure we have the correct pre-calculated bounds
 		if ( r_checkBounds.GetBool() ) {
@@ -614,12 +614,12 @@ void R_AddSingleModel( viewEntity_t * vEntity ) {
 				drawSurf_t * deformDrawSurf = R_DeformDrawSurf( baseDrawSurf );
 				if ( deformDrawSurf != NULL ) {
 					// any deforms may have created multiple draw surfaces
-					for ( drawSurf_t * surf = deformDrawSurf, * next = NULL; surf != NULL; surf = next ) {
-						next = surf->nextOnLight;
+					for ( drawSurf_t * surf_ = deformDrawSurf, * next = NULL; surf_ != NULL; surf_ = next ) {
+						next = surf_->nextOnLight;
 
-						surf->linkChain = NULL;
-						surf->nextOnLight = vEntity->drawSurfs;
-						vEntity->drawSurfs = surf;
+						surf_->linkChain = NULL;
+						surf_->nextOnLight = vEntity->drawSurfs;
+						vEntity->drawSurfs = surf_;
 					}
 				}
 			}

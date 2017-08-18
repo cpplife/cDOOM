@@ -117,12 +117,12 @@ idPlayerStart::ClientReceiveEvent
 ================
 */
 bool idPlayerStart::ClientReceiveEvent( int event, int time, const idBitMsg &msg ) {
-	int entityNumber;
+	int entityNumber_;
 
 	switch( event ) {
 		case EVENT_TELEPORTPLAYER: {
-			entityNumber = msg.ReadBits( GENTITYNUM_BITS );
-			idPlayer *player = static_cast<idPlayer *>( gameLocal.entities[entityNumber] );
+			entityNumber_ = msg.ReadBits( GENTITYNUM_BITS );
+			idPlayer *player = static_cast<idPlayer *>( gameLocal.entities[entityNumber_] );
 			if ( player != NULL && player->IsType( idPlayer::Type ) ) {
 				Event_TeleportPlayer( player );
 			}
@@ -3307,7 +3307,7 @@ void idPhantomObjects::Think() {
 	idEntity	*ent;
 	idActor		*targetEnt;
 	idPhysics	*entPhys;
-	trace_t		tr;
+	trace_t		tr_;
 
 	// if we are completely closed off from the player, don't do anything at all
 	if ( CheckDormant() ) {
@@ -3354,8 +3354,8 @@ void idPhantomObjects::Think() {
 		entPhys = ent->GetPhysics();
 		const idVec3 &entOrg = entPhys->GetOrigin();
 
-		gameLocal.clip.TracePoint( tr, entOrg, toPos, MASK_OPAQUE, ent );
-		if ( tr.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr ) == targetEnt ) ) {
+		gameLocal.clip.TracePoint( tr_, entOrg, toPos, MASK_OPAQUE, ent );
+		if ( tr_.fraction >= 1.0f || ( gameLocal.GetTraceEntity( tr_ ) == targetEnt ) ) {
 			lastTargetPos[ i ] = toPos;
 		}
 

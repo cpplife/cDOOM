@@ -217,7 +217,7 @@ void idSoundSample_XAudio2::LoadResource() {
 				WriteAllSamples( GetName() );
 
 				if ( sampleName.Find( "/vo/" ) >= 0 ) {
-					for ( int i = 0; i < Sys_NumLangs(); i++ ) {
+					for ( i = 0; i < Sys_NumLangs(); i++ ) {
 						const char * lang = Sys_Lang( i );
 						if ( idStr::Icmp( lang, ID_LANG_ENGLISH ) == 0 ) {
 							continue;
@@ -456,9 +456,9 @@ void idSoundSample_XAudio2::FreeData() {
 idSoundSample_XAudio2::LoadAmplitude
 ========================
 */
-bool idSoundSample_XAudio2::LoadAmplitude( const idStr & name ) {
+bool idSoundSample_XAudio2::LoadAmplitude( const idStr & name_ ) {
 	amplitude.Clear();
-	idFileLocal f( fileSystem->OpenFileRead( name ) );
+	idFileLocal f( fileSystem->OpenFileRead( name_ ) );
 	if ( f == NULL ) {
 		return false;
 	}

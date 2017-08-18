@@ -248,7 +248,7 @@ void BOBrick::WriteToSaveGame( idFile *savefile ) {
 BOBrick::ReadFromSaveGame
 ======================
 */
-void BOBrick::ReadFromSaveGame( idFile *savefile, idGameBustOutWindow *game ) {
+void BOBrick::ReadFromSaveGame( idFile *savefile, idGameBustOutWindow *game_ ) {
 	savefile->Read( &x, sizeof(x) );
 	savefile->Read( &y, sizeof(y) );
 	savefile->Read( &width, sizeof(width) );
@@ -259,7 +259,7 @@ void BOBrick::ReadFromSaveGame( idFile *savefile, idGameBustOutWindow *game ) {
 
 	int index;
 	savefile->Read( &index, sizeof(index) );
-	ent = game->entities[index];
+	ent = game_->entities[index];
 }
 
 /*
@@ -882,11 +882,11 @@ void idGameBustOutWindow::LoadBoardFiles() {
 
 	for ( i=0; i<numLevels; i++ ) {
 		byte *pic;
-		idStr	name = "guis/assets/bustout/level";
-		name += (i+1);
-		name += ".tga";
+		idStr	name_ = "guis/assets/bustout/level";
+		name_ += (i+1);
+		name_ += ".tga";
 
-		R_LoadImage( name, &pic, &w, &h, &time, false );
+		R_LoadImage( name_, &pic, &w, &h, &time, false );
 
 		if ( pic != NULL ) {
 			if ( w != 9 || h != 12 ) {

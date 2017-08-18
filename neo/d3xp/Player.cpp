@@ -2077,7 +2077,7 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	inventory.Save( savefile );
 	weapon.Save( savefile );
 
-	for ( int i = 0; i < NUM_QUICK_SLOTS; ++i ) {
+	for ( i = 0; i < NUM_QUICK_SLOTS; ++i ) {
 		savefile->WriteInt( quickSlot[ i ] );
 	}
 
@@ -2285,15 +2285,15 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	savefile->WriteInt( playedTimeSecs );
 	savefile->WriteInt( playedTimeResidual );
 
-	for ( int i=0; i<MAX_PLAYER_PDA; i++ ) {
+	for ( i=0; i<MAX_PLAYER_PDA; i++ ) {
 		savefile->WriteBool( pdaHasBeenRead[i] );
 	}
 
-	for ( int i=0; i<MAX_PLAYER_VIDEO; i++ ) {
+	for ( i=0; i<MAX_PLAYER_VIDEO; i++ ) {
 		savefile->WriteBool( videoHasBeenViewed[i] );
 	}
 
-	for ( int i=0; i<MAX_PLAYER_AUDIO; i++ ) {
+	for ( i=0; i<MAX_PLAYER_AUDIO; i++ ) {
 		for ( int j=0; j<MAX_PLAYER_AUDIO_ENTRIES; j++ ) {
 			savefile->WriteBool( audioHasBeenHeard[i][j] );
 		}
@@ -2357,7 +2357,7 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	}
 
 
-	for ( int i = 0; i < NUM_QUICK_SLOTS; ++i ) {
+	for ( i = 0; i < NUM_QUICK_SLOTS; ++i ) {
 		savefile->ReadInt( quickSlot[ i ] );
 	}
 
@@ -2571,9 +2571,9 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 		WeaponToggle_t newToggle;
 		memset(&newToggle, 0, sizeof(newToggle));
 
-		idStr name;
-		savefile->ReadString(name);
-		strcpy(newToggle.name, name.c_str());
+		idStr name_;
+		savefile->ReadString(name_);
+		strcpy(newToggle.name, name_.c_str());
 
 		int indexCount;
 		savefile->ReadInt(indexCount);
@@ -2617,15 +2617,15 @@ void idPlayer::Restore( idRestoreGame *savefile ) {
 	laserSightRenderEntity.hModel = renderModelManager->FindModel( "_BEAM" );
 	laserSightRenderEntity.customShader = declManager->FindMaterial( "stereoRenderLaserSight" );
 
-	for ( int i=0; i<MAX_PLAYER_PDA; i++ ) {
+	for ( i=0; i<MAX_PLAYER_PDA; i++ ) {
 		savefile->ReadBool( pdaHasBeenRead[i] );
 	}
 
-	for ( int i=0; i<MAX_PLAYER_VIDEO; i++ ) {
+	for ( i=0; i<MAX_PLAYER_VIDEO; i++ ) {
 		savefile->ReadBool( videoHasBeenViewed[i] );
 	}
 
-	for ( int i=0; i<MAX_PLAYER_AUDIO; i++ ) {
+	for ( i=0; i<MAX_PLAYER_AUDIO; i++ ) {
 		for ( int j=0; j<MAX_PLAYER_AUDIO_ENTRIES; j++ ) {
 			savefile->ReadBool( audioHasBeenHeard[i][j] );
 		}
@@ -2750,13 +2750,13 @@ use normal spawn selection.
 */
 void idPlayer::SelectInitialSpawnPoint( idVec3 &origin, idAngles &angles ) {
 	idEntity *spot;
-	idStr skin;
+	idStr skin_;
 
 	spot = gameLocal.SelectInitialSpawnPoint( this );
 
 	// set the player skin from the spawn location
-	if ( spot->spawnArgs.GetString( "skin", NULL, skin ) ) {
-		spawnArgs.Set( "spawn_skin", skin );
+	if ( spot->spawnArgs.GetString( "skin", NULL, skin_ ) ) {
+		spawnArgs.Set( "spawn_skin", skin_ );
 	}
 
 	// activate the spawn locations targets
@@ -2996,10 +2996,10 @@ void idPlayer::UpdateHudStats( idMenuHandler_HUD * _hudManager ) {
 	
 	if ( _hudManager && _hudManager->GetHud() ) {
 		
-		idMenuScreen_HUD * hud = _hudManager->GetHud();
-		hud->UpdateHealthArmor( this );
-		hud->UpdateStamina( this );
-		hud->UpdateWeaponInfo( this );
+		idMenuScreen_HUD * hud_ = _hudManager->GetHud();
+		hud_->UpdateHealthArmor( this );
+		hud_->UpdateStamina( this );
+		hud_->UpdateWeaponInfo( this );
 
 		if ( inventory.weaponPulse ) {
 			UpdateHudWeapon();
@@ -3008,13 +3008,13 @@ void idPlayer::UpdateHudStats( idMenuHandler_HUD * _hudManager ) {
 
 		if ( gameLocal.mpGame.IsGametypeFlagBased() )
 		{
-			hud->SetFlagState( 0, gameLocal.mpGame.GetFlagStatus( 0 ) );
-			hud->SetFlagState( 1, gameLocal.mpGame.GetFlagStatus( 1 ) );
+			hud_->SetFlagState( 0, gameLocal.mpGame.GetFlagStatus( 0 ) );
+			hud_->SetFlagState( 1, gameLocal.mpGame.GetFlagStatus( 1 ) );
 
-			hud->SetTeamScore( 0, gameLocal.mpGame.GetFlagPoints( 0 ) );
-			hud->SetTeamScore( 1, gameLocal.mpGame.GetFlagPoints( 1 ) );
+			hud_->SetTeamScore( 0, gameLocal.mpGame.GetFlagPoints( 0 ) );
+			hud_->SetTeamScore( 1, gameLocal.mpGame.GetFlagPoints( 1 ) );
 
-			hud->SetTeam( team );
+			hud_->SetTeam( team );
 		}
 
 	}
@@ -3220,29 +3220,29 @@ void idPlayer::DrawHUD( idMenuHandler_HUD * _hudManager ) {
 		// laser sight model instead
 		if ( _hudManager && _hudManager->GetHud() ) {
 
-			idMenuScreen_HUD * hud = _hudManager->GetHud();
+			idMenuScreen_HUD * hud_ = _hudManager->GetHud();
 
 			if ( weapon.GetEntity()->ShowCrosshair() && !IsGameStereoRendered() ) {
 				if ( weapon.GetEntity()->GetGrabberState() == 1 || weapon.GetEntity()->GetGrabberState() == 2 ) {
-					hud->SetCursorState( this, CURSOR_GRABBER, 1 );
-					hud->SetCursorState( this, CURSOR_IN_COMBAT, 0 );
+					hud_->SetCursorState( this, CURSOR_GRABBER, 1 );
+					hud_->SetCursorState( this, CURSOR_IN_COMBAT, 0 );
 				} else {
-					hud->SetCursorState( this, CURSOR_GRABBER, 0 );
-					hud->SetCursorState( this, CURSOR_IN_COMBAT, 1 );
+					hud_->SetCursorState( this, CURSOR_GRABBER, 0 );
+					hud_->SetCursorState( this, CURSOR_IN_COMBAT, 1 );
 				}
 			} else {
-				hud->SetCursorState( this, CURSOR_NONE, 1 );
+				hud_->SetCursorState( this, CURSOR_NONE, 1 );
 			}
 
-			hud->UpdateCursorState();
+			hud_->UpdateCursorState();
 
 		}
 	} else if ( _hudManager && _hudManager->GetHud() ) {
 
-		idMenuScreen_HUD * hud = _hudManager->GetHud();
+		idMenuScreen_HUD * hud_ = _hudManager->GetHud();
 
-		hud->SetCursorState( this, CURSOR_NONE, 1 );
-		hud->UpdateCursorState();
+		hud_->SetCursorState( this, CURSOR_NONE, 1 );
+		hud_->UpdateCursorState();
 	}
 }
 
@@ -4110,8 +4110,8 @@ bool idPlayer::GiveInventoryItem( idDict * item, unsigned int giveFlags ) {
 		//Reset the powercell count
 		int powerCellCount = 0;
 		for ( int j = 0; j < inventory.items.Num(); j++ ) {
-			idDict *item = inventory.items[ j ];
-			if(item->GetInt("inv_powercell")) {
+			idDict *item_ = inventory.items[ j ];
+			if(item_->GetInt("inv_powercell")) {
 				powerCellCount++;
 			}
 		}
@@ -4126,10 +4126,10 @@ bool idPlayer::GiveInventoryItem( idDict * item, unsigned int giveFlags ) {
 idPlayer::GiveInventoryItem
 ==============
 */
-bool idPlayer::GiveInventoryItem( const char *name ) {
+bool idPlayer::GiveInventoryItem( const char *name_ ) {
 	idDict args;
 
-	args.Set( "classname", name );
+	args.Set( "classname", name_ );
 	args.Set( "owner", this->name.c_str() );
 	gameLocal.SpawnEntityDef( args);
 	return true;
@@ -4310,11 +4310,11 @@ void idPlayer::GivePDA( const idDeclPDA * pda, const char * securityItem ) {
 idPlayer::FindInventoryItem
 ===============
 */
-idDict *idPlayer::FindInventoryItem( const char *name ) {
+idDict *idPlayer::FindInventoryItem( const char *name_ ) {
 	for ( int i = 0; i < inventory.items.Num(); i++ ) {
 		const char *iname = inventory.items[i]->GetString( "inv_name" );
 		if ( iname != NULL && *iname != NULL ) {
-			if ( idStr::Icmp( name, iname ) == 0 ) {
+			if ( idStr::Icmp( name_, iname ) == 0 ) {
 				return inventory.items[i];
 			}
 		}
@@ -4348,12 +4348,12 @@ int idPlayer::GetNumInventoryItems() {
 idPlayer::RemoveInventoryItem
 ===============
 */
-void idPlayer::RemoveInventoryItem( const char *name ) {
+void idPlayer::RemoveInventoryItem( const char *name_ ) {
 	//Hack for localization
-	if(!idStr::Icmp(name, "Pwr Cell")) {
-		name = idLocalization::GetString( "#str_00101056" );
+	if(!idStr::Icmp(name_, "Pwr Cell")) {
+		name_ = idLocalization::GetString( "#str_00101056" );
 	}
-	idDict *item = FindInventoryItem(name);
+	idDict *item = FindInventoryItem(name_);
 	if ( item ) {
 		RemoveInventoryItem( item );
 	}
@@ -4371,8 +4371,8 @@ void idPlayer::RemoveInventoryItem( idDict *item ) {
 		//Reset the powercell count
 		int powerCellCount = 0;
 		for ( int j = 0; j < inventory.items.Num(); j++ ) {
-			idDict *item = inventory.items[ j ];
-			if(item->GetInt("inv_powercell")) {
+			idDict *item_ = inventory.items[ j ];
+			if(item_->GetInt("inv_powercell")) {
 				powerCellCount++;
 			}
 		}
@@ -5557,8 +5557,8 @@ void idPlayer::UpdateFocus() {
 
 	// player identification -> names to the hud
 	if ( common->IsMultiplayer() && IsLocallyControlled() ) {
-		idVec3 end = start + viewAngles.ToForward() * 768.0f;
-		gameLocal.clip.TracePoint( trace, start, end, MASK_SHOT_BOUNDINGBOX, this );
+		idVec3 end_ = start + viewAngles.ToForward() * 768.0f;
+		gameLocal.clip.TracePoint( trace, start, end_, MASK_SHOT_BOUNDINGBOX, this );
 		int iclient = -1;
 		if ( ( trace.fraction < 1.0f ) && ( trace.c.entityNum < MAX_CLIENTS ) ) {
 			iclient = trace.c.entityNum;
@@ -7824,11 +7824,11 @@ idPlayer::GetCurrentWeapon
 =================
 */
 idStr idPlayer::GetCurrentWeapon() {
-	const char *weapon;
+	const char *weapon_;
 
 	if ( currentWeapon >= 0 ) {
-		weapon = spawnArgs.GetString( va( "def_weapon%d", currentWeapon ) );
-		return weapon;
+		weapon_ = spawnArgs.GetString( va( "def_weapon%d", currentWeapon ) );
+		return weapon_;
 	} else {
 		return "";
 	}
@@ -8163,7 +8163,7 @@ would have killed the player, possibly allowing a "saving throw"
 =================
 */
 void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const idDict *damageDef,
-							   const float damageScale, const int location, int *health, int *armor ) {
+							   const float damageScale_, const int location, int *health_, int *armor ) {
 	int		damage;
 	int		armorSave;
 
@@ -8192,7 +8192,7 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 		}
 	}
 
-	damage *= damageScale;
+	damage *= damageScale_;
 
 	// always give half damage if hurting self
 	if ( attacker == this ) {
@@ -8252,7 +8252,7 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 			damage = 0;
 	}
 
-	*health = damage;
+	*health_ = damage;
 	*armor = armorSave;
 }
 
@@ -8415,7 +8415,7 @@ inflictor, attacker, dir, and point can be NULL for environmental effects
 ============
 */
 void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir,
-					   const char *damageDefName, const float damageScale, const int location ) {
+					   const char *damageDefName, const float damageScale_, const int location ) {
 	idVec3		kick;
 	int			damage;
 	int			armorSave;
@@ -8466,10 +8466,10 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			attackerPushScale = 1.0f;
 		}
 
-		idVec3 kick = dir;
-		kick.Normalize();
-		kick *= g_knockback.GetFloat() * knockback * attackerPushScale / 200.0f;
-		physicsObj.SetLinearVelocity( physicsObj.GetLinearVelocity() + kick );
+		idVec3 kick_ = dir;
+		kick_.Normalize();
+		kick_ *= g_knockback.GetFloat() * knockback * attackerPushScale / 200.0f;
+		physicsObj.SetLinearVelocity( physicsObj.GetLinearVelocity() + kick_ );
 
 		// set the timer so that the player can't cancel out the movement immediately
 		physicsObj.SetKnockBack( idMath::ClampInt( 50, 200, knockback * 2 ) );	
@@ -8495,7 +8495,7 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		return;
 	}
 	
-	CalcDamagePoints( inflictor, attacker, &damageDef->dict, damageScale, location, &damage, &armorSave );
+	CalcDamagePoints( inflictor, attacker, &damageDef->dict, damageScale_, location, &damage, &armorSave );
 
 	// give feedback on the player view and audibly when armor is helping
 	if ( armorSave ) {
@@ -8553,7 +8553,7 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		msg.WriteShort( GetEntityNumber() );		// victim
 		msg.WriteVectorFloat( dir );
 		msg.WriteLong( damageDef->Index() );
-		msg.WriteFloat( damageScale );
+		msg.WriteFloat( damageScale_ );
 		msg.WriteLong( location );
 
 		idLobbyBase & lobby = session->GetActingGameStateLobbyBase();
@@ -8798,14 +8798,14 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 
 	// CalculateRenderView must have been called first
 	const idVec3 &viewOrigin = firstPersonViewOrigin;
-	const idMat3 &viewAxis = firstPersonViewAxis;
+	const idMat3 &viewAxis_ = firstPersonViewAxis;
 
 	// these cvars are just for hand tweaking before moving a value to the weapon def
 	idVec3	gunpos( g_gun_x.GetFloat(), g_gun_y.GetFloat(), g_gun_z.GetFloat() );
 
 	// as the player changes direction, the gun will take a small lag
 	idVec3	gunOfs = GunAcceleratingOffset();
-	origin = viewOrigin + ( gunpos + gunOfs ) * viewAxis;
+	origin = viewOrigin + ( gunpos + gunOfs ) * viewAxis_;
 
 	// on odd legs, invert some angles
 	if ( bobCycle & 128 ) {
@@ -8851,7 +8851,7 @@ void idPlayer::CalculateViewWeaponPos( idVec3 &origin, idMat3 &axis ) {
 	const idMat3	anglesMat = angles.ToMat3();
 	const idMat3	scaledMat = anglesMat * g_gunScale.GetFloat();
 
-	axis = scaledMat * viewAxis;
+	axis = scaledMat * viewAxis_;
 }
 
 /*
@@ -9348,8 +9348,8 @@ void idPlayer::Event_DisableWeapon() {
 idPlayer::Event_GiveInventoryItem 
 ==================
 */
-void idPlayer::Event_GiveInventoryItem( const char* name ) {
-	GiveInventoryItem(name);
+void idPlayer::Event_GiveInventoryItem( const char* name_ ) {
+	GiveInventoryItem(name_);
 }
 
 /*
@@ -9357,8 +9357,8 @@ void idPlayer::Event_GiveInventoryItem( const char* name ) {
 idPlayer::Event_RemoveInventoryItem 
 ==================
 */
-void idPlayer::Event_RemoveInventoryItem( const char* name ) {
-	RemoveInventoryItem(name);
+void idPlayer::Event_RemoveInventoryItem( const char* name_ ) {
+	RemoveInventoryItem(name_);
 }
 
 /*
@@ -9367,11 +9367,11 @@ idPlayer::Event_GetIdealWeapon
 ==================
 */
 void idPlayer::Event_GetIdealWeapon() {
-	const char *weapon;
+	const char *weapon_;
 
 	if ( idealWeapon.Get() >= 0 ) {
-		weapon = spawnArgs.GetString( va( "def_weapon%d", idealWeapon.Get() ) );
-		idThread::ReturnString( weapon );
+		weapon_ = spawnArgs.GetString( va( "def_weapon%d", idealWeapon.Get() ) );
+		idThread::ReturnString( weapon_ );
 	} else {
 		idThread::ReturnString( "" );
 	}
@@ -9427,16 +9427,16 @@ void idPlayer::Event_StopHelltime( int mode ) {
 idPlayer::Event_WeaponAvailable
 ==================
 */
-void idPlayer::Event_WeaponAvailable( const char* name ) {
+void idPlayer::Event_WeaponAvailable( const char* name_ ) {
 
-	idThread::ReturnInt( WeaponAvailable(name) ? 1 : 0 );
+	idThread::ReturnInt( WeaponAvailable(name_) ? 1 : 0 );
 }
 
-bool idPlayer::WeaponAvailable( const char* name ) {
+bool idPlayer::WeaponAvailable( const char* name_ ) {
 	for( int i = 0; i < MAX_WEAPONS; i++ ) {
 		if ( inventory.weapons & ( 1 << i ) ) {
 			const char *weap = spawnArgs.GetString( va( "def_weapon%d", i ) );
-			if ( !idStr::Cmp( weap, name ) ) {
+			if ( !idStr::Cmp( weap, name_ ) ) {
 				return true;
 			}
 		}
@@ -9451,11 +9451,11 @@ idPlayer::Event_GetCurrentWeapon
 ==================
 */
 void idPlayer::Event_GetCurrentWeapon() {
-	const char *weapon;
+	const char *weapon_;
 
 	if ( currentWeapon >= 0 ) {
-		weapon = spawnArgs.GetString( va( "def_weapon%d", currentWeapon ) );
-		idThread::ReturnString( weapon );
+		weapon_ = spawnArgs.GetString( va( "def_weapon%d", currentWeapon ) );
+		idThread::ReturnString( weapon_ );
 	} else {
 		idThread::ReturnString( "" );
 	}
@@ -9467,12 +9467,12 @@ idPlayer::Event_GetPreviousWeapon
 ==================
 */
 void idPlayer::Event_GetPreviousWeapon() {
-	const char *weapon;
+	const char *weapon_;
 
 	if ( previousWeapon >= 0 ) {
 		int pw = ( gameLocal.world->spawnArgs.GetBool( "no_Weapons" ) ) ? 0 : previousWeapon;
-		weapon = spawnArgs.GetString( va( "def_weapon%d", pw) );
-		idThread::ReturnString( weapon );
+		weapon_ = spawnArgs.GetString( va( "def_weapon%d", pw) );
+		idThread::ReturnString( weapon_ );
 	} else {
 		idThread::ReturnString( spawnArgs.GetString( "def_weapon0" ) );
 	}

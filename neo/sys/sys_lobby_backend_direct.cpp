@@ -48,7 +48,7 @@ idLobbyBackendDirect::idLobbyBackendDirect() {
 idLobbyBackendDirect::StartHosting
 ========================
 */
-void idLobbyBackendDirect::StartHosting( const idMatchParameters & p, float skillLevel, lobbyBackendType_t type ) {
+void idLobbyBackendDirect::StartHosting( const idMatchParameters & p, float skillLevel, lobbyBackendType_t type_ ) {
 	NET_VERBOSE_PRINT( "idLobbyBackendDirect::StartHosting\n" );
 
 	isLocal = MatchTypeIsLocal( p.matchFlags );
@@ -214,7 +214,7 @@ void idLobbyBackendDirect::SetInGame( bool value ) {
 idLobbyBackendDirect::RegisterUser
 ========================
 */
-void idLobbyBackendDirect::RegisterUser( lobbyUser_t * user, bool isLocal ) {
+void idLobbyBackendDirect::RegisterUser( lobbyUser_t * user, bool isLocal_ ) {
 }
 
 /*
@@ -222,5 +222,5 @@ void idLobbyBackendDirect::RegisterUser( lobbyUser_t * user, bool isLocal ) {
 idLobbyBackendDirect::UnregisterUser
 ========================
 */
-void idLobbyBackendDirect::UnregisterUser( lobbyUser_t * user, bool isLocal ) {
+void idLobbyBackendDirect::UnregisterUser( lobbyUser_t * user, bool isLocal_ ) {
 }
