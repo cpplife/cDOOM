@@ -192,6 +192,10 @@ public:
 
 	virtual bool			IsOpenGLRunning() const = 0;
 
+	virtual bool			CreateDevice( const idStr& deviceType ) = 0; 
+	virtual void			DestroyDevice() = 0;
+	virtual idStr			GetDeviceType() const = 0;
+
 	virtual bool			IsFullScreen() const = 0;
 	virtual int				GetWidth() const = 0;
 	virtual int				GetHeight() const = 0;

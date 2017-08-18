@@ -686,6 +686,11 @@ public:
 	virtual void			InitOpenGL();
 	virtual void			ShutdownOpenGL();
 	virtual bool			IsOpenGLRunning() const;
+
+	virtual bool			CreateDevice( const idStr& deviceType );
+	virtual void			DestroyDevice();
+	virtual idStr			GetDeviceType() const;
+
 	virtual bool			IsFullScreen() const;
 	virtual stereo3DMode_t	GetStereo3DMode() const;
 	virtual bool			HasQuadBufferSupport() const;
@@ -815,6 +820,9 @@ public:
 	idParallelJobList *		frontEndJobList;
 
 	unsigned				timerQueryId;		// for GL_TIME_ELAPSED_EXT queries
+
+	// current Device type.
+	idStr mDeviceType;
 };
 
 extern backEndState_t		backEnd;

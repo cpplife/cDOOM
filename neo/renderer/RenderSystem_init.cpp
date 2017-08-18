@@ -2364,6 +2364,45 @@ void idRenderSystemLocal::InitOpenGL() {
 	}
 }
 
+
+/*
+========================
+idRenderSystemLocal::CreateDevice
+========================
+*/
+bool idRenderSystemLocal::CreateDevice( const idStr& deviceType )
+{
+	if ( deviceType == "OpenGL" ) {
+		InitOpenGL();
+		mDeviceType = deviceType;
+		return true;
+	}
+	return false;
+}
+
+/*
+========================
+idRenderSystemLocal::DestroyDevice
+========================
+*/
+void idRenderSystemLocal::DestroyDevice()
+{
+	if ( mDeviceType == "OpenGL" ) {
+		ShutdownOpenGL();
+	}
+}
+
+/*
+========================
+idRenderSystemLocal::GetDeviceType
+========================
+*/
+idStr idRenderSystemLocal::GetDeviceType() const
+{
+	return mDeviceType;
+}
+
+
 /*
 ========================
 idRenderSystemLocal::ShutdownOpenGL
