@@ -273,7 +273,7 @@ void idMenuScreen_Shell_Bindings::UpdateBindingDisplay() {
 					}
 					bool hasImage = false;
 					for ( const char ** b = buttonsWithImages; *b != 0; b++ ) {
-						if ( joyBinds[i].Icmp( *b ) == 0 ) {
+						if ( joyBinds[k].Icmp( *b ) == 0 ) {
 							hasImage = true;
 							break;
 						}
@@ -283,10 +283,10 @@ void idMenuScreen_Shell_Bindings::UpdateBindingDisplay() {
 					}
 					if ( hasImage ) {
 						bindings.Append( '<' );
-						bindings.Append( joyBinds[i] );
+						bindings.Append( joyBinds[k] );
 						bindings.Append( '>' );
 					} else {
-						bindings.Append( joyBinds[i] );
+						bindings.Append( joyBinds[k] );
 					}
 				}
 				bindings.Replace( "JOY_DPAD", "DPAD" );

@@ -1048,7 +1048,7 @@ ID_INLINE const char *idStr::Right( int _len, idStr &result ) const {
 		result = *this;
 		return result;
 	}
-	return Mid( Length() - len, len, result );
+	return Mid( Length() - _len, _len, result );
 }
 
 ID_INLINE idStr idStr::Left( int _len) const {
