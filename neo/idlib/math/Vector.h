@@ -410,9 +410,9 @@ ID_INLINE float &idVec3::operator[]( const int index ) {
 }
 
 ID_INLINE void idVec3::Set( const float _x, const float _y, const float _z ) {
-	this->x = x;
-	this->y = y;
-	this->z = z;
+	this->x = _x;
+	this->y = _y;
+	this->z = _z;
 }
 
 ID_INLINE void idVec3::Zero() {
