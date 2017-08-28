@@ -2232,7 +2232,7 @@ void idRenderSystemLocal::Shutdown() {
 
 	Clear();
 
-	ShutdownOpenGL();
+	DestroyDevice();
 }
 
 /*
