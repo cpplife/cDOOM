@@ -61,6 +61,63 @@
     <Filter Include="Renderer\Jobs\PreLightShadowVolume">
       <UniqueIdentifier>{de864e31-e19e-41ac-8186-9b27d6c29c03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="idlib">
+      <UniqueIdentifier>{56d9fa84-7ca6-4591-86d7-3a9e17378754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\bv">
+      <UniqueIdentifier>{a6820153-246b-4b59-9f02-25a97325b60c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\containers">
+      <UniqueIdentifier>{981a5e24-c928-47a4-9ca7-6261392eb28f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\geometry">
+      <UniqueIdentifier>{81382a79-6092-4b23-ae94-ad936d92f150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\hashing">
+      <UniqueIdentifier>{34265343-487b-4447-9374-1e9a6fe840d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\math">
+      <UniqueIdentifier>{ab988c37-af25-4448-b5c6-7494a15ef8d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\sys">
+      <UniqueIdentifier>{ed185db9-8dbf-43c9-9477-fee87eb3056f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="idlib\sys\win32">
+      <UniqueIdentifier>{16e06176-f33f-4cd6-9b07-863770445e83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="timidity">
+      <UniqueIdentifier>{9ae66139-7348-44ec-aebb-dbd668900d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="doomclassic">
+      <UniqueIdentifier>{659d9dc2-18ce-4acc-b107-226827efd636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp">
+      <UniqueIdentifier>{4d55eb1f-b1ba-4e27-8c18-cc442f5cc3f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\ai">
+      <UniqueIdentifier>{412c7fd6-07d2-4345-8443-a7bf5a4487e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\anim">
+      <UniqueIdentifier>{53141737-273d-48c7-9e6b-dde2d7ca19c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\gamesys">
+      <UniqueIdentifier>{e37d22a4-36a7-4bae-bbab-c6242e5ef480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\menus">
+      <UniqueIdentifier>{31e89205-362f-475c-8dbc-1805218ca05b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\physics">
+      <UniqueIdentifier>{3973ae82-1427-45b5-b66b-d890783f3c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="d3xp\script">
+      <UniqueIdentifier>{6f0c49bc-c265-48ef-9648-2812753dfe54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jpeg-6">
+      <UniqueIdentifier>{1a3c91e2-f1ad-4add-a54f-3bde56f2b8eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{4f8f0272-317c-4845-a8ef-f3c1d1811d9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cm\CollisionModel.h">
@@ -536,6 +593,762 @@
     </ClInclude>
     <ClInclude Include="renderer\GLMatrix.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Base64.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\BitMsg.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Callback.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\CmdArgs.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\DataQueue.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Dict.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Heap.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\LangDict.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Lexer.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Lib.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\MapFile.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\ParallelJobList.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\ParallelJobList_JobHeaders.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Parser.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\precompiled.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\SoftwareCache.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Str.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\StrStatic.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Swap.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Thread.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Timer.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\Token.h">
+      <Filter>idlib</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\bv\Bounds.h">
+      <Filter>idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\bv\Box.h">
+      <Filter>idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\bv\Sphere.h">
+      <Filter>idlib\bv</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\Array.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\BinSearch.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\BTree.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\HashIndex.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\HashTable.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\Hierarchy.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\LinkList.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\List.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\PlaneSet.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\Queue.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\Sort.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\Stack.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\StaticList.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\StrList.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\StrPool.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\containers\VectorSet.h">
+      <Filter>idlib\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\DrawVert.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\DrawVert_intrinsics.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\JointTransform.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\RenderMatrix.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Surface.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Surface_Patch.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Surface_Polytope.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Surface_SweptSpline.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\TraceModel.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Winding.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\geometry\Winding2D.h">
+      <Filter>idlib\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\hashing\CRC32.h">
+      <Filter>idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\hashing\MD4.h">
+      <Filter>idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\hashing\MD5.h">
+      <Filter>idlib\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Angles.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Complex.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Curve.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Extrapolate.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Interpolate.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Lcp.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Math.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Matrix.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\MatX.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Ode.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Plane.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Pluecker.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Polynomial.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Quat.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Random.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Rotation.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Simd.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Simd_Generic.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Simd_SSE.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\Vector.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\VectorI.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\math\VecX.h">
+      <Filter>idlib\math</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_alloc_tags.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_assert.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_builddefines.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_defines.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_filesystem.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_includes.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_intrinsics.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_threading.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="idlib\sys\sys_types.h">
+      <Filter>idlib\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\common.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\config.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\controls.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\filter.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\instrum.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\mix.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\output.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\playmidi.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\readmidi.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\resample.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\structs.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\tables.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\timidity.h">
+      <Filter>timidity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\am_map.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\constructs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_englsh.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_event.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_french.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_items.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_main.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_net.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_player.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_textur.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_think.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\d_ticcmd.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\defs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doomdata.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doomdef.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doominterface.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doomlib.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doomstat.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\doomtype.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\dstrings.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\f_finale.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\f_wipe.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\g_game.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\globaldata.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\hu_lib.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\hu_stuff.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\i_net.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\i_sound.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\i_system.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\i_video.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\info.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_argv.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_bbox.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_cheat.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_fixed.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_menu.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_misc.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_random.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\m_swap.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\Main.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_inter.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_local.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_mobj.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_pspr.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_saveg.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_setup.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_spec.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\p_tick.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\Precompiled.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_bsp.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_data.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_defs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_draw.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_local.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_main.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_plane.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_segs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_sky.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_state.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\r_things.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\s_sound.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\sounds.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\st_lib.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\st_stuff.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\structs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\tables.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\typedefs.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\v_video.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\vars.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\w_wad.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\wi_stuff.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\doom\z_zone.h">
+      <Filter>doomclassic</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Achievements.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Actor.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\AF.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\AFEntity.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\AimAssist.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\BrittleFracture.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Camera.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Entity.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Fx.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Game.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Game_local.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\GameEdit.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Grabber.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\IK.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Item.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Leaderboards.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Light.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Misc.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Moveable.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Mover.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\MultiplayerGame.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Player.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\PlayerIcon.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\PlayerView.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\PredictedValue.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\PredictedValue_impl.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Projectile.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Pvs.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\SecurityCamera.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\SmokeParticles.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Sound.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Target.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Trigger.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\Weapon.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\WorldSpawn.h">
+      <Filter>d3xp</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\script\Script_Compiler.h">
+      <Filter>d3xp\script</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\script\Script_Interpreter.h">
+      <Filter>d3xp\script</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\script\Script_Program.h">
+      <Filter>d3xp\script</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\script\Script_Thread.h">
+      <Filter>d3xp\script</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Clip.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force_Constant.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force_Drag.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force_Field.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force_Grab.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Force_Spring.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Actor.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_AF.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Base.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Monster.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Parametric.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Player.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_RigidBody.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_Static.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Physics_StaticMulti.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\physics\Push.h">
+      <Filter>d3xp\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\menus\MenuHandler.h">
+      <Filter>d3xp\menus</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\menus\MenuScreen.h">
+      <Filter>d3xp\menus</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\menus\MenuWidget.h">
+      <Filter>d3xp\menus</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\gamesys\Class.h">
+      <Filter>d3xp\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\gamesys\Event.h">
+      <Filter>d3xp\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\gamesys\SaveGame.h">
+      <Filter>d3xp\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\gamesys\SysCmds.h">
+      <Filter>d3xp\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\gamesys\SysCvar.h">
+      <Filter>d3xp\gamesys</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\anim\Anim.h">
+      <Filter>d3xp\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\anim\Anim_Testmodel.h">
+      <Filter>d3xp\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\ai\AAS.h">
+      <Filter>d3xp\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\ai\AAS_local.h">
+      <Filter>d3xp\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="d3xp\ai\AI.h">
+      <Filter>d3xp\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\zconf.in.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\zlib\zutil.h">
+      <Filter>zlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1136,6 +1949,975 @@
     <ClCompile Include="sys\win32\win_session_local.cpp">
       <Filter>Sys\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="idlib\Base64.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\BitMsg.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\CmdArgs.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\CommandLink.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Dict.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Heap.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\LangDict.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Lexer.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Lib.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\MapFile.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\ParallelJobList.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Parser.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\precompiled.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\RectAllocator.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\SoftwareCache.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Str.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Thread.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Timer.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\Token.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\bv\Bounds.cpp">
+      <Filter>idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\bv\Box.cpp">
+      <Filter>idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\bv\Sphere.cpp">
+      <Filter>idlib\bv</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\containers\HashIndex.cpp">
+      <Filter>idlib\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\DrawVert.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\JointTransform.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\RenderMatrix.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Surface.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Surface_Patch.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Surface_Polytope.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Surface_SweptSpline.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\TraceModel.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Winding.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\geometry\Winding2D.cpp">
+      <Filter>idlib\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\hashing\CRC32.cpp">
+      <Filter>idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\hashing\MD4.cpp">
+      <Filter>idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\hashing\MD5.cpp">
+      <Filter>idlib\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Angles.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Complex.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Lcp.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Math.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Matrix.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\MatX.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Ode.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Plane.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Pluecker.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Polynomial.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Quat.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Rotation.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Simd.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Simd_Generic.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Simd_SSE.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\Vector.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\math\VecX.cpp">
+      <Filter>idlib\math</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\sys\sys_assert.cpp">
+      <Filter>idlib\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\sys\win32\win_thread.cpp">
+      <Filter>idlib\sys\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\common.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\controls.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\filter.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\instrum.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\mix.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\output.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\playmidi.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\readmidi.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\resample.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\sdl_a.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\sdl_c.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\tables.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\timidity.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\am_map.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\d_items.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\d_main.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\d_net.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\doomdef.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\doominterface.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\doomlib.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\doomstat.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\dstrings.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\f_finale.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\f_wipe.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\g_game.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\globaldata.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\hu_lib.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\hu_stuff.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_input.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_main.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_net.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_net_win32.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_sound_win32.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_system.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\info.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_argv.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_bbox.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_cheat.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_fixed.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_menu.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_misc.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_random.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\m_swap.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\mus2midi.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_ceilng.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_doors.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_enemy.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_floor.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_inter.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_lights.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_map.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_maputl.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_mobj.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_plats.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_pspr.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_saveg.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_setup.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_sight.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_spec.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_switch.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_telept.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_tick.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\p_user.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\Precompiled.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_bsp.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_data.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_draw.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_main.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_plane.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_segs.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_sky.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\r_things.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\s_sound.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\sounds.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\st_lib.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\st_stuff.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\tables.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\v_video.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\w_wad.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\wi_stuff.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\z_zone.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Achievements.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Actor.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\AF.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\AFEntity.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\AimAssist.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\BrittleFracture.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Camera.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Entity.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Fx.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Game_local.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Game_network.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\GameEdit.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Grabber.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\IK.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Item.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Leaderboards.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Light.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Misc.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Moveable.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Mover.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\MultiplayerGame.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Player.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\PlayerIcon.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\PlayerView.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\precompiled.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Projectile.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Pvs.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\SecurityCamera.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\SmokeParticles.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Sound.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Target.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Trigger.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\Weapon.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\WorldSpawn.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\script\Script_Compiler.cpp">
+      <Filter>d3xp\script</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\script\Script_Interpreter.cpp">
+      <Filter>d3xp\script</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\script\Script_Program.cpp">
+      <Filter>d3xp\script</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\script\Script_Thread.cpp">
+      <Filter>d3xp\script</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Clip.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force_Constant.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force_Drag.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force_Field.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force_Grab.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Force_Spring.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Actor.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_AF.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Base.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Monster.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Parametric.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Player.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_RigidBody.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_Static.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Physics_StaticMulti.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\physics\Push.cpp">
+      <Filter>d3xp\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuHandler.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuHandler_HUD.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuHandler_PDA.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuHandler_Scoreboard.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuHandler_Shell.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_HUD.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_PDA_Inventory.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_PDA_UserData.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_PDA_UserEmails.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_PDA_VideoDisks.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Scoreboard.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Bindings.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Browser.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_ControllerLayout.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Controls.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Credits.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Dev.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Difficulty.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_GameLobby.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_GameOptions.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Gamepad.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Leaderboards.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Load.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_MatchSettings.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_ModeSelect.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_NewGame.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_PartyLobby.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Pause.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Playstation.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_PressStart.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Resolution.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Root.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Save.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Settings.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Singleplayer.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_Stereoscopics.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuScreen_Shell_SystemOptions.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_Button.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_Carousel.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_CommandBar.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_DynamicList.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_Help.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_InfoBox.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_ItemAssignment.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_List.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_LobbyList.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_MenuBar.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_NavBar.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_NavButton.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_PDA_AudioFiles.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_PDA_EmailInbox.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_PDA_Objective.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_PDA_UserData.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_PDA_VideoInfo.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_Scrollbar.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\menus\MenuWidget_Shell_SaveInfo.cpp">
+      <Filter>d3xp\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\gamesys\Class.cpp">
+      <Filter>d3xp\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\gamesys\Event.cpp">
+      <Filter>d3xp\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\gamesys\SaveGame.cpp">
+      <Filter>d3xp\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\gamesys\SysCmds.cpp">
+      <Filter>d3xp\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\gamesys\SysCvar.cpp">
+      <Filter>d3xp\gamesys</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\anim\Anim.cpp">
+      <Filter>d3xp\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\anim\Anim_Blend.cpp">
+      <Filter>d3xp\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\anim\Anim_Testmodel.cpp">
+      <Filter>d3xp\anim</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AAS.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AAS_debug.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AAS_pathing.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AAS_routing.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AI.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AI_events.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AI_pathing.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\ai\AI_Vagary.cpp">
+      <Filter>d3xp\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcapimin.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jccoefct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jccolor.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcdctmgr.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jchuff.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcinit.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcmainct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcmarker.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcmaster.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcomapi.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcparam.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcphuff.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcprepct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jcsample.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdapimin.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdapistd.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdatadst.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdatasrc.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdcoefct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdcolor.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jddctmgr.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdhuff.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdinput.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdmainct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdmarker.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdmaster.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdmerge.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdphuff.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdpostct.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdsample.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jdtrans.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jerror.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jfdctflt.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jfdctfst.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jfdctint.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jidctflt.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jidctfst.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jidctint.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jidctred.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jmemmgr.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jmemnobs.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jquant1.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jquant2.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer\jpeg-6\jutils.cpp">
+      <Filter>jpeg-6</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\example.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\gzio.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="sys\win32\rc\res\doom.ico">
@@ -1144,10 +2926,48 @@
     <None Include="sys\win32\rc\res\doom3bfg.bin">
       <Filter>Sys\RC\res</Filter>
     </None>
+    <None Include="..\doomclassic\timidity\FAQ">
+      <Filter>timidity</Filter>
+    </None>
+    <None Include="..\doomclassic\timidity\README">
+      <Filter>timidity</Filter>
+    </None>
+    <None Include="d3xp\Game.def">
+      <Filter>d3xp</Filter>
+    </None>
+    <None Include="framework\zlib\ChangeLog">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\configure">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\FAQ">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\INDEX">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\Makefile">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\Makefile.in">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\README">
+      <Filter>zlib</Filter>
+    </None>
+    <None Include="framework\zlib\zlib.3">
+      <Filter>zlib</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="sys\win32\rc\doom.rc">
       <Filter>Sys\RC</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="framework\zlib\algorithm.txt">
+      <Filter>zlib</Filter>
+    </Text>
   </ItemGroup>
 </Project>
