@@ -569,6 +569,7 @@
     <ClCompile Include="..\doomclassic\doom\i_net_win32.cpp" />
     <ClCompile Include="..\doomclassic\doom\i_sound_win32.cpp" />
     <ClCompile Include="..\doomclassic\doom\i_system.cpp" />
+    <ClCompile Include="..\doomclassic\doom\i_video_ps3.cpp" />
     <ClCompile Include="..\doomclassic\doom\mus2midi.cpp" />
     <ClCompile Include="..\doomclassic\doom\m_argv.cpp" />
     <ClCompile Include="..\doomclassic\doom\m_bbox.cpp" />
@@ -578,7 +579,7 @@
     <ClCompile Include="..\doomclassic\doom\m_misc.cpp" />
     <ClCompile Include="..\doomclassic\doom\m_random.cpp" />
     <ClCompile Include="..\doomclassic\doom\m_swap.cpp" />
-    <ClCompile Include="..\doomclassic\doom\Precompiled.cpp" />
+    <ClCompile Include="..\doomclassic\doom\doomclassic_Precompiled.cpp" />
     <ClCompile Include="..\doomclassic\doom\p_ceilng.cpp" />
     <ClCompile Include="..\doomclassic\doom\p_doors.cpp" />
     <ClCompile Include="..\doomclassic\doom\p_enemy.cpp" />
@@ -615,7 +616,7 @@
     <ClCompile Include="..\doomclassic\doom\wi_stuff.cpp" />
     <ClCompile Include="..\doomclassic\doom\w_wad.cpp" />
     <ClCompile Include="..\doomclassic\doom\z_zone.cpp" />
-    <ClCompile Include="..\doomclassic\timidity\common.cpp" />
+    <ClCompile Include="..\doomclassic\timidity\timidity_common.cpp" />
     <ClCompile Include="..\doomclassic\timidity\controls.cpp" />
     <ClCompile Include="..\doomclassic\timidity\filter.cpp" />
     <ClCompile Include="..\doomclassic\timidity\instrum.cpp" />
@@ -626,7 +627,7 @@
     <ClCompile Include="..\doomclassic\timidity\resample.cpp" />
     <ClCompile Include="..\doomclassic\timidity\sdl_a.cpp" />
     <ClCompile Include="..\doomclassic\timidity\sdl_c.cpp" />
-    <ClCompile Include="..\doomclassic\timidity\tables.cpp" />
+    <ClCompile Include="..\doomclassic\timidity\timidity_tables.cpp" />
     <ClCompile Include="..\doomclassic\timidity\timidity.cpp" />
     <ClCompile Include="aas\AASFile.cpp" />
     <ClCompile Include="aas\AASFileManager.cpp" />
@@ -756,7 +757,7 @@
     <ClCompile Include="d3xp\Player.cpp" />
     <ClCompile Include="d3xp\PlayerIcon.cpp" />
     <ClCompile Include="d3xp\PlayerView.cpp" />
-    <ClCompile Include="d3xp\precompiled.cpp" />
+    <ClCompile Include="d3xp\d3xp_precompiled.cpp" />
     <ClCompile Include="d3xp\Projectile.cpp" />
     <ClCompile Include="d3xp\Pvs.cpp" />
     <ClCompile Include="d3xp\script\Script_Compiler.cpp" />
@@ -803,7 +804,7 @@
     <ClCompile Include="framework\File_SaveGame.cpp" />
     <ClCompile Include="framework\KeyInput.cpp" />
     <ClCompile Include="framework\PlayerProfile.cpp" />
-    <ClCompile Include="framework\precompiled.cpp">
+    <ClCompile Include="framework\framework_precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Retail|Win32'">Create</PrecompiledHeader>
@@ -844,7 +845,7 @@
     <ClCompile Include="idlib\geometry\TraceModel.cpp" />
     <ClCompile Include="idlib\geometry\Winding.cpp" />
     <ClCompile Include="idlib\geometry\Winding2D.cpp" />
-    <ClCompile Include="idlib\hashing\CRC32.cpp" />
+    <ClCompile Include="idlib\hashing\idlib_CRC32.cpp" />
     <ClCompile Include="idlib\hashing\MD4.cpp" />
     <ClCompile Include="idlib\hashing\MD5.cpp" />
     <ClCompile Include="idlib\Heap.cpp" />
@@ -871,7 +872,7 @@
     <ClCompile Include="idlib\math\VecX.cpp" />
     <ClCompile Include="idlib\ParallelJobList.cpp" />
     <ClCompile Include="idlib\Parser.cpp" />
-    <ClCompile Include="idlib\precompiled.cpp" />
+    <ClCompile Include="idlib\idlib_precompiled.cpp" />
     <ClCompile Include="idlib\RectAllocator.cpp" />
     <ClCompile Include="idlib\SoftwareCache.cpp" />
     <ClCompile Include="idlib\Str.cpp" />

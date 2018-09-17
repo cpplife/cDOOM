@@ -852,9 +852,6 @@
     <ClInclude Include="idlib\sys\sys_types.h">
       <Filter>idlib\sys</Filter>
     </ClInclude>
-    <ClInclude Include="..\doomclassic\timidity\common.h">
-      <Filter>timidity</Filter>
-    </ClInclude>
     <ClInclude Include="..\doomclassic\timidity\config.h">
       <Filter>timidity</Filter>
     </ClInclude>
@@ -1349,6 +1346,9 @@
     </ClInclude>
     <ClInclude Include="framework\zlib\zutil.h">
       <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\doomclassic\timidity\common.h">
+      <Filter>timidity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1877,9 +1877,6 @@
     <ClCompile Include="renderer\AutoRender.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="framework\precompiled.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
     <ClCompile Include="framework\Zip.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -1985,9 +1982,6 @@
     <ClCompile Include="idlib\Parser.cpp">
       <Filter>idlib</Filter>
     </ClCompile>
-    <ClCompile Include="idlib\precompiled.cpp">
-      <Filter>idlib</Filter>
-    </ClCompile>
     <ClCompile Include="idlib\RectAllocator.cpp">
       <Filter>idlib</Filter>
     </ClCompile>
@@ -2047,9 +2041,6 @@
     </ClCompile>
     <ClCompile Include="idlib\geometry\Winding2D.cpp">
       <Filter>idlib\geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="idlib\hashing\CRC32.cpp">
-      <Filter>idlib\hashing</Filter>
     </ClCompile>
     <ClCompile Include="idlib\hashing\MD4.cpp">
       <Filter>idlib\hashing</Filter>
@@ -2114,9 +2105,6 @@
     <ClCompile Include="idlib\sys\win32\win_thread.cpp">
       <Filter>idlib\sys\win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\doomclassic\timidity\common.cpp">
-      <Filter>timidity</Filter>
-    </ClCompile>
     <ClCompile Include="..\doomclassic\timidity\controls.cpp">
       <Filter>timidity</Filter>
     </ClCompile>
@@ -2145,9 +2133,6 @@
       <Filter>timidity</Filter>
     </ClCompile>
     <ClCompile Include="..\doomclassic\timidity\sdl_c.cpp">
-      <Filter>timidity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\doomclassic\timidity\tables.cpp">
       <Filter>timidity</Filter>
     </ClCompile>
     <ClCompile Include="..\doomclassic\timidity\timidity.cpp">
@@ -2303,9 +2288,6 @@
     <ClCompile Include="..\doomclassic\doom\p_user.cpp">
       <Filter>doomclassic</Filter>
     </ClCompile>
-    <ClCompile Include="..\doomclassic\doom\Precompiled.cpp">
-      <Filter>doomclassic</Filter>
-    </ClCompile>
     <ClCompile Include="..\doomclassic\doom\r_bsp.cpp">
       <Filter>doomclassic</Filter>
     </ClCompile>
@@ -2427,9 +2409,6 @@
       <Filter>d3xp</Filter>
     </ClCompile>
     <ClCompile Include="d3xp\PlayerView.cpp">
-      <Filter>d3xp</Filter>
-    </ClCompile>
-    <ClCompile Include="d3xp\precompiled.cpp">
       <Filter>d3xp</Filter>
     </ClCompile>
     <ClCompile Include="d3xp\Projectile.cpp">
@@ -2917,6 +2896,30 @@
     </ClCompile>
     <ClCompile Include="framework\zlib\zutil.c">
       <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\i_video_ps3.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\timidity_common.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\timidity\timidity_tables.cpp">
+      <Filter>timidity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\doomclassic\doom\doomclassic_Precompiled.cpp">
+      <Filter>doomclassic</Filter>
+    </ClCompile>
+    <ClCompile Include="d3xp\d3xp_precompiled.cpp">
+      <Filter>d3xp</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\framework_precompiled.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\idlib_precompiled.cpp">
+      <Filter>idlib</Filter>
+    </ClCompile>
+    <ClCompile Include="idlib\hashing\idlib_CRC32.cpp">
+      <Filter>idlib\hashing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
