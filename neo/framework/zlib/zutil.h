@@ -174,6 +174,9 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #endif
 
          /* functions */
+#if  defined(_MSC_VER) && _MSC_VER > 1900 // build with vs2017 or higher versions.
+#  define HAVE_VSNPRINTF
+#endif
 
 #if defined(STDC99) || (defined(__TURBOC__) && __TURBOC__ >= 0x550)
 #  ifndef HAVE_VSNPRINTF

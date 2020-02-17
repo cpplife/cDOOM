@@ -19,9 +19,18 @@ set(PROJECT_FLAGS "-D__DOOM__ -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRE
 set(CMAKE_C_FLAGS " ${PROJECT_FLAGS}")
 set(CMAKE_CXX_FLAGS " ${PROJECT_FLAGS}")
 
-
 # Set Project dir
 set(PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR})
+
+# Set directx dirs
+set(DX_LIB_DIR ${PROJECT_DIR}/dxsdk_june2010/lib)
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    # 64 bits
+	set(DX_LIB_DIR ${DX_LIB_DIR}/x64)
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+	set(DX_LIB_DIR ${DX_LIB_DIR}/x86)
+endif()
+
 
 ###############################################################################
 # depend projects
@@ -503,17 +512,18 @@ include_directories(
 ###############################################################################
 link_directories(
 	${PROJECT_OUT_LIB}
+	${DX_LIB_DIR}
 	)
 
 ###############################################################################
 # build project.
 ###############################################################################
-add_executable(cDOOM ${PROJECT_SRCS})
+add_executable(cDOOM WIN32 ${PROJECT_SRCS})
 if(MSVC)
 	add_definitions( -D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE )
 	set(CMAKE_C_FLAGS_DEBUG   "${CMAKE_C_FLAGS_DEBUG} -DDEBUG -D_DEBUG")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG")
-	target_compile_options(cDOOM PRIVATE /MP)
+	target_compile_options(cDOOM PRIVATE /MP /W4 /EHsc)
 	target_link_libraries(cDOOM PRIVATE doomclassic xinput dbghelp dinput8 dsound dxguid DxErr glu32 iphlpapi odbc32 odbccp32 opengl32 winmm wsock32 x3daudio)
 else()
 	target_link_libraries(cDOOM PRIVATE -llibuv -lpthread -luuid )
