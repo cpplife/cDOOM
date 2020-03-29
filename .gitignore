@@ -14,7 +14,6 @@ cscope.po.out
 .vs/
 .vscode/
 
-*.cmake
 CMakeCache.txt
 CMakeFiles/
 

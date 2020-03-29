@@ -1,0 +1,105 @@
+
+if( NOT DEFINED DOOMCLASSIC )
+	set(DOOMCLASSIC ${CMAKE_CURRENT_LIST_DIR})
+endif()
+
+
+###############################################################################
+#
+# include dirs
+#
+###############################################################################
+set(INCLUDES_DOOMCLASSIC
+	${DOOMCLASSIC}/doom
+	${DOOMCLASSIC}/timidity
+	)
+
+###############################################################################
+#
+# code
+#
+###############################################################################
+set(SRCS_DOOMCLASSIC
+	${DOOMCLASSIC}/doom/am_map.cpp
+	${DOOMCLASSIC}/doom/doomdef.cpp
+	${DOOMCLASSIC}/doom/doominterface.cpp
+	${DOOMCLASSIC}/doom/doomlib.cpp
+	${DOOMCLASSIC}/doom/doomstat.cpp
+	${DOOMCLASSIC}/doom/dstrings.cpp
+	${DOOMCLASSIC}/doom/d_items.cpp
+	${DOOMCLASSIC}/doom/d_main.cpp
+	${DOOMCLASSIC}/doom/d_net.cpp
+	${DOOMCLASSIC}/doom/f_finale.cpp
+	${DOOMCLASSIC}/doom/f_wipe.cpp
+	${DOOMCLASSIC}/doom/globaldata.cpp
+	${DOOMCLASSIC}/doom/g_game.cpp
+	${DOOMCLASSIC}/doom/hu_lib.cpp
+	${DOOMCLASSIC}/doom/hu_stuff.cpp
+	${DOOMCLASSIC}/doom/info.cpp
+	${DOOMCLASSIC}/doom/i_input.cpp
+	${DOOMCLASSIC}/doom/i_main.cpp
+	${DOOMCLASSIC}/doom/i_net.cpp
+	${DOOMCLASSIC}/doom/i_net_win32.cpp
+	${DOOMCLASSIC}/doom/i_sound_win32.cpp
+	${DOOMCLASSIC}/doom/i_system.cpp
+	${DOOMCLASSIC}/doom/i_video_ps3.cpp
+	${DOOMCLASSIC}/doom/mus2midi.cpp
+	${DOOMCLASSIC}/doom/m_argv.cpp
+	${DOOMCLASSIC}/doom/m_bbox.cpp
+	${DOOMCLASSIC}/doom/m_cheat.cpp
+	${DOOMCLASSIC}/doom/m_fixed.cpp
+	${DOOMCLASSIC}/doom/m_menu.cpp
+	${DOOMCLASSIC}/doom/m_misc.cpp
+	${DOOMCLASSIC}/doom/m_random.cpp
+	${DOOMCLASSIC}/doom/m_swap.cpp
+	${DOOMCLASSIC}/doom/doomclassic_Precompiled.cpp
+	${DOOMCLASSIC}/doom/p_ceilng.cpp
+	${DOOMCLASSIC}/doom/p_doors.cpp
+	${DOOMCLASSIC}/doom/p_enemy.cpp
+	${DOOMCLASSIC}/doom/p_floor.cpp
+	${DOOMCLASSIC}/doom/p_inter.cpp
+	${DOOMCLASSIC}/doom/p_lights.cpp
+	${DOOMCLASSIC}/doom/p_map.cpp
+	${DOOMCLASSIC}/doom/p_maputl.cpp
+	${DOOMCLASSIC}/doom/p_mobj.cpp
+	${DOOMCLASSIC}/doom/p_plats.cpp
+	${DOOMCLASSIC}/doom/p_pspr.cpp
+	${DOOMCLASSIC}/doom/p_saveg.cpp
+	${DOOMCLASSIC}/doom/p_setup.cpp
+	${DOOMCLASSIC}/doom/p_sight.cpp
+	${DOOMCLASSIC}/doom/p_spec.cpp
+	${DOOMCLASSIC}/doom/p_switch.cpp
+	${DOOMCLASSIC}/doom/p_telept.cpp
+	${DOOMCLASSIC}/doom/p_tick.cpp
+	${DOOMCLASSIC}/doom/p_user.cpp
+	${DOOMCLASSIC}/doom/r_bsp.cpp
+	${DOOMCLASSIC}/doom/r_data.cpp
+	${DOOMCLASSIC}/doom/r_draw.cpp
+	${DOOMCLASSIC}/doom/r_main.cpp
+	${DOOMCLASSIC}/doom/r_plane.cpp
+	${DOOMCLASSIC}/doom/r_segs.cpp
+	${DOOMCLASSIC}/doom/r_sky.cpp
+	${DOOMCLASSIC}/doom/r_things.cpp
+	${DOOMCLASSIC}/doom/sounds.cpp
+	${DOOMCLASSIC}/doom/st_lib.cpp
+	${DOOMCLASSIC}/doom/st_stuff.cpp
+	${DOOMCLASSIC}/doom/s_sound.cpp
+	${DOOMCLASSIC}/doom/tables.cpp
+	${DOOMCLASSIC}/doom/v_video.cpp
+	${DOOMCLASSIC}/doom/wi_stuff.cpp
+	${DOOMCLASSIC}/doom/w_wad.cpp
+	${DOOMCLASSIC}/doom/z_zone.cpp
+	${DOOMCLASSIC}/timidity/timidity_common.cpp
+	${DOOMCLASSIC}/timidity/controls.cpp
+	${DOOMCLASSIC}/timidity/filter.cpp
+	${DOOMCLASSIC}/timidity/instrum.cpp
+	${DOOMCLASSIC}/timidity/mix.cpp
+	${DOOMCLASSIC}/timidity/output.cpp
+	${DOOMCLASSIC}/timidity/playmidi.cpp
+	${DOOMCLASSIC}/timidity/readmidi.cpp
+	${DOOMCLASSIC}/timidity/resample.cpp
+	${DOOMCLASSIC}/timidity/sdl_a.cpp
+	${DOOMCLASSIC}/timidity/sdl_c.cpp
+	${DOOMCLASSIC}/timidity/timidity_tables.cpp
+	${DOOMCLASSIC}/timidity/timidity.cpp
+	)
